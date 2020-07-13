@@ -4,6 +4,7 @@
   "description": "Application that provides user a place to get their video game information",
   "main": "server.js",
   "scripts": {
+    "start:dev": "nodemon server.js",
     "prettier-format": "prettier --write ."
   },
   "author": "shallado",
