@@ -1,0 +1,23 @@
+{
+  "name": "vgl-app",
+  "version": "1.0.0",
+  "description": "Application that provides user a place to get their video game information",
+  "main": "server.js",
+  "scripts": {
+    "prettier-format": "prettier --write ."
+  },
+  "author": "shallado",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "eslint": "^7.4.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "nodemon": "^2.0.4",
+    "prettier": "^2.0.5"
+  }
+}
