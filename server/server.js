@@ -1,4 +1,5 @@
 const express = require('express');
+require('./models');
 
 const app = express();
 const port = process.env.PORT || 8080;
