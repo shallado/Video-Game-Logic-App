@@ -1,6 +1,6 @@
 const { MongoClient, Int32 } = require('mongodb');
 const { url, dbName } = require('../config/db');
-const { userModel, createUserTable } = require('./user');
+const { userModel, createUserTable, indexFields } = require('./user');
 
 const client = MongoClient(url, { useUnifiedTopology: true });
 
@@ -9,9 +9,14 @@ client
   .then(() => {
     console.log('Successfully connected to the database');
 
-    client.db(dbName).dropDatabase();
-
-    createUserTable(client.db(dbName));
+    client
+      .db(dbName)
+      .dropDatabase()
+      .then(() => {
+        indexFields(client.db(dbName));
+        createUserTable(client.db(dbName));
+      })
+      .catch((err) => console.log(err));
   })
   .catch((err) => console.log(err));
 

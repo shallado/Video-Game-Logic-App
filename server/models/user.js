@@ -51,7 +51,8 @@ const userModel = (db, Int32) => {
 
 // schema validation
 const createUserTable = (db) => {
-  db.createCollection('users', {
+  db.command({
+    collMod: 'users',
     validator: {
       $jsonSchema: {
         bsonType: 'object',
@@ -122,10 +123,24 @@ const createUserTable = (db) => {
         },
       },
     },
-  });
+  })
+    .then(() =>
+      console.log({
+        message: 'Successfully created schema validation',
+      })
+    )
+    .catch((err) => console.log(err));
+};
+
+// indexing specific fields
+const indexFields = (db) => {
+  db.createIndex('users', { email: -1 }, { w: 1, j: true })
+    .then((result) => console.log(result))
+    .catch((err) => console.log(err));
 };
 
 module.exports = {
   userModel,
   createUserTable,
+  indexFields,
 };
