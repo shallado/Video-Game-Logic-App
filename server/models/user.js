@@ -51,90 +51,92 @@ const userModel = (db, Int32) => {
 
 // schema validation
 const createUserTable = (db) => {
-  db.command({
-    collMod: 'users',
-    validator: {
-      $jsonSchema: {
-        bsonType: 'object',
-        required: [
-          'username',
-          'password',
-          'email',
-          'city',
-          'zipcode',
-          'birthday',
-          'gender',
-        ],
-        properties: {
-          username: {
-            bsonType: 'string',
-            description: 'must be a string and is required',
-            maxLength: 26,
-          },
-          password: {
-            bsonType: 'string',
-            description: 'must be a string and is required',
-            // must be 8 to 15 characters long
-            // contain one lowercase letter, one uppercase letter, one numeric digit and one special character
-            pattern:
-              '^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\\s).{8,15}$',
-          },
-          email: {
-            bsonType: 'string',
-            description: 'must be a string and is required',
-            // check to it follows normal email structure
-            pattern: '^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$',
-          },
-          city: {
-            bsonType: 'string',
-            description: 'must be a string and is required',
-          },
-          zipcode: {
-            bsonType: 'int',
-            description: 'must be an int and is required',
-            maxLength: 5,
-          },
-          birthday: {
-            bsonType: 'date',
-            description: 'must be a date and is required',
-          },
-          gender: {
-            bsonType: 'string',
-            description: 'must be a string and is required',
-          },
-          profilePhoto: {
-            bsonType: 'string',
-            description: 'must be binData and is required',
-          },
-          videoGames: {
-            bsonType: 'array',
-            description: 'must be an array and is required',
-            items: {
-              bsonType: 'object',
-              required: ['videoGameId'],
-              properties: {
-                videoGameId: {
-                  bsonType: 'objectId',
-                  description: 'must be an objectId and is required',
+  return db
+    .command({
+      collMod: 'users',
+      validator: {
+        $jsonSchema: {
+          bsonType: 'object',
+          required: [
+            'username',
+            'password',
+            'email',
+            'city',
+            'zipcode',
+            'birthday',
+            'gender',
+          ],
+          properties: {
+            username: {
+              bsonType: 'string',
+              description: 'must be a string and is required',
+              maxLength: 26,
+            },
+            password: {
+              bsonType: 'string',
+              description: 'must be a string and is required',
+              // must be 8 to 15 characters long
+              // contain one lowercase letter, one uppercase letter, one numeric digit and one special character
+              pattern:
+                '^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\\s).{8,15}$',
+            },
+            email: {
+              bsonType: 'string',
+              description: 'must be a string and is required',
+              // check to it follows normal email structure
+              pattern: '^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$',
+            },
+            city: {
+              bsonType: 'string',
+              description: 'must be a string and is required',
+            },
+            zipcode: {
+              bsonType: 'int',
+              description: 'must be an int and is required',
+              maxLength: 5,
+            },
+            birthday: {
+              bsonType: 'date',
+              description: 'must be a date and is required',
+            },
+            gender: {
+              bsonType: 'string',
+              description: 'must be a string and is required',
+            },
+            profilePhoto: {
+              bsonType: 'string',
+              description: 'must be binData and is required',
+            },
+            videoGames: {
+              bsonType: 'array',
+              description: 'must be an array and is required',
+              items: {
+                bsonType: 'object',
+                required: ['videoGameId'],
+                properties: {
+                  videoGameId: {
+                    bsonType: 'objectId',
+                    description: 'must be an objectId and is required',
+                  },
                 },
               },
             },
           },
         },
       },
-    },
-  })
+    })
     .then(() =>
       console.log({
-        message: 'Successfully created schema validation',
+        message: 'Successfully created users collection schema',
       })
     )
     .catch((err) => console.log(err));
 };
 
 // indexing specific fields
-const indexFields = (db) => {
-  db.collection('users')
+const userIndexFields = (db) => {
+  return db
+    .collection('users')
     .createIndexes([
       {
         key: { email: -1 },
@@ -152,5 +154,5 @@ const indexFields = (db) => {
 module.exports = {
   userModel,
   createUserTable,
-  indexFields,
+  userIndexFields,
 };
