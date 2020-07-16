@@ -17,6 +17,9 @@ client
         createUserTable(client.db(dbName));
       })
       .catch((err) => console.log(err));
+
+    // indexFields(client.db(dbName));
+    // createUserTable(client.db(dbName));
   })
   .catch((err) => console.log(err));
 

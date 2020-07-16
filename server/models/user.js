@@ -134,7 +134,17 @@ const createUserTable = (db) => {
 
 // indexing specific fields
 const indexFields = (db) => {
-  db.createIndex('users', { email: -1 }, { w: 1, j: true })
+  db.collection('users')
+    .createIndexes([
+      {
+        key: { email: -1 },
+        unique: true,
+      },
+      {
+        key: { username: -1 },
+        unique: true,
+      },
+    ])
     .then((result) => console.log(result))
     .catch((err) => console.log(err));
 };
