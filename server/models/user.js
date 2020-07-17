@@ -49,7 +49,7 @@ const userModel = (db, Int32) => {
   return User;
 };
 
-// schema validation
+// schema and validation
 const createUserTable = (db) => {
   return db
     .command({

@@ -1,3 +1,4 @@
+// schema and validation
 const createReviewTable = (db) => {
   return db
     .command({
@@ -48,6 +49,7 @@ const createReviewTable = (db) => {
     .catch((err) => console.log(err));
 };
 
+// indexing specific fields
 const reviewIndexFields = (db) => {
   return db
     .collection('reviews')
