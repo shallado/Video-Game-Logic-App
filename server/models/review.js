@@ -1,3 +1,72 @@
+const reviewModel = (db, int32, ObjectID) => {
+  class Review {
+    constructor(username, review) {
+      this.username = username;
+      this.review = review;
+    }
+
+    // create document structure for reviews associated with a video game
+    static create() {
+      const doc = {
+        // this id is temporary until i work out video game collection logic
+        videoGameId: new ObjectID('123456789123456789123456'),
+        page: int32(1),
+        count: int32(0),
+        reviews: [],
+      };
+
+      return (
+        db
+          .collection('reviews')
+          // this id is temporary until i work out video game collection logic
+          .findOne({ videoGameId: new ObjectID('123456789123456789123456') })
+          .then((data) => {
+            if (!data) {
+              db.collection('reviews')
+                .insertOne(doc, { w: 1, j: true })
+                .then((dataTwo) => dataTwo)
+                .catch((err) => console.log(err));
+            }
+          })
+          .catch((err) => err)
+      );
+    }
+
+    // add a review to a existing video game document structure
+    addReview() {
+      const doc = {
+        username: this.username,
+        review: this.review,
+      };
+
+      return db
+        .collection('reviews')
+        .findOneAndUpdate(
+          {
+            // this id is temporary until i work out video game collection logic
+            videoGameId: new ObjectID('123456789123456789123456'),
+            count: { $lt: 50 },
+          },
+          {
+            $push: {
+              reviews: doc,
+            },
+            $inc: {
+              count: int32(1),
+            },
+          },
+          {
+            returnOriginal: false,
+          }
+        )
+        .then((data) => data.value)
+        .catch((err) => err);
+    }
+  }
+
+  return Review;
+};
+
 // schema and validation
 const createReviewTable = (db) => {
   return db
@@ -6,29 +75,28 @@ const createReviewTable = (db) => {
       validator: {
         $jsonSchema: {
           bsonType: 'object',
-          required: ['title', 'page', 'count', 'reviews'],
           properties: {
-            title: {
-              bsonType: 'string',
+            videoGameId: {
+              bsonType: 'objectId',
               description: 'must be a string and is required',
             },
             page: {
               bsonType: 'int',
-              description: 'must be an int and is required',
+              description: 'must be an int',
             },
             count: {
               bsonType: 'int',
-              description: 'must be an int and is required',
+              description: 'must be an int',
             },
             reviews: {
               bsonType: 'array',
+              description: 'must be an array',
               items: {
                 bsonType: 'object',
-                required: ['user_id', 'review'],
                 properties: {
-                  user_id: {
-                    bsonType: 'objectId',
-                    description: 'must be an objectId and is required',
+                  username: {
+                    bsonType: 'string',
+                    description: 'must be an string and is required',
                   },
                   review: {
                     bsonType: 'string',
@@ -56,13 +124,13 @@ const reviewIndexFields = (db) => {
     .createIndexes([
       {
         key: {
-          title: -1,
+          videoGameId: -1,
         },
         unique: true,
       },
       {
         key: {
-          'reviews.user_id': -1,
+          'reviews.username': -1,
         },
       },
     ])
@@ -73,4 +141,5 @@ const reviewIndexFields = (db) => {
 module.exports = {
   createReviewTable,
   reviewIndexFields,
+  reviewModel,
 };
