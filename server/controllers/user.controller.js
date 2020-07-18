@@ -49,7 +49,6 @@ exports.create = (req, res) => {
 
           // check if its a duplicate email or username value
           if (data.code === 11000) {
-            console.log(data);
             return res.status(400).send({ message: data.message });
           }
 

@@ -6,7 +6,11 @@ const {
   reviewIndexFields,
 } = require('./review');
 const { userModel, createUserTable, userIndexFields } = require('./user');
-const { videoGameModel } = require('./videoGame');
+const {
+  videoGameModel,
+  videoGameSchema,
+  videoGameIndexFields,
+} = require('./videoGame');
 
 const client = MongoClient(url, { useUnifiedTopology: true });
 
@@ -19,8 +23,10 @@ client.connect().then(() => {
     .dropDatabase()
     .then(() => userIndexFields(client.db(dbName)))
     .then(() => reviewIndexFields(client.db(dbName)))
+    .then(() => videoGameIndexFields(client.db(dbName)))
     .then(() => createUserTable(client.db(dbName)))
     .then(() => createReviewTable(client.db(dbName)))
+    .then(() => videoGameSchema(client.db(dbName)))
     .catch((err) => console.log(err));
 });
 

@@ -20,6 +20,41 @@ const videoGameModel = (db) => {
   return VideoGame;
 };
 
+const videoGameSchema = (db) => {
+  return db
+    .command({
+      collMod: 'videoGames',
+      validator: {
+        $jsonSchema: {
+          bsonType: 'object',
+          required: ['title'],
+          properties: {
+            title: {
+              bsonType: 'string',
+              description: 'must be a string and is required',
+            },
+          },
+        },
+      },
+    })
+    .then(() =>
+      console.log({
+        message: 'Successfully created videoGames collection schema',
+      })
+    )
+    .catch((err) => console.log(err));
+};
+
+const videoGameIndexFields = (db) => {
+  return db
+    .collection('videoGames')
+    .createIndex({ title: -1 }, { unique: true })
+    .then((result) => console.log(result))
+    .catch((err) => console.log(err));
+};
+
 module.exports = {
   videoGameModel,
+  videoGameSchema,
+  videoGameIndexFields,
 };
