@@ -1,6 +1,7 @@
 const express = require('express');
 const reviewRouter = require('./routes/review');
 const userRouter = require('./routes/user');
+const videoGameRouter = require('./routes/videoGame');
 require('./models');
 
 const app = express();
@@ -10,6 +11,7 @@ app.use(express.json());
 
 userRouter(app);
 reviewRouter(app);
+videoGameRouter(app);
 
 app.listen(port, () =>
   console.log(`Successfully connected to the server on port: ${port}`)
