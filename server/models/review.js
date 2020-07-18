@@ -1,3 +1,5 @@
+const { Int32 } = require('mongodb');
+
 const reviewModel = (db, int32, ObjectID) => {
   class Review {
     constructor(username, review) {
@@ -9,8 +11,8 @@ const reviewModel = (db, int32, ObjectID) => {
     static create() {
       const doc = {
         // this id is temporary until i work out video game collection logic
-        videoGameId: new ObjectID('123456789123456789123456'),
         page: int32(1),
+        videoGameId: new ObjectID('123456789123456789123456'),
         count: int32(0),
         reviews: [],
       };
@@ -28,6 +30,35 @@ const reviewModel = (db, int32, ObjectID) => {
                 .catch((err) => console.log(err));
             }
           })
+          .catch((err) => err)
+      );
+    }
+
+    // reset document structure for reviews associated with a video game and increases page value by 1
+    static reset(page) {
+      const incrementPage = page + Int32(1);
+
+      return (
+        db
+          .collection('reviews')
+          // this id is temporary until i work out video game collection logic
+          .findOneAndUpdate(
+            {
+              videoGameId: new ObjectID('123456789123456789123456'),
+              page: incrementPage,
+            },
+            {
+              $set: {
+                count: int32(0),
+                reviews: [],
+              },
+            },
+            {
+              upsert: true,
+              returnOriginal: false,
+            }
+          )
+          .then((data) => data)
           .catch((err) => err)
       );
     }
@@ -76,13 +107,13 @@ const createReviewTable = (db) => {
         $jsonSchema: {
           bsonType: 'object',
           properties: {
-            videoGameId: {
-              bsonType: 'objectId',
-              description: 'must be a string and is required',
-            },
             page: {
               bsonType: 'int',
               description: 'must be an int',
+            },
+            videoGameId: {
+              bsonType: 'objectId',
+              description: 'must be a string and is required',
             },
             count: {
               bsonType: 'int',
@@ -91,6 +122,7 @@ const createReviewTable = (db) => {
             reviews: {
               bsonType: 'array',
               description: 'must be an array',
+              required: ['username', 'review'],
               items: {
                 bsonType: 'object',
                 properties: {
@@ -123,15 +155,13 @@ const reviewIndexFields = (db) => {
     .collection('reviews')
     .createIndexes([
       {
-        key: {
-          videoGameId: -1,
-        },
-        unique: true,
+        key: { videoGameId: -1 },
       },
       {
-        key: {
-          'reviews.username': -1,
-        },
+        key: { page: -1 },
+      },
+      {
+        key: { 'reviews.username': -1 },
       },
     ])
     .then((results) => console.log(results))

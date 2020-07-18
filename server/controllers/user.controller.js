@@ -47,6 +47,9 @@ exports.create = (req, res) => {
             });
           }
 
+          if (data.count > 50) {
+          }
+
           // check if its a duplicate email or username value
           if (data.code === 11000) {
             console.log(data);
