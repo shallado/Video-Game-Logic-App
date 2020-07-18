@@ -12,10 +12,20 @@ exports.create = (req, res) => {
         .addReview()
         .then((data) => {
           // checks to see if the document field reviews reached the limit for available review to store
-          if (data.reviews.length === 50) {
-            Review.reset(data.page)
-              .then((dataTwo) => res.send(dataTwo))
-              .catch((err) => res.status(500).send(err));
+          if (data.count === 50) {
+            return Review.reset(data.page)
+              .then((dataTwo) =>
+                res.send({
+                  message: 'Successfully reset document structure',
+                  result: dataTwo,
+                })
+              )
+              .catch((err) =>
+                res.status(500).send({
+                  message: err.message,
+                  error: err.stack,
+                })
+              );
           }
 
           if (!data) {
@@ -29,7 +39,12 @@ exports.create = (req, res) => {
             result: data,
           });
         })
-        .catch((err) => console.log(err));
+        .catch((err) =>
+          res.status(500).send({
+            message: err.message,
+            error: err.stack,
+          })
+        );
     })
     .catch((err) => console.log(err));
 };

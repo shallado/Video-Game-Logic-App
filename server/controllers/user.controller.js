@@ -47,15 +47,10 @@ exports.create = (req, res) => {
             });
           }
 
-          if (data.count > 50) {
-          }
-
           // check if its a duplicate email or username value
           if (data.code === 11000) {
             console.log(data);
-            return res.status(400).send({
-              message: data.message,
-            });
+            return res.status(400).send({ message: data.message });
           }
 
           res.send({
@@ -64,8 +59,16 @@ exports.create = (req, res) => {
           });
         })
         .catch((err) =>
-          res.status(500).send({ message: err.message, error: err.stack })
+          res.status(500).send({
+            message: err.message,
+            error: err.stack,
+          })
         );
     })
-    .catch((err) => console.log(err));
+    .catch((err) =>
+      res.status(500).send({
+        message: err.message,
+        error: err.stack,
+      })
+    );
 };

@@ -88,6 +88,9 @@ const reviewModel = (db, int32, ObjectID) => {
           },
           {
             returnOriginal: false,
+            projection: {
+              reviews: 0,
+            },
           }
         )
         .then((data) => data.value)
