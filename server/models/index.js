@@ -23,7 +23,7 @@ client.connect().then(() => {
     .then(() => userSchema(client.db(dbName)))
     .then(() => reviewSchema(client.db(dbName)))
     .then(() => videoGameSchema(client.db(dbName)))
-    .catch((err) => console.log(err));
+    .catch((err) => console.log(err.stack));
 });
 
 const db = client.db(dbName);
