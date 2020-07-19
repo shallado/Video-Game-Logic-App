@@ -50,7 +50,7 @@ const userModel = (db, Int32) => {
 };
 
 // schema and validation
-const createUserTable = (db) => {
+const userSchema = (db) => {
   return db
     .command({
       collMod: 'users',
@@ -153,6 +153,6 @@ const userIndexFields = (db) => {
 
 module.exports = {
   userModel,
-  createUserTable,
+  userSchema,
   userIndexFields,
 };

@@ -1,3 +1,5 @@
+/* eslint-disable consistent-return */
+/* eslint-disable no-underscore-dangle */
 const { Int32 } = require('mongodb');
 
 const reviewModel = (db, int32, ObjectID) => {
@@ -5,37 +7,47 @@ const reviewModel = (db, int32, ObjectID) => {
     constructor(username, review) {
       this.username = username;
       this.review = review;
+      this.videoGameId = '';
     }
 
     // create document structure for reviews associated with a video game
-    static create() {
-      const doc = {
-        // this id is temporary until i work out video game collection logic
-        page: int32(1),
-        videoGameId: new ObjectID('123456789123456789123456'),
-        count: int32(0),
-        reviews: [],
-      };
+    create(title) {
+      return db
+        .collection('videoGames')
+        .findOne({ title })
+        .then((data) => {
+          if (!data) {
+            const notFoundError = Error();
+            notFoundError.message = 'video game not found';
+            notFoundError.number = 404;
 
-      return (
-        db
-          .collection('reviews')
-          // this id is temporary until i work out video game collection logic
-          .findOne({ videoGameId: new ObjectID('123456789123456789123456') })
-          .then((data) => {
-            if (!data) {
-              db.collection('reviews')
-                .insertOne(doc, { w: 1, j: true })
-                .then((dataTwo) => dataTwo)
-                .catch((err) => console.log(err));
-            }
-          })
-          .catch((err) => err)
-      );
+            throw notFoundError;
+          }
+
+          this.videoGameId = data._id;
+
+          return db
+            .collection('reviews')
+            .findOne({ videoGameId: new ObjectID(this.videoGameId) });
+        })
+        .then((data) => {
+          const doc = {
+            page: int32(1),
+            videoGameId: new ObjectID(this.videoGameId),
+            count: int32(0),
+            reviews: [],
+          };
+
+          if (!data) {
+            return db.collection('reviews').insertOne(doc, { w: 1, j: true });
+          }
+        })
+        .then((data) => data)
+        .catch((err) => err);
     }
 
     // reset document structure for reviews associated with a video game and increases page value by 1
-    static reset(page) {
+    reset(page) {
       const incrementPage = page + Int32(1);
 
       return (
@@ -44,7 +56,7 @@ const reviewModel = (db, int32, ObjectID) => {
           // this id is temporary until i work out video game collection logic
           .findOneAndUpdate(
             {
-              videoGameId: new ObjectID('123456789123456789123456'),
+              videoGameId: new ObjectID(this.videoGameId),
               page: incrementPage,
             },
             {
@@ -58,7 +70,7 @@ const reviewModel = (db, int32, ObjectID) => {
               returnOriginal: false,
             }
           )
-          .then((data) => data)
+          .then((data) => data.value)
           .catch((err) => err)
       );
     }
@@ -74,8 +86,7 @@ const reviewModel = (db, int32, ObjectID) => {
         .collection('reviews')
         .findOneAndUpdate(
           {
-            // this id is temporary until i work out video game collection logic
-            videoGameId: new ObjectID('123456789123456789123456'),
+            videoGameId: new ObjectID(this.videoGameId),
             count: { $lt: 50 },
           },
           {
@@ -102,7 +113,7 @@ const reviewModel = (db, int32, ObjectID) => {
 };
 
 // schema and validation
-const createReviewTable = (db) => {
+const reviewSchema = (db) => {
   return db
     .command({
       collMod: 'reviews',
@@ -116,7 +127,7 @@ const createReviewTable = (db) => {
             },
             videoGameId: {
               bsonType: 'objectId',
-              description: 'must be a string and is required',
+              description: 'must be a objectId',
             },
             count: {
               bsonType: 'int',
@@ -172,7 +183,7 @@ const reviewIndexFields = (db) => {
 };
 
 module.exports = {
-  createReviewTable,
+  reviewSchema,
   reviewIndexFields,
   reviewModel,
 };
