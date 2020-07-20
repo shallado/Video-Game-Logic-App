@@ -27,7 +27,7 @@ client.connect().then(() => {
 });
 
 const db = client.db(dbName);
-const User = userModel(db, Int32);
+const User = userModel(db, Int32, ObjectID);
 const Review = reviewModel(db, Int32, ObjectID);
 const VideoGame = videoGameModel(db);
 

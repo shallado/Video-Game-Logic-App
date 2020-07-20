@@ -7,6 +7,8 @@ const router = express.Router();
 const userRouter = (app) => {
   router.post('/', userController.create);
 
+  router.put('/:id', userController.updateOne);
+
   app.use('/users', router);
 };
 

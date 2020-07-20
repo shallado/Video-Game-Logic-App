@@ -1,62 +1,75 @@
 /* eslint-disable consistent-return */
-const axios = require('axios');
 const { User } = require('../models');
-const { accessToken } = require('../config/mapbox');
+const validation = require('../utilis/validation');
 
 // process user input in order to add user info to database
 exports.create = (req, res) => {
-  const {
-    username,
-    password,
-    email,
-    city,
-    zipcode,
-    birthday,
-    gender,
-  } = req.body;
+  const userInfo = req.body;
+  validation
+    .verifyLocation(userInfo)
+    .then((data) => {
+      const err = data;
 
-  const request = `https://api.mapbox.com/geocoding/v5/mapbox.places/${city}, ${zipcode}.json?access_token=${accessToken}`;
-
-  axios
-    .get(request)
-    .then((response) => {
-      const placeType = response.data.features[0].place_type[0];
-
-      // verify to make sure that city and zipcode inputs are valid locations
-      if (placeType !== 'postcode') {
-        const unVerifiedError = Error();
-        unVerifiedError.message = 'Unable to verify city and zipcode';
-        unVerifiedError.number = 404;
-
-        throw unVerifiedError;
+      if (err) {
+        throw err;
       }
 
-      const user = new User(
-        username,
-        password,
-        email,
-        city,
-        zipcode,
-        birthday,
-        gender
-      );
+      const user = new User(userInfo);
 
       return user.create();
     })
     .then((data) => {
-      // check if it passes schema validations
-      if (data.code === 121) {
-        return res.status(400).send({ message: 'Document failed validation' });
-      }
+      const isValid = validation.validInputs(data);
 
-      // check if its a duplicate email or username value
-      if (data.code === 11000) {
-        return res.status(400).send({ message: data.message });
+      if (!isValid.valid) {
+        return res.status(400).send(isValid.message);
       }
 
       res.send({
         message: 'Successfully added user',
         data: data.ops,
+      });
+    })
+    .catch((err) => {
+      if (err.number === 404) {
+        return res.status(404).send(err.stack);
+      }
+
+      res.status(500).send(err.stack);
+    });
+};
+
+exports.updateOne = (req, res) => {
+  const { id: userId } = req.params;
+  const updates = req.body;
+
+  validation
+    .verifyLocation(updates)
+    .then((data) => {
+      const err = data;
+
+      if (err) {
+        throw err;
+      }
+
+      return User.update(userId, updates);
+    })
+    .then((data) => {
+      const isValid = validation.validInputs(data);
+
+      if (data.nModified === 0) {
+        return res.status(404).send({
+          message: 'Unable to find user to update try again',
+        });
+      }
+
+      if (!isValid.valid) {
+        return res.status(400).send(isValid.message);
+      }
+
+      res.send({
+        message: 'Successfully updated user info',
+        data,
       });
     })
     .catch((err) => {

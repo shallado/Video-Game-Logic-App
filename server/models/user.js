@@ -1,18 +1,22 @@
 // sets the document structure for the user collection
 // provided methods that are available to be performed on the user collection
-const userModel = (db, Int32) => {
+const userModel = (db, Int32, ObjectID) => {
   class User {
     constructor(
-      username,
-      password,
-      email,
-      city,
-      zipcode,
-      birthday,
-      gender,
+      userInfo,
       profilePhoto = 'multer will be used',
       videoGames = []
     ) {
+      const {
+        username,
+        password,
+        email,
+        city,
+        zipcode,
+        birthday,
+        gender,
+      } = userInfo;
+
       this.username = username;
       this.password = password;
       this.email = email;
@@ -42,6 +46,29 @@ const userModel = (db, Int32) => {
         .collection('users')
         .insertOne(doc, { w: 1, j: true })
         .then((results) => results)
+        .catch((err) => err);
+    }
+
+    static update(userId, updates) {
+      const { zipcode, birthday } = updates;
+
+      return db
+        .collection('users')
+        .updateOne(
+          { _id: new ObjectID(userId) },
+          {
+            $set: {
+              ...updates,
+              zipcode: new Int32(zipcode),
+              birthday: new Date(birthday),
+            },
+          },
+          {
+            w: 1,
+            j: true,
+          }
+        )
+        .then((data) => data.result)
         .catch((err) => err);
     }
   }
