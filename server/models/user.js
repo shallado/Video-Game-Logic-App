@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+const validation = require('../utilis/validation');
 
 // sets the document structure for the user collection
 // provided methods that are available to be performed on the user collection
@@ -32,16 +33,7 @@ const userModel = (db, Int32, ObjectID) => {
 
     // create a user document and adds it the user collection
     create() {
-      // must be 8 to 15 characters long
-      // contain one lowercase letter, one uppercase letter, one numeric digit and one special character
-      if (
-        !this.password.match(
-          /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/
-        )
-      ) {
-        throw new Error('password does not meet requirements try again');
-      }
-
+      const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
       const saltRounds = 12;
       const plainTextPassword = this.password;
       const doc = {
@@ -56,8 +48,23 @@ const userModel = (db, Int32, ObjectID) => {
         videoGames: this.videoGames,
       };
 
-      return bcrypt
-        .hash(plainTextPassword, saltRounds)
+      // must be 8 to 15 characters long
+      // contain one lowercase letter, one uppercase letter, one numeric digit and one special character
+      if (!this.password.match(regex)) {
+        throw new Error('password does not meet requirements try again');
+      }
+
+      return validation
+        .verifyLocation(this.city, this.zipcode)
+        .then((data) => {
+          const err = data;
+
+          if (err) {
+            throw err;
+          }
+
+          return bcrypt.hash(plainTextPassword, saltRounds);
+        })
         .then((hash) => {
           return db.collection('users').insertOne(
             {
@@ -73,24 +80,33 @@ const userModel = (db, Int32, ObjectID) => {
 
     static update(userId, updates) {
       const { zipcode, birthday } = updates;
+      return validation
+        .verifyLocation(updates.city, updates.zipcode)
+        .then((data) => {
+          const err = data;
 
-      return db
-        .collection('users')
-        .updateOne(
-          { _id: new ObjectID(userId) },
-          {
-            $set: {
-              ...updates,
-              zipcode: new Int32(zipcode),
-              birthday: new Date(birthday),
-            },
-          },
-          {
-            w: 1,
-            j: true,
+          if (err) {
+            throw err;
           }
-        )
-        .then((data) => data.result)
+
+          return db.collection('users').updateOne(
+            { _id: new ObjectID(userId) },
+            {
+              $set: {
+                ...updates,
+                zipcode: new Int32(zipcode),
+                birthday: new Date(birthday),
+              },
+            },
+            {
+              w: 1,
+              j: true,
+            }
+          );
+        })
+        .then((data) => {
+          return data.result;
+        })
         .catch((err) => err);
     }
 

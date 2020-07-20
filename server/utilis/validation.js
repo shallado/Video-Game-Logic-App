@@ -1,9 +1,7 @@
 const axios = require('axios');
 const { accessToken } = require('../config/mapbox');
 
-exports.verifyLocation = (userInfo) => {
-  const { city, zipcode } = userInfo;
-
+exports.verifyLocation = (city, zipcode) => {
   const request = `https://api.mapbox.com/geocoding/v5/mapbox.places/${city}, ${zipcode}.json?access_token=${accessToken}`;
 
   return axios

@@ -5,24 +5,21 @@ const validation = require('../utilis/validation');
 // process user input in order to add user info to database
 exports.create = (req, res) => {
   const userInfo = req.body;
-  validation
-    .verifyLocation(userInfo)
-    .then((data) => {
-      const err = data;
+  const user = new User(userInfo);
 
-      if (err) {
-        throw err;
-      }
-
-      const user = new User(userInfo);
-
-      return user.create();
-    })
+  user
+    .create()
     .then((data) => {
       const isValid = validation.validInputs(data);
 
+      if (data.number === 404) {
+        const error = data;
+
+        throw error;
+      }
+
       if (!isValid.valid) {
-        return res.status(400).send(isValid.message);
+        throw Error(isValid.message);
       }
 
       res.send({
@@ -32,7 +29,7 @@ exports.create = (req, res) => {
     })
     .catch((err) => {
       if (err.number === 404) {
-        return res.status(404).send(err.stack);
+        return res.status(404).send(err.message);
       }
 
       res.status(500).send(err.stack);
@@ -43,21 +40,17 @@ exports.updateOne = (req, res) => {
   const { id: userId } = req.params;
   const updates = req.body;
 
-  validation
-    .verifyLocation(updates)
-    .then((data) => {
-      const err = data;
-
-      if (err) {
-        throw err;
-      }
-
-      return User.update(userId, updates);
-    })
+  return User.update(userId, updates)
     .then((data) => {
       const isValid = validation.validInputs(data);
 
-      if (data.nModified === 0) {
+      if (data.number === 404) {
+        const error = data;
+
+        throw error;
+      }
+
+      if (data.n === 0) {
         return res.status(404).send({
           message: 'Unable to find user to update try again',
         });
@@ -74,7 +67,7 @@ exports.updateOne = (req, res) => {
     })
     .catch((err) => {
       if (err.number === 404) {
-        return res.status(404).send(err.stack);
+        return res.status(404).send(err.message);
       }
 
       res.status(500).send(err.stack);
