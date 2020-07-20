@@ -9,6 +9,8 @@ const userRouter = (app) => {
 
   router.put('/:id', userController.updateOne);
 
+  router.get('/', userController.signIn);
+
   app.use('/users', router);
 };
 

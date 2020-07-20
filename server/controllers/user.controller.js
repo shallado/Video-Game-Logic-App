@@ -80,3 +80,32 @@ exports.updateOne = (req, res) => {
       res.status(500).send(err.stack);
     });
 };
+
+// process user credentials and validates users input
+exports.signIn = (req, res) => {
+  const { email, password } = req.body;
+
+  User.isPasswordValid(email, password)
+    .then((data) => {
+      if (data.number === 401) {
+        let error = data;
+
+        throw error;
+      }
+
+      if (!data) {
+        return res.status(404).send({
+          message: 'Unable to find user try again',
+        });
+      }
+
+      res.send(data);
+    })
+    .catch((err) => {
+      if (err.number === 401) {
+        return res.status(401).send(err.message);
+      }
+
+      res.status(500).send(err.stack);
+    });
+};

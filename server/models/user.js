@@ -1,3 +1,5 @@
+const bcrypt = require('bcrypt');
+
 // sets the document structure for the user collection
 // provided methods that are available to be performed on the user collection
 const userModel = (db, Int32, ObjectID) => {
@@ -30,6 +32,18 @@ const userModel = (db, Int32, ObjectID) => {
 
     // create a user document and adds it the user collection
     create() {
+      // must be 8 to 15 characters long
+      // contain one lowercase letter, one uppercase letter, one numeric digit and one special character
+      if (
+        !this.password.match(
+          /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/
+        )
+      ) {
+        throw new Error('password does not meet requirements try again');
+      }
+
+      const saltRounds = 12;
+      const plainTextPassword = this.password;
       const doc = {
         username: this.username,
         password: this.password,
@@ -42,9 +56,17 @@ const userModel = (db, Int32, ObjectID) => {
         videoGames: this.videoGames,
       };
 
-      return db
-        .collection('users')
-        .insertOne(doc, { w: 1, j: true })
+      return bcrypt
+        .hash(plainTextPassword, saltRounds)
+        .then((hash) => {
+          return db.collection('users').insertOne(
+            {
+              ...doc,
+              password: hash,
+            },
+            { w: 1, j: true }
+          );
+        })
         .then((results) => results)
         .catch((err) => err);
     }
@@ -69,6 +91,56 @@ const userModel = (db, Int32, ObjectID) => {
           }
         )
         .then((data) => data.result)
+        .catch((err) => err);
+    }
+
+    // validates user password for sign in
+    static isPasswordValid(email, password) {
+      let userInfo;
+
+      return db
+        .collection('users')
+        .findOne(
+          { email },
+          {
+            projection: {
+              _id: 0,
+              username: 1,
+              password: 1,
+              email: 1,
+              city: 1,
+              zipcode: 1,
+              birthday: 1,
+              gender: 1,
+            },
+          }
+        )
+        .then((result) => {
+          userInfo = {
+            username: result.username,
+            email: result.email,
+            city: result.city,
+            zipcode: result.zipcode,
+            birthday: result.birthday,
+            gender: result.gender,
+          };
+
+          // compares user input password to hash password in database
+          return bcrypt.compare(password, result.password);
+        })
+        .then((isValid) => {
+          // expose user document is password is valid
+          if (isValid) {
+            return userInfo;
+          }
+
+          // error thrown if user password is invalid
+          const invalidCredentialsError = new Error();
+          invalidCredentialsError.message =
+            'invalid password credentials try again';
+          invalidCredentialsError.number = 401;
+          throw invalidCredentialsError;
+        })
         .catch((err) => err);
     }
   }
@@ -102,10 +174,6 @@ const userSchema = (db) => {
             password: {
               bsonType: 'string',
               description: 'must be a string and is required',
-              // must be 8 to 15 characters long
-              // contain one lowercase letter, one uppercase letter, one numeric digit and one special character
-              pattern:
-                '^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\\s).{8,15}$',
             },
             email: {
               bsonType: 'string',
