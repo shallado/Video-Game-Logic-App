@@ -1,5 +1,6 @@
 const express = require('express');
 const userController = require('../controllers/user.controller');
+const uploadImage = require('../middleware/upload');
 
 const router = express.Router();
 
@@ -7,9 +8,15 @@ const router = express.Router();
 const userRouter = (app) => {
   router.post('/', userController.create);
 
-  router.put('/:id', userController.updateOne);
-
   router.get('/', userController.signIn);
+
+  router.put(
+    '/:id/profilePhoto/',
+    uploadImage.single('profile'),
+    userController.uploadProfilePhoto
+  );
+
+  router.put('/:id', userController.updateOne);
 
   app.use('/users', router);
 };

@@ -1,4 +1,4 @@
-const { MongoClient, Int32, ObjectID } = require('mongodb');
+const { MongoClient, Int32, ObjectID, Binary } = require('mongodb');
 const { url, dbName } = require('../config/db');
 const { reviewModel, reviewSchema, reviewIndexFields } = require('./review');
 const { userModel, userSchema, userIndexFields } = require('./user');
@@ -27,7 +27,7 @@ client.connect().then(() => {
 });
 
 const db = client.db(dbName);
-const User = userModel(db, Int32, ObjectID);
+const User = userModel(db, Int32, ObjectID, Binary);
 const Review = reviewModel(db, Int32, ObjectID);
 const VideoGame = videoGameModel(db);
 

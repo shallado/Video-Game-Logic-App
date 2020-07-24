@@ -36,6 +36,7 @@ exports.create = (req, res) => {
     });
 };
 
+// updates user info that is stored in the database
 exports.updateOne = (req, res) => {
   const { id: userId } = req.params;
   const updates = req.body;
@@ -81,7 +82,7 @@ exports.signIn = (req, res) => {
   User.isPasswordValid(email, password)
     .then((data) => {
       if (data.number === 401) {
-        let error = data;
+        const error = data;
 
         throw error;
       }
@@ -101,4 +102,24 @@ exports.signIn = (req, res) => {
 
       res.status(500).send(err.stack);
     });
+};
+
+// processes user uploaded photo to be stored into the database
+exports.uploadProfilePhoto = (req, res) => {
+  const { id } = req.params;
+
+  User.upload(id, req.file)
+    .then((data) => {
+      if (data.n === 0) {
+        return res.status(404).send({
+          message: 'Unable to find user',
+        });
+      }
+
+      res.json({
+        message: 'Successfully uploaded user profile photo',
+        data,
+      });
+    })
+    .catch((err) => res.status(500).json(err.stack));
 };

@@ -5,11 +5,7 @@ const validation = require('../utilis/validation');
 // provided methods that are available to be performed on the user collection
 const userModel = (db, Int32, ObjectID) => {
   class User {
-    constructor(
-      userInfo,
-      profilePhoto = 'multer will be used',
-      videoGames = []
-    ) {
+    constructor(userInfo) {
       const {
         username,
         password,
@@ -20,6 +16,8 @@ const userModel = (db, Int32, ObjectID) => {
         gender,
       } = userInfo;
 
+      const defaultProfilePhoto = `https://storage.cloud.google.com/${this.bucket}/default-profile-photo.jpeg`;
+
       this.username = username;
       this.password = password;
       this.email = email;
@@ -27,8 +25,8 @@ const userModel = (db, Int32, ObjectID) => {
       this.zipcode = zipcode;
       this.birthday = birthday;
       this.gender = gender;
-      this.profilePhoto = profilePhoto;
-      this.videoGames = videoGames;
+      this.profilePhoto = defaultProfilePhoto;
+      this.videoGames = [];
     }
 
     // create a user document and adds it the user collection
@@ -159,6 +157,25 @@ const userModel = (db, Int32, ObjectID) => {
         })
         .catch((err) => err);
     }
+
+    // uploads profile photo of user
+    static upload(userId, photoFile) {
+      const { path } = photoFile;
+
+      return db
+        .collection('users')
+        .updateOne(
+          { _id: new ObjectID(userId) },
+          {
+            $set: {
+              profilePhoto: path,
+            },
+          },
+          { w: 1, j: 1 }
+        )
+        .then((data) => data.result)
+        .catch((err) => err);
+    }
   }
 
   return User;
@@ -216,11 +233,11 @@ const userSchema = (db) => {
             },
             profilePhoto: {
               bsonType: 'string',
-              description: 'must be binData and is required',
+              description: 'string',
             },
             videoGames: {
               bsonType: 'array',
-              description: 'must be an array and is required',
+              description: 'must be an array',
               items: {
                 bsonType: 'object',
                 required: ['videoGameId'],
