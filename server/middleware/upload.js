@@ -1,5 +1,5 @@
 const multer = require('multer');
-const CustomStorage = require('../utilis/customStorage');
+const CustomStorage = require('../utils/customStorage');
 const { bucketName } = require('../config/googleCloudStorage');
 
 const storage = new CustomStorage({

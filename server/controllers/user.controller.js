@@ -1,6 +1,6 @@
 /* eslint-disable consistent-return */
 const { User } = require('../models');
-const validation = require('../utilis/validation');
+const validation = require('../utils/validation');
 
 // process user input in order to add user info to database
 exports.create = (req, res) => {

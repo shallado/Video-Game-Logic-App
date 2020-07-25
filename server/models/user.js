@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt');
-const validation = require('../utilis/validation');
+const validation = require('../utils/validation');
 
 // sets the document structure for the user collection
 // provided methods that are available to be performed on the user collection
