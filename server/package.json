@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start:dev": "nodemon server.js",
-    "prettier-format": "prettier --write ."
+    "prettier-format": "prettier --write .",
+    "vid": "nodemon utils/featuredGames.js"
   },
   "author": "shallado",
   "license": "ISC",
