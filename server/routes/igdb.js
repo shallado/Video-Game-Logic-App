@@ -7,7 +7,7 @@ const Router = express.Router();
 const igdbRouter = (app) => {
   Router.get('/', igdbController.find);
 
-  app.use('/featured-video-games', Router);
+  app.use('/igdb', Router);
 };
 
 module.exports = igdbRouter;
