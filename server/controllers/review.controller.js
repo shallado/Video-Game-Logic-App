@@ -48,3 +48,20 @@ exports.create = (req, res) => {
       res.status(500).send(err.stack);
     });
 };
+
+// finds reviews associated with a user
+exports.findAll = (req, res) => {
+  const { username } = req.body;
+
+  Review.findAll(username)
+    .then((data) => {
+      if (data.length === 0) {
+        return res
+          .status(404)
+          .send({ message: 'Unable to find user reviews try again' });
+      }
+
+      res.send(data);
+    })
+    .catch((err) => res.status(500).send(err.stack));
+};

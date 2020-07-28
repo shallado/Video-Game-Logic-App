@@ -7,6 +7,8 @@ const router = express.Router();
 const reviewRouter = (app) => {
   router.post('/', reviewController.create);
 
+  router.get('/', reviewController.findAll);
+
   app.use('/reviews', router);
 };
 

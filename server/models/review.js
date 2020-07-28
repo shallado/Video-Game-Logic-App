@@ -107,6 +107,16 @@ const reviewModel = (db, int32, ObjectID) => {
         .then((data) => data.value)
         .catch((err) => err);
     }
+
+    // finds user reviews
+    static findAll(username) {
+      return db
+        .collection('reviews')
+        .find({ 'reviews.username': username })
+        .toArray()
+        .then((data) => data)
+        .catch((err) => err);
+    }
   }
 
   return Review;
