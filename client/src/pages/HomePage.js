@@ -1,4 +1,5 @@
-const React = require('react');
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 const HomePage = () => (
   <div>
@@ -6,7 +7,9 @@ const HomePage = () => (
     <button>Sign In</button>
     <h1>Video Game Logic</h1>
     <p>Your one stop shop for video game info old, new, and upcoming</p>
-    <button>Sign Up</button>
+    <Link to={'/signup'}>
+      <button>Sign Up</button>
+    </Link>
   </div>
 );
 
