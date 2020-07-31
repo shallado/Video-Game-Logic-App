@@ -1,8 +1,9 @@
 import React from 'react';
+import UserForm from '../components/UserForm';
 
 const SignUpPage = () => (
   <div>
-    <p>Sign Up Page</p>
+    <UserForm />
   </div>
 );
 
