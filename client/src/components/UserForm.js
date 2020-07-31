@@ -142,6 +142,8 @@ export default class UserForm extends Component {
         birthday: this.state.birthday,
         gender: this.state.gender,
       };
+
+      this.props.handleSubmit(user);
     }
 
     this.setState(() => ({ error }));
