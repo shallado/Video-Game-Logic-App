@@ -1,5 +1,4 @@
-const bcrypt = require('bcrypt');
-const validation = require('../utils/validation');
+const { hashPassword } = require('../utils/password');
 
 // sets the document structure for the user collection
 // provided methods that are available to be performed on the user collection
@@ -31,9 +30,6 @@ const userModel = (db, Int32, ObjectID) => {
 
     // create a user document and adds it the user collection
     create() {
-      const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
-      const saltRounds = 12;
-      const plainTextPassword = this.password;
       const doc = {
         username: this.username,
         password: this.password,
@@ -46,23 +42,7 @@ const userModel = (db, Int32, ObjectID) => {
         videoGames: this.videoGames,
       };
 
-      // must be 8 to 15 characters long
-      // contain one lowercase letter, one uppercase letter, one numeric digit and one special character
-      if (!this.password.match(regex)) {
-        throw new Error('password does not meet requirements try again');
-      }
-
-      return validation
-        .verifyLocation(this.city, this.zipcode)
-        .then((data) => {
-          const err = data;
-
-          if (err) {
-            throw err;
-          }
-
-          return bcrypt.hash(plainTextPassword, saltRounds);
-        })
+      return hashPassword(this.password)
         .then((hash) => {
           return db.collection('users').insertOne(
             {
@@ -72,90 +52,61 @@ const userModel = (db, Int32, ObjectID) => {
             { w: 1, j: true }
           );
         })
-        .then((results) => results)
-        .catch((err) => err);
+        .then((data) => data.ops);
     }
 
-    static update(userId, updates) {
-      const { zipcode, birthday } = updates;
-      return validation
-        .verifyLocation(updates.city, updates.zipcode)
-        .then((data) => {
-          const err = data;
+    // finds a single user in the database
+    static find(userInput) {
+      const { userId, email } = userInput;
+      let doc;
 
-          if (err) {
-            throw err;
-          }
-
-          return db.collection('users').updateOne(
-            { _id: new ObjectID(userId) },
-            {
-              $set: {
-                ...updates,
-                zipcode: new Int32(zipcode),
-                birthday: new Date(birthday),
-              },
-            },
-            {
-              w: 1,
-              j: true,
-            }
-          );
-        })
-        .then((data) => {
-          return data.result;
-        })
-        .catch((err) => err);
-    }
-
-    // validates user password for sign in
-    static isPasswordValid(email, password) {
-      let userInfo;
+      if (userId) {
+        doc = {
+          _id: ObjectID(userId),
+        };
+      } else if (email) {
+        doc = {
+          email,
+        };
+      }
 
       return db
         .collection('users')
-        .findOne(
-          { email },
+        .findOne(doc)
+        .then((data) => data);
+    }
+
+    // updates a single user in the database
+    static update(userId, updates) {
+      const updateData = updates;
+      const updateUser = () =>
+        db.collection('users').updateOne(
+          { _id: ObjectID(userId) },
           {
-            projection: {
-              _id: 0,
-              username: 1,
-              password: 1,
-              email: 1,
-              city: 1,
-              zipcode: 1,
-              birthday: 1,
-              gender: 1,
-            },
-          }
-        )
-        .then((result) => {
-          userInfo = {
-            username: result.username,
-            email: result.email,
-            city: result.city,
-            zipcode: result.zipcode,
-            birthday: result.birthday,
-            gender: result.gender,
-          };
+            $set: { ...updateData },
+          },
+          { w: 1, j: true }
+        );
 
-          // compares user input password to hash password in database
-          return bcrypt.compare(password, result.password);
-        })
-        .then((isValid) => {
-          // expose user document is password is valid
-          if (isValid) {
-            return userInfo;
-          }
+      if (updates.birthday) {
+        updateData.birthday = new Date(updateData.birthday);
+      }
 
-          // error thrown if user password is invalid
-          const invalidCredentialsError = new Error();
-          invalidCredentialsError.message =
-            'invalid password credentials try again';
-          invalidCredentialsError.number = 401;
-          throw invalidCredentialsError;
-        })
-        .catch((err) => err);
+      if (updateData.zipcode) {
+        updateData.zipcode = new Int32(updateData.zipcode);
+      }
+
+      if (updates.password) {
+        return hashPassword(updates.password)
+          .then((data) => {
+            updateData.password = data;
+
+            return updateUser();
+          })
+          .then((data) => data.result);
+      }
+
+      return updateUser();
     }
 
     // uploads profile photo of user
@@ -173,8 +124,7 @@ const userModel = (db, Int32, ObjectID) => {
           },
           { w: 1, j: 1 }
         )
-        .then((data) => data.result)
-        .catch((err) => err);
+        .then((data) => data);
     }
   }
 
@@ -207,6 +157,8 @@ const userSchema = (db) => {
             password: {
               bsonType: 'string',
               description: 'must be a string and is required',
+              pattern:
+                '^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\\s).{8,}$',
             },
             email: {
               bsonType: 'string',

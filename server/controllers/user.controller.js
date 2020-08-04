@@ -1,107 +1,97 @@
 /* eslint-disable consistent-return */
+const { validationResult } = require('express-validator');
 const { User } = require('../models');
-const validation = require('../utils/validation');
+const databaseErrorHandling = require('../utils/databaseErrorHandling');
 
 // process user input in order to add user info to database
 exports.create = (req, res) => {
+  const results = validationResult(req);
+  const hasErrors = results.isEmpty();
+  const error = results.array()[0];
+
+  // handles errors coming from validation middleware
+  if (!hasErrors) {
+    if (error.param === 'city') {
+      const setError = databaseErrorHandling(error);
+
+      res.status(setError.httpStatus).send({ message: setError.description });
+    } else {
+      res.status(400).send(error);
+    }
+
+    return;
+  }
+
   const userInfo = req.body;
   const user = new User(userInfo);
 
   user
     .create()
     .then((data) => {
-      const isValid = validation.validInputs(data);
-
-      if (data.number === 404) {
-        const error = data;
-
-        throw error;
-      }
-
-      if (!isValid.valid) {
-        throw Error(isValid.message);
-      }
+      const message = 'successfully added user';
 
       res.send({
-        message: 'Successfully added user',
-        data: data.ops,
+        message,
+        data,
       });
     })
     .catch((err) => {
-      if (err.number === 404) {
-        return res.status(404).send(err.message);
-      }
+      const setError = databaseErrorHandling(err);
 
-      res.status(500).send(err.stack);
+      res.status(setError.httpStatus).send({ message: setError.description });
     });
 };
 
 // updates user info that is stored in the database
 exports.updateOne = (req, res) => {
+  const results = validationResult(req);
+  const hasErrors = results.isEmpty();
+  const error = results.array()[0];
+
+  // handles errors coming from validation middleware
+  if (!hasErrors) {
+    const setError = databaseErrorHandling(error);
+
+    return res
+      .status(setError.httpStatus)
+      .send({ message: setError.description });
+  }
+
   const { id: userId } = req.params;
   const updates = req.body;
 
-  return User.update(userId, updates)
+  User.update(userId, updates)
     .then((data) => {
-      const isValid = validation.validInputs(data);
-
-      if (data.number === 404) {
-        const error = data;
-
-        throw error;
-      }
-
-      if (data.n === 0) {
-        return res.status(404).send({
-          message: 'Unable to find user to update try again',
-        });
-      }
-
-      if (!isValid.valid) {
-        return res.status(400).send(isValid.message);
-      }
+      const message = 'successfully updated user';
 
       res.send({
-        message: 'Successfully updated user info',
+        message,
         data,
       });
     })
     .catch((err) => {
-      if (err.number === 404) {
-        return res.status(404).send(err.message);
-      }
+      const setError = databaseErrorHandling(err);
 
-      res.status(500).send(err.stack);
+      res.status(setError.httpStatus).send({ message: setError.description });
     });
 };
 
 // process user credentials and validates users input
 exports.signIn = (req, res) => {
-  const { email, password } = req.body;
+  const results = validationResult(req);
+  const hasErrors = results.isEmpty();
+  const error = results.array()[0];
 
-  User.isPasswordValid(email, password)
-    .then((data) => {
-      if (data.number === 401) {
-        const error = data;
+  // handles errors coming from validation middleware
+  if (!hasErrors) {
+    const setError = databaseErrorHandling(error);
 
-        throw error;
-      }
+    return res
+      .status(setError.httpStatus)
+      .send({ message: setError.description });
+  }
 
-      if (!data) {
-        return res.status(404).send({
-          message: 'Unable to find user try again',
-        });
-      }
-
-      res.send(data);
-    })
-    .catch((err) => {
-      if (err.number === 401) {
-        return res.status(401).send(err.message);
-      }
-
-      res.status(500).send(err.stack);
-    });
+  res.send('Successfully signed in');
 };
 
 // processes user uploaded photo to be stored into the database
@@ -110,16 +100,16 @@ exports.uploadProfilePhoto = (req, res) => {
 
   User.upload(id, req.file)
     .then((data) => {
-      if (data.n === 0) {
-        return res.status(404).send({
-          message: 'Unable to find user',
-        });
-      }
+      const message = 'successfully uploaded user profile photo';
 
-      res.json({
-        message: 'Successfully uploaded user profile photo',
+      res.send({
+        message,
         data,
       });
     })
-    .catch((err) => res.status(500).json(err.stack));
+    .catch((err) => {
+      const setError = databaseErrorHandling(err);
+
+      res.status(setError.httpStatus).send({ message: setError.description });
+    });
 };
