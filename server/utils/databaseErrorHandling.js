@@ -1,5 +1,6 @@
 const httpStatusCodes = require('./statusCodes');
 
+// handles all error outputs messages
 const userErrorHandling = (err) => {
   const formField = err.keyValue && Object.keys(err.keyValue);
   let setError;
