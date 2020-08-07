@@ -14,12 +14,7 @@ const userRouter = (app) => {
     userController.create
   );
 
-  router.get(
-    '/',
-    validation.userCheck,
-    validation.isPasswordValid,
-    userController.signIn
-  );
+  router.get('/', userController.signIn);
 
   router.put(
     '/:id/profilePhoto/',

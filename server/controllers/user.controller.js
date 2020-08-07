@@ -1,6 +1,9 @@
 /* eslint-disable consistent-return */
 const { validationResult } = require('express-validator');
 const { User } = require('../models');
+const APIError = require('../utils/apiError');
+const httpStatusCodes = require('../utils/statusCodes');
+const { comparePassword } = require('../utils/password');
 const databaseErrorHandling = require('../utils/databaseErrorHandling');
 
 // process user input in order to add user info to database
@@ -78,20 +81,29 @@ exports.updateOne = (req, res) => {
 
 // process user credentials and validates users input
 exports.signIn = (req, res) => {
-  const results = validationResult(req);
-  const hasErrors = results.isEmpty();
-  const error = results.array()[0];
+  const { email, password } = req.body;
 
-  // handles errors coming from validation middleware
-  if (!hasErrors) {
-    const setError = databaseErrorHandling(error);
+  return User.find({ email })
+    .then((data) => {
+      if (!data) {
+        throw new APIError(
+          'Not Found',
+          httpStatusCodes.NOT_FOUND,
+          'unable to find user'
+        );
+      }
 
-    return res
-      .status(setError.httpStatus)
-      .send({ message: setError.description });
-  }
+      // compares user input password to hash password in database
+      return comparePassword(password, data.password);
+    })
+    .then(() => {
+      res.send({ message: 'Successfully login' });
+    })
+    .catch((err) => {
+      const setError = databaseErrorHandling(err);
 
-  res.send('Successfully signed in');
+      res.status(setError.httpStatus).send({ message: setError.description });
+    });
 };
 
 // processes user uploaded photo to be stored into the database

@@ -1,6 +1,5 @@
 const locationValidator = require('@vgl/common');
 const { check, body } = require('express-validator');
-const { comparePassword } = require('../utils/password');
 const { User } = require('../models');
 
 // checks to see if the provided id or email are associated with a user
@@ -38,20 +37,6 @@ exports.locationCheck = body(['city']).custom((value, { req }) =>
     }
   })
 );
-
-// checks to see if the provided password is valid for the associated user
-exports.isPasswordValid = body(['password']).custom((password, { req }) => {
-  const { email } = req.body;
-
-  return User.find({ email }).then((data) => {
-    // compares user input password to hash password in database
-    return comparePassword(password, data.password).then((err) => {
-      if (err) {
-        throw new Error(err);
-      }
-    });
-  });
-});
 
 // checks to make sure that input data are valid data types and follow input guidelines
 exports.inputValidation = () => {

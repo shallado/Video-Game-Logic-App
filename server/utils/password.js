@@ -24,8 +24,14 @@ const hashPassword = (password) => {
 const comparePassword = (inputPassword, databasePassword) => {
   return bcrypt.compare(inputPassword, databasePassword).then((isValid) => {
     if (!isValid) {
-      return '401';
+      throw new APIError(
+        'Unauthorized',
+        httpStatusCodes.UNAUTHORIZED,
+        'invalid password'
+      );
     }
+
+    return true;
   });
 };
 

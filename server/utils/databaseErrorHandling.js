@@ -22,22 +22,14 @@ const userErrorHandling = (err) => {
       httpStatus: httpStatusCodes.UNAUTHORIZED,
       description: 'unable to verify city and zipcode',
     };
-  } else if (err.msg === '401') {
-    setError = {
-      httpStatus: httpStatusCodes.UNAUTHORIZED,
-      description: 'invalid password',
-    };
+  } else if (err.httpStatus === 401) {
+    setError = err;
   } else if (err.httpStatus === 404) {
     setError = err;
   } else if (err.number === 404) {
     setError = {
       httpStatus: err.number,
       description: err.message,
-    };
-  } else if (err.msg === '404') {
-    setError = {
-      httpStatus: httpStatusCodes.NOT_FOUND,
-      description: 'unable to find user',
     };
   } else {
     setError = {
