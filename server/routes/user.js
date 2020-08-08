@@ -18,17 +18,11 @@ const userRouter = (app) => {
 
   router.put(
     '/:id/profilePhoto/',
-    validation.userCheck,
     uploadImage.single('profile'),
     userController.uploadProfilePhoto
   );
 
-  router.put(
-    '/:id',
-    validation.userCheck,
-    validation.locationCheck,
-    userController.updateOne
-  );
+  router.put('/:id', validation.locationCheck, userController.updateOne);
 
   app.use('/users', router);
 };

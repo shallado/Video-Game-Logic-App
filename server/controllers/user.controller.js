@@ -65,6 +65,14 @@ exports.updateOne = (req, res) => {
 
   User.update(userId, updates)
     .then((data) => {
+      if (data.n === 0) {
+        throw new APIError(
+          'Not Found',
+          httpStatusCodes.NOT_FOUND,
+          'unable to find user'
+        );
+      }
+
       const message = 'successfully updated user';
 
       res.send({
@@ -112,6 +120,14 @@ exports.uploadProfilePhoto = (req, res) => {
 
   User.upload(id, req.file)
     .then((data) => {
+      if (!data) {
+        throw new APIError(
+          'Not Found',
+          httpStatusCodes.NOT_FOUND,
+          'unable to find user'
+        );
+      }
+
       const message = 'successfully uploaded user profile photo';
 
       res.send({

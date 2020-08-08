@@ -1,33 +1,5 @@
 const locationValidator = require('@vgl/common');
-const { check, body } = require('express-validator');
-const { User } = require('../models');
-
-// checks to see if the provided id or email are associated with a user
-exports.userCheck = check(['id', 'email']).custom((value, { req }) => {
-  let queryVal;
-
-  if (value) {
-    if (value.length === 24) {
-      queryVal = { userId: value };
-    } else {
-      if (req.params.id) {
-        return true;
-      }
-
-      queryVal = { email: value };
-    }
-
-    return User.find(queryVal).then((data) => {
-      if (!data) {
-        throw new Error('404');
-      }
-
-      return true;
-    });
-  }
-
-  return true;
-});
+const { body } = require('express-validator');
 
 // checks to see if the provided location info city and zipcode are valid
 exports.locationCheck = body(['city']).custom((value, { req }) =>
