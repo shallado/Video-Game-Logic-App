@@ -1,4 +1,7 @@
 const { Review } = require('../models');
+const APIError = require('../utils/apiError');
+const httpStatusCodes = require('../utils/statusCodes');
+const databaseErrorHandling = require('../utils/databaseErrorHandling');
 
 // adds review to an associated video game
 exports.create = (req, res) => {
@@ -8,13 +11,7 @@ exports.create = (req, res) => {
   // creates reviews associated with a video game
   reviewInfo
     .create(title)
-    .then((data) => {
-      const err = data;
-
-      if (data instanceof Error) {
-        throw err;
-      }
-
+    .then(() => {
       return reviewInfo.addReview();
     })
     .then((data) => {
@@ -41,11 +38,9 @@ exports.create = (req, res) => {
       res.send(data);
     })
     .catch((err) => {
-      if (err.number === 404) {
-        res.status(404).send(err.stack);
-      }
+      const setError = databaseErrorHandling(err);
 
-      res.status(500).send(err.stack);
+      res.status(setError.httpStatus).send({ message: setError.description });
     });
 };
 
@@ -56,12 +51,18 @@ exports.findAll = (req, res) => {
   Review.findAll(username)
     .then((data) => {
       if (data.length === 0) {
-        return res
-          .status(404)
-          .send({ message: 'Unable to find user reviews try again' });
+        throw new APIError(
+          'Not Found',
+          httpStatusCodes.NOT_FOUND,
+          'unable to find user reviews try again'
+        );
       }
 
       res.send(data);
     })
-    .catch((err) => res.status(500).send(err.stack));
+    .catch((err) => {
+      const setError = databaseErrorHandling(err);
+
+      res.status(setError.httpStatus).send({ message: setError.description });
+    });
 };

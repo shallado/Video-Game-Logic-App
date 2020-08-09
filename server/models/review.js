@@ -1,6 +1,8 @@
 /* eslint-disable consistent-return */
 /* eslint-disable no-underscore-dangle */
 const { Int32 } = require('mongodb');
+const APIError = require('../utils/apiError');
+const httpStatusCodes = require('../utils/statusCodes');
 
 const reviewModel = (db, int32, ObjectID) => {
   class Review {
@@ -17,11 +19,11 @@ const reviewModel = (db, int32, ObjectID) => {
         .findOne({ title })
         .then((data) => {
           if (!data) {
-            const notFoundError = Error();
-            notFoundError.message = 'video game not found';
-            notFoundError.number = 404;
-
-            throw notFoundError;
+            throw new APIError(
+              'Not Found',
+              httpStatusCodes.NOT_FOUND,
+              'video game not found'
+            );
           }
 
           this.videoGameId = data._id;
@@ -42,8 +44,7 @@ const reviewModel = (db, int32, ObjectID) => {
             return db.collection('reviews').insertOne(doc, { w: 1, j: true });
           }
         })
-        .then((data) => data)
-        .catch((err) => err);
+        .then((data) => data);
     }
 
     // reset document structure for reviews associated with a video game and increases page value by 1
@@ -71,7 +72,6 @@ const reviewModel = (db, int32, ObjectID) => {
             }
           )
           .then((data) => data.value)
-          .catch((err) => err)
       );
     }
 
@@ -104,8 +104,7 @@ const reviewModel = (db, int32, ObjectID) => {
             },
           }
         )
-        .then((data) => data.value)
-        .catch((err) => err);
+        .then((data) => data.value);
     }
 
     // finds user reviews
@@ -114,8 +113,7 @@ const reviewModel = (db, int32, ObjectID) => {
         .collection('reviews')
         .find({ 'reviews.username': username })
         .toArray()
-        .then((data) => data)
-        .catch((err) => err);
+        .then((data) => data);
     }
   }
 
