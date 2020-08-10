@@ -12,8 +12,7 @@ const videoGameModel = (db) => {
       return db
         .collection('videoGames')
         .insertOne(doc, { w: 1, j: true })
-        .then((results) => results)
-        .catch((err) => err);
+        .then((results) => results);
     }
   }
 
