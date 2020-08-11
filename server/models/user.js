@@ -209,8 +209,7 @@ const userSchema = (db) => {
       console.log({
         message: 'Successfully created users collection schema',
       })
-    )
-    .catch((err) => console.log(err));
+    );
 };
 
 // indexing specific fields
@@ -227,8 +226,7 @@ const userIndexFields = (db) => {
         unique: true,
       },
     ])
-    .then((result) => console.log(result))
-    .catch((err) => console.log(err));
+    .then((result) => console.log(result));
 };
 
 module.exports = {

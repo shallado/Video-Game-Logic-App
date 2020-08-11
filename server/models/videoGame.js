@@ -40,16 +40,14 @@ const videoGameSchema = (db) => {
       console.log({
         message: 'Successfully created videoGames collection schema',
       })
-    )
-    .catch((err) => console.log(err));
+    );
 };
 
 const videoGameIndexFields = (db) => {
   return db
     .collection('videoGames')
     .createIndex({ title: -1 }, { unique: true })
-    .then((result) => console.log(result))
-    .catch((err) => console.log(err));
+    .then((result) => console.log(result));
 };
 
 module.exports = {

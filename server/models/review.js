@@ -167,8 +167,7 @@ const reviewSchema = (db) => {
       console.log({
         message: 'Successfully created reviews collection schema',
       })
-    )
-    .catch((err) => console.log(err));
+    );
 };
 
 // indexing specific fields
@@ -186,8 +185,7 @@ const reviewIndexFields = (db) => {
         key: { 'reviews.username': -1 },
       },
     ])
-    .then((results) => console.log(results))
-    .catch((err) => console.log(err));
+    .then((results) => console.log(results));
 };
 
 module.exports = {
