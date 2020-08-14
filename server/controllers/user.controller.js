@@ -1,13 +1,15 @@
 /* eslint-disable consistent-return */
+const jwt = require('jsonwebtoken');
 const { validationResult } = require('express-validator');
 const { User } = require('../models');
+const { secretKey } = require('../config/jwt');
 const APIError = require('../utils/apiError');
 const httpStatusCodes = require('../utils/statusCodes');
 const { comparePassword } = require('../utils/password');
 const databaseErrorHandling = require('../utils/databaseErrorHandling');
 
 // process user input in order to add user info to database
-exports.create = (req, res) => {
+exports.signup = (req, res) => {
   const results = validationResult(req);
   const hasErrors = results.isEmpty();
   const error = results.array()[0];
@@ -102,10 +104,16 @@ exports.signIn = (req, res) => {
       }
 
       // compares user input password to hash password in database
-      return comparePassword(password, data.password);
+      return comparePassword(password, data.password, data._id);
     })
-    .then(() => {
-      res.send({ message: 'Successfully login' });
+    .then((data) => {
+      const userId = data;
+
+      jwt.sign({ userId }, secretKey, (err, token) => {
+        User.update(userId, { token }).then(() => {
+          res.send('Login Successful');
+        });
+      });
     })
     .catch((err) => {
       const setError = databaseErrorHandling(err);

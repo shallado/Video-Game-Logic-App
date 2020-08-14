@@ -21,7 +21,7 @@ const hashPassword = (password) => {
 };
 
 // compares user password in database and user input password
-const comparePassword = (inputPassword, databasePassword) => {
+const comparePassword = (inputPassword, databasePassword, userId) => {
   return bcrypt.compare(inputPassword, databasePassword).then((isValid) => {
     if (!isValid) {
       throw new APIError(
@@ -31,7 +31,7 @@ const comparePassword = (inputPassword, databasePassword) => {
       );
     }
 
-    return true;
+    return userId;
   });
 };
 

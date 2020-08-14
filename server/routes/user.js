@@ -7,15 +7,6 @@ const router = express.Router();
 
 // handle all http requests to the users collection
 const userRouter = (app) => {
-  router.post(
-    '/',
-    validation.inputValidation(),
-    validation.locationCheck,
-    userController.create
-  );
-
-  router.get('/', userController.signIn);
-
   router.put(
     '/:id/profilePhoto/',
     uploadImage.single('profile'),

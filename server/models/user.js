@@ -26,6 +26,7 @@ const userModel = (db, Int32, ObjectID) => {
       this.gender = gender;
       this.profilePhoto = defaultProfilePhoto;
       this.videoGames = [];
+      this.webTokens = [];
     }
 
     // create a user document and adds it the user collection
@@ -40,6 +41,7 @@ const userModel = (db, Int32, ObjectID) => {
         gender: this.gender,
         profilePhoto: this.profilePhoto,
         videoGames: this.videoGames,
+        webTokens: this.webTokens,
       };
 
       return hashPassword(this.password)
@@ -84,6 +86,9 @@ const userModel = (db, Int32, ObjectID) => {
           { _id: ObjectID(userId) },
           {
             $set: { ...updateData },
+            $push: {
+              webTokens: updates.token,
+            },
           },
           { w: 1, j: true }
         );
@@ -106,7 +111,7 @@ const userModel = (db, Int32, ObjectID) => {
           .then((data) => data.result);
       }
 
-      return updateUser();
+      return updateUser().then((data) => data.result);
     }
 
     // uploads profile photo of user
@@ -199,6 +204,14 @@ const userSchema = (db) => {
                     description: 'must be an objectId and is required',
                   },
                 },
+              },
+            },
+            webTokens: {
+              bsonType: 'array',
+              description: 'must be an array',
+              items: {
+                bsonType: 'string',
+                description: 'must be a string',
               },
             },
           },
