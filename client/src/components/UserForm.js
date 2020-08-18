@@ -1,50 +1,15 @@
 import React, { Component } from 'react';
+import { Formik, Field, Form, ErrorMessage } from 'formik';
 import { SingleDatePicker } from 'react-dates';
 import moment from 'moment';
+import * as Yup from 'yup';
+import ErrorNotification from './ErrorNotification';
 
 export default class UserForm extends Component {
   state = {
-    username: '',
-    password: '',
-    email: '',
-    city: '',
-    zipcode: '',
     birthday: moment(),
-    gender: '',
     focused: false,
     error: undefined,
-  };
-
-  handleUsernameChange = (e) => {
-    const username = e.target.value;
-
-    this.setState(() => ({ username }));
-  };
-
-  handlePasswordChange = (e) => {
-    const password = e.target.value;
-
-    this.setState(() => ({ password }));
-  };
-
-  handleEmailChange = (e) => {
-    const email = e.target.value;
-
-    this.setState(() => ({ email }));
-  };
-
-  handleCityChange = (e) => {
-    const city = e.target.value;
-
-    this.setState(() => ({ city }));
-  };
-
-  handleZipcodeChange = (e) => {
-    const zipcode = e.target.value;
-
-    if (!zipcode || zipcode.match(/^\d{1,5}$/)) {
-      this.setState(() => ({ zipcode }));
-    }
   };
 
   handleDateChange = (date) => {
@@ -102,117 +67,96 @@ export default class UserForm extends Component {
     </div>
   );
 
-  handleGenderChange = (e) => {
-    const gender = e.target.value;
-
-    this.setState(() => ({ gender }));
-  };
-
-  handleSubmit = (e) => {
-    e.preventDefault();
-    const passwordCriteria =
-      '^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\\s).{8,15}$';
-    const regex = new RegExp(passwordCriteria);
-    let error, user;
-
-    for (let field in this.state) {
-      if (field === 'focused' || field === 'error') {
-        continue;
-      } else if (!this.state[field]) {
-        this.setState(() => ({
-          error: `${field} field is required`,
-        }));
-        return;
-      }
-    }
-
-    if (this.state.zipcode.length !== 5) {
-      error = 'zipcode field requires 5 digits';
-    } else if (!this.state.password.match(regex)) {
-      error =
-        'field is required to be 8 to 15 characters long, contain one lowercase letter, one uppercase letter, one numeric digit and one special character';
-    } else {
-      error = undefined;
-      user = {
-        username: this.state.username,
-        password: this.state.password,
-        email: this.state.email,
-        city: this.state.city,
-        zipcode: this.state.zipcode,
-        birthday: this.state.birthday,
-        gender: this.state.gender,
-      };
-
-      this.props.handleSubmit(user);
-    }
-
-    this.setState(() => ({ error }));
+  handleSubmit = (userInfo) => {
+    this.props.handleSubmit({
+      ...userInfo,
+      birthday: this.state.birthday.format('YYYY-MM-DD'),
+    });
   };
 
   render() {
+    const formInitialValues = {
+      username: '',
+      password: '',
+      email: '',
+      city: '',
+      zipcode: '',
+      gender: 'select',
+    };
+
+    const passwordCriteria =
+      '^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\\s).{8,15}$';
+    const regex = new RegExp(passwordCriteria);
+
+    let formSchema = Yup.object({
+      username: Yup.string()
+        .trim()
+        .max(26, 'Must be 26 characters or less')
+        .required('Required'),
+      password: Yup.string()
+        .matches(
+          regex,
+          'Field is required to be 8 to 15 characters long, contain one lowercase letter, one uppercase letter, one numeric digit and one special character'
+        )
+        .required('Required'),
+      email: Yup.string()
+        .trim()
+        .email('Must be a valid email format')
+        .required('Required'),
+      city: Yup.string().trim().required('Required'),
+      zipcode: Yup.string().length(5, 'Must be 5 digits').required('Required'),
+      gender: Yup.string().matches(/(male|female)/, 'Please select an option'),
+    });
+
     return (
-      <form onSubmit={this.handleSubmit}>
-        <label htmlFor="username">Username</label>
-        <input
-          type="text"
-          id="username"
-          value={this.state.username}
-          onChange={this.handleUsernameChange}
-        />
-        <label htmlFor="password">Password</label>
-        <input
-          type="password"
-          id="password"
-          value={this.state.password}
-          onChange={this.handlePasswordChange}
-        />
-        <label htmlFor="email">Email</label>
-        <input
-          type="email"
-          id="email"
-          value={this.state.email}
-          onChange={this.handleEmailChange}
-        />
-        <label htmlFor="city">City</label>
-        <input
-          type="text"
-          id="city"
-          value={this.state.city}
-          onChange={this.handleCityChange}
-        />
-        <label htmlFor="zipcode">Zipcode</label>
-        <input
-          type="text"
-          id="zipcode"
-          value={this.state.zipcode}
-          onChange={this.handleZipcodeChange}
-        />
-        <SingleDatePicker
-          date={this.state.birthday}
-          onDateChange={this.handleDateChange}
-          focused={this.state.focused}
-          onFocusChange={this.handleFocusChange}
-          readOnly={true}
-          numberOfMonths={1}
-          small={true}
-          isOutsideRange={() => false}
-          renderMonthElement={this.renderMonthElement}
-          id="user-birthday"
-        />
-        <br></br>
-        <label htmlFor="gender">Gender</label>
-        <select
-          id="gender"
-          value={this.state.gender}
-          onChange={this.handleGenderChange}
+      <div>
+        <Formik
+          initialValues={formInitialValues}
+          validationSchema={formSchema}
+          onSubmit={this.handleSubmit}
         >
-          <option value="select">Select</option>
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-        </select>
-        {this.state.error && <p>{this.state.error}</p>}
-        <button>Sign Up</button>
-      </form>
+          <Form>
+            <label htmlFor="username">Username</label>
+            <Field name="username" type="text" id="username" />
+            <ErrorMessage name="username" />
+            <label htmlFor="password">Password</label>
+            <Field name="password" type="password" id="password" />
+            <ErrorMessage name="password" />
+            <label htmlFor="email">Email</label>
+            <Field name="email" type="text" id="email" />
+            <ErrorMessage name="email" />
+            <label htmlFor="city">City</label>
+            <Field name="city" type="text" id="city" />
+            <ErrorMessage name="city" />
+            <label htmlFor="zipcode">Zipcode</label>
+            <Field name="zipcode" type="text" id="zipcode" />
+            <ErrorMessage name="zipcode" />
+            <SingleDatePicker
+              date={this.state.birthday}
+              onDateChange={this.handleDateChange}
+              focused={this.state.focused}
+              onFocusChange={this.handleFocusChange}
+              readOnly={true}
+              numberOfMonths={1}
+              small={true}
+              isOutsideRange={() => false}
+              renderMonthElement={this.renderMonthElement}
+              id="user-birthday"
+            />
+            <br></br>
+            <label htmlFor="gender">Gender</label>
+            <Field as="select" name="gender" id="gender">
+              <option value="select">Select</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+            </Field>
+            <ErrorMessage name="gender" />
+            {this.state.error && <p>{this.state.error}</p>}
+            <button type="submit">Sign Up</button>
+          </Form>
+        </Formik>
+        <ErrorNotification />
+      </div>
     );
   }
 }

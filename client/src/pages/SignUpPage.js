@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import UserForm from '../components/UserForm';
-import { userSignUp } from '../actions/user';
+import { startUserSignUp } from '../actions/user';
 
 class SignUpPage extends Component {
-  handleSubmit = (user) => {
-    this.props.userSignUp(user);
+  handleSubmit = (userInfo) => {
+    this.props.startUserSignUp(userInfo);
+    this.props.history.push('/dashboard');
   };
 
   render() {
@@ -18,7 +19,7 @@ class SignUpPage extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  userSignUp: (userInfo) => dispatch(userSignUp(userInfo)),
+  startUserSignUp: (userInfo) => dispatch(startUserSignUp(userInfo)),
 });
 
 export default connect(null, mapDispatchToProps)(SignUpPage);
