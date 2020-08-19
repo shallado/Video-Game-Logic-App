@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import DashBoardPage from '../pages/DashBoardPage';
 import HomePage from '../pages/HomePage';
+import SignInPage from '../pages/SignInPage';
 import SignUpPage from '../pages/SignUpPage';
 
 const AppRouter = () => (
@@ -9,6 +10,7 @@ const AppRouter = () => (
     <Switch>
       <Route path={'/'} component={HomePage} exact={true} />
       <Route path={'/dashboard'} component={DashBoardPage} />
+      <Route path={'/signin'} component={SignInPage} />
       <Route path={'/signup'} component={SignUpPage} />
     </Switch>
   </BrowserRouter>
