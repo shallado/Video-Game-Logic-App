@@ -1,80 +1,34 @@
 import axios from 'axios';
 import { loadTodoSuccess, loadTodoError } from './error';
 
-export const userSignUp = ({
-  username,
-  password,
-  email,
-  city,
-  zipcode,
-  birthday,
-  gender,
-} = {}) => ({
-  type: 'USER_SIGN_UP',
+export const setCurrentUser = (user) => ({
+  type: 'SET_CURRENT_USER',
   userInfo: {
-    username,
-    password,
-    email,
-    city,
-    zipcode,
-    birthday,
-    gender,
+    ...user,
+    password: 'passwordP1%',
   },
 });
 
-export const startUserSignUp = (userInfo) => {
-  return (dispatch) => {
-    axios({
-      method: 'post',
-      url: '/auth/signup',
-      data: {
-        ...userInfo,
-      },
-    })
-      .then((response) => {
-        if (response.status === 200) {
-          dispatch(loadTodoSuccess(response.data));
-        } else {
-          dispatch(loadTodoError(response.error));
-        }
-      })
-      .catch((err) => {
-        let error;
-
-        if (err.response) {
-          error = err.response.data;
-        } else if (err.request) {
-          error = err.request;
-        } else {
-          error = err.message;
-        }
-
-        dispatch(loadTodoError(error));
-      });
-  };
-};
-
-export const userSignIn = (email, password) => ({
-  type: 'USER_SIGN_IN',
-  email,
-  password,
+export const removeCurrentUser = () => ({
+  type: 'REMOVE_CURRENT_USER',
 });
 
-export const startUserSignIn = (userCredentials) => {
-  const { email, password } = userCredentials;
+export const userUpdate = (updates) => ({
+  type: 'USER_UPDATE',
+  updates,
+});
 
+export const startUserUpdate = (id, updates) => {
   return (dispatch) => {
     axios({
-      method: 'post',
-      url: '/auth/signin',
-      data: {
-        email,
-        password,
-      },
+      method: 'put',
+      url: `/users/${id}`,
+      data: { ...updates },
     })
       .then((response) => {
         if (response.status === 200) {
           dispatch(loadTodoSuccess(response.data));
+          dispatch(userUpdate({ ...updates }));
         } else {
           dispatch(loadTodoError(response.error));
         }
