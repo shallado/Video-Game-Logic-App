@@ -3,11 +3,10 @@ import { Formik, Field, Form, ErrorMessage } from 'formik';
 import { SingleDatePicker } from 'react-dates';
 import moment from 'moment';
 import * as Yup from 'yup';
-import ErrorNotification from './ErrorNotification';
 
 export default class UserForm extends Component {
   state = {
-    birthday: moment(),
+    birthday: this.props.user ? moment(this.props.user.birthday) : moment(),
     focused: false,
     error: undefined,
   };
@@ -68,20 +67,32 @@ export default class UserForm extends Component {
   );
 
   handleSubmit = (userInfo) => {
-    this.props.handleSubmit({
+    const user = {
       ...userInfo,
       birthday: this.state.birthday.format('YYYY-MM-DD'),
-    });
+    };
+
+    if (this.props.user) {
+      const userKeys = Object.keys(user);
+
+      for (let key of userKeys) {
+        if (user[key] !== this.props.user[key]) {
+          return this.props.handleSubmit(user);
+        }
+      }
+    }
+
+    this.props.handleSubmit(user);
   };
 
   render() {
     const formInitialValues = {
-      username: '',
-      password: '',
-      email: '',
-      city: '',
-      zipcode: '',
-      gender: 'select',
+      username: this.props.user ? this.props.user.username : '',
+      password: this.props.user ? this.props.user.password : '',
+      email: this.props.user ? this.props.user.email : '',
+      city: this.props.user ? this.props.user.city : '',
+      zipcode: this.props.user ? this.props.user.zipcode : '',
+      gender: this.props.user ? this.props.user.gender : 'select',
     };
 
     const passwordCriteria =
@@ -152,10 +163,11 @@ export default class UserForm extends Component {
             </Field>
             <ErrorMessage name="gender" />
             {this.state.error && <p>{this.state.error}</p>}
-            <button type="submit">Sign Up</button>
+            <button type="submit">
+              {this.props.match.path === '/signup' ? 'Sign Up' : 'Update'}
+            </button>
           </Form>
         </Formik>
-        <ErrorNotification />
       </div>
     );
   }
