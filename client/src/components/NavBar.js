@@ -21,7 +21,7 @@ class NavBar extends Component {
         <div>
           <p>VLG Icon</p>
           <ul>
-            <NavLink to="/dashboard">Home</NavLink>
+            <NavLink to="/">Home</NavLink>
             <NavLink to="/nintendo">Nintendo</NavLink>
             <NavLink to="/playstation">PlayStation</NavLink>
             <NavLink to="/xbox">Xbox</NavLink>
@@ -36,7 +36,7 @@ class NavBar extends Component {
         <div onMouseEnter={this.openModal} onMouseLeave={this.closeModal}>
           <img
             src="/img/default-profile-photo.jpeg"
-            alt="default profile photo"
+            alt="profile photo"
             height="24"
             width="24"
           ></img>

@@ -1,7 +1,15 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Link, withRouter } from 'react-router-dom';
 import Modal from 'react-modal';
+import { startSignOut } from '../actions/auth';
 
-export default class AccountModal extends Component {
+class AccountModal extends Component {
+  handleSignOut = () => {
+    this.props.startSignOut();
+    this.props.history.push('/');
+  };
+
   componentDidMount() {
     Modal.setAppElement('body');
   }
@@ -15,15 +23,23 @@ export default class AccountModal extends Component {
         <p>User Name</p>
         <ul>
           <ion-icon name="person"></ion-icon>
-          <li>Account</li>
+          <li>
+            <Link to="/account">Account</Link>
+          </li>
           <ion-icon name="cloud-upload"></ion-icon>
           <li>Upload</li>
           <ion-icon name="chatbubbles"></ion-icon>
           <li>Game Reviews</li>
           <ion-icon name="log-out"></ion-icon>
-          <li>Sign Out</li>
+          <li onClick={this.handleSignOut}>Sign Out</li>
         </ul>
       </Modal>
     );
   }
 }
+
+const mapDispatchToProps = (dispatch) => ({
+  startSignOut: () => dispatch(startSignOut()),
+});
+
+export default withRouter(connect(null, mapDispatchToProps)(AccountModal));
