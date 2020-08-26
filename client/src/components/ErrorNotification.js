@@ -5,6 +5,12 @@ import { hideError } from '../actions/error';
 
 class ErrorNotification extends Component {
   handleClose = () => {
+    if (!this.props.errorInfo && this.props.match.path === '/signup') {
+      this.props.signUpSuccessRedirect();
+    } else if (!this.props.errorInfo && this.props.match.path === '/account') {
+      this.props.updateSuccessRedirect();
+    }
+
     this.props.hideError();
   };
 
@@ -13,11 +19,21 @@ class ErrorNotification extends Component {
   }
 
   render() {
-    const { isOpen, errorInfo } = this.props.error;
+    let successMessage;
+
+    if (this.props.match.path === '/signup') {
+      successMessage = 'Successfully completed user signup';
+    } else {
+      successMessage = 'Successfully updated user account';
+    }
 
     return (
-      <Modal isOpen={isOpen} onRequestClose={this.handleClose}>
-        {errorInfo && <p>{errorInfo.message}</p>}
+      <Modal isOpen={this.props.isOpen} onRequestClose={this.handleClose}>
+        {this.props.errorInfo ? (
+          <p>{this.props.errorInfo.message}</p>
+        ) : (
+          <p>{successMessage}</p>
+        )}
         <button onClick={this.handleClose}>X</button>
       </Modal>
     );
@@ -25,7 +41,8 @@ class ErrorNotification extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  error: state.error,
+  errorInfo: state.error.errorInfo,
+  isOpen: state.error.isOpen,
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -4,7 +4,7 @@ const initialState = {
 };
 
 const errorReducer = (state = initialState, action) => {
-  const { error } = action;
+  const { error, data } = action;
 
   if (error) {
     return {
@@ -13,8 +13,11 @@ const errorReducer = (state = initialState, action) => {
     };
   } else if (action.type === 'HIDE_ERROR') {
     return {
-      errorInfo: error,
       isOpen: false,
+    };
+  } else if (data) {
+    return {
+      isOpen: true,
     };
   }
 
