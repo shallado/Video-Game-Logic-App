@@ -1,5 +1,8 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch } from 'react-router-dom';
+import PrivateRoute from './PrivateRoute';
+import PublicRoute from './PublicRoute';
+import AccountPage from '../pages/AccountPage';
 import DashBoardPage from '../pages/DashBoardPage';
 import HomePage from '../pages/HomePage';
 import MyListPage from '../pages/MyListPage';
@@ -10,15 +13,16 @@ import SignUpPage from '../pages/SignUpPage';
 const AppRouter = () => (
   <BrowserRouter>
     <Switch>
-      <Route path="/" component={HomePage} exact={true} />
-      <Route path="/dashboard" component={DashBoardPage} />
-      <Route path="/nintendo" component={PlatformPage} />
-      <Route path="/playstation" component={PlatformPage} />
-      <Route path="/xbox" component={PlatformPage} />
-      <Route path="/pc" component={PlatformPage} />
-      <Route path="/list" component={MyListPage} />
-      <Route path="/signin" component={SignInPage} />
-      <Route path="/signup" component={SignUpPage} />
+      <PublicRoute path="/" component={HomePage} exact={true} />
+      <PrivateRoute path="/account" component={AccountPage} />
+      <PrivateRoute path="/dashboard" component={DashBoardPage} />
+      <PrivateRoute path="/nintendo" component={PlatformPage} />
+      <PrivateRoute path="/playstation" component={PlatformPage} />
+      <PrivateRoute path="/xbox" component={PlatformPage} />
+      <PrivateRoute path="/pc" component={PlatformPage} />
+      <PrivateRoute path="/list" component={MyListPage} />
+      <PublicRoute path="/signin" component={SignInPage} />
+      <PublicRoute path="/signup" component={SignUpPage} />
     </Switch>
   </BrowserRouter>
 );
