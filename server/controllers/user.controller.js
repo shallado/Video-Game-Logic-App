@@ -110,9 +110,33 @@ exports.signIn = (req, res) => {
       const userId = data;
 
       jwt.sign({ userId }, secretKey, (err, token) => {
-        User.update(userId, { token }).then(() => {
-          res.send('Login Successful');
-        });
+        User.addJWTToken(userId, token)
+          .then(() => User.find(userId))
+          .then((userInfo) => {
+            const {
+              username,
+              email,
+              city,
+              zipcode,
+              birthday,
+              gender,
+              _id: id,
+            } = userInfo;
+
+            res.send({
+              message: 'Successfully logged in',
+              data: {
+                token,
+                username,
+                email,
+                city,
+                zipcode,
+                birthday,
+                gender,
+                id,
+              },
+            });
+          });
       });
     })
     .catch((err) => {
