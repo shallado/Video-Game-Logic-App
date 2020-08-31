@@ -3,14 +3,15 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import AppRouter from './routers/AppRouter';
 import configStore from './store/configStore';
-import * as serviceWorker from './serviceWorker';
+import { saveState } from './utils/localStorage';
 import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
+import * as serviceWorker from './serviceWorker';
 
 const store = configStore();
 
 store.subscribe(() => {
-  console.log(store.getState());
+  saveState(store.getState());
 });
 
 const jsx = (
