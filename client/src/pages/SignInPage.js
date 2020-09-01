@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { startUserSignIn } from '../actions/user';
+import { startSignIn } from '../actions/auth';
+import { hideError } from '../actions/error';
 import ErrorNotification from '../components/ErrorNotification';
 
 class SignInPage extends Component {
   handleSubmit = (userCredentials) => {
-    this.props.startUserSignIn(userCredentials);
-    this.props.history.push('/dashboard');
+    this.props.startSignIn(userCredentials);
+    this.props.hideError();
   };
 
   render() {
@@ -39,18 +40,21 @@ class SignInPage extends Component {
             <label htmlFor="password">password</label>
             <Field type="password" name="password" />
             <ErrorMessage name="password" />
-            <button>Sign In</button>
+            <button type="submit">Sign In</button>
           </Form>
         </Formik>
-        <ErrorNotification />
+        <ErrorNotification
+          signInSuccessRedirect={() => this.props.history.push('/dashboard')}
+          match={this.props.match}
+        />
       </div>
     );
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  startUserSignIn: (userCredentials) =>
-    dispatch(startUserSignIn(userCredentials)),
+  startSignIn: (userCredentials) => dispatch(startSignIn(userCredentials)),
+  hideError: () => dispatch(hideError()),
 });
 
 export default connect(null, mapDispatchToProps)(SignInPage);
