@@ -27,7 +27,9 @@ class AccountModal extends Component {
             <Link to="/account">Account</Link>
           </li>
           <ion-icon name="cloud-upload"></ion-icon>
-          <li>Upload</li>
+          <li>
+            <Link to="/upload">Upload</Link>
+          </li>
           <ion-icon name="chatbubbles"></ion-icon>
           <li>Game Reviews</li>
           <ion-icon name="log-out"></ion-icon>

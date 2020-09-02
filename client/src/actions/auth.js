@@ -62,6 +62,7 @@ export const startSignIn = (userCredentials) => {
             gender,
             id,
             token,
+            profilePhoto,
           } = response.data.data;
 
           dispatch(
@@ -74,6 +75,7 @@ export const startSignIn = (userCredentials) => {
               birthday,
               gender,
               token,
+              profilePhoto,
             })
           );
           dispatch(signIn(id));

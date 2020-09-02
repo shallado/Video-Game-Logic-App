@@ -121,6 +121,7 @@ exports.signIn = (req, res) => {
               birthday,
               gender,
               _id: id,
+              profilePhoto,
             } = userInfo;
 
             res.send({
@@ -134,6 +135,7 @@ exports.signIn = (req, res) => {
                 birthday,
                 gender,
                 id,
+                profilePhoto,
               },
             });
           });

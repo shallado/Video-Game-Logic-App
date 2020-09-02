@@ -9,11 +9,14 @@ import MyListPage from '../pages/MyListPage';
 import PlatformPage from '../pages/PlatformPage';
 import SignInPage from '../pages/SignInPage';
 import SignUpPage from '../pages/SignUpPage';
+import UploadImagePage from '../pages/UploadImagePage';
 
 const AppRouter = () => (
   <BrowserRouter>
     <Switch>
       <PublicRoute path="/" component={HomePage} exact={true} />
+      <PublicRoute path="/signin" component={SignInPage} />
+      <PublicRoute path="/signup" component={SignUpPage} />
       <PrivateRoute path="/account" component={AccountPage} />
       <PrivateRoute path="/dashboard" component={DashBoardPage} />
       <PrivateRoute path="/nintendo" component={PlatformPage} />
@@ -21,8 +24,7 @@ const AppRouter = () => (
       <PrivateRoute path="/xbox" component={PlatformPage} />
       <PrivateRoute path="/pc" component={PlatformPage} />
       <PrivateRoute path="/list" component={MyListPage} />
-      <PublicRoute path="/signin" component={SignInPage} />
-      <PublicRoute path="/signup" component={SignUpPage} />
+      <PrivateRoute path="/upload" component={UploadImagePage} />
     </Switch>
   </BrowserRouter>
 );

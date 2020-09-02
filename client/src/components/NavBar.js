@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import AccountModal from './AccountModal';
 
@@ -35,7 +36,7 @@ class NavBar extends Component {
         </form>
         <div onMouseEnter={this.openModal} onMouseLeave={this.closeModal}>
           <img
-            src="/img/default-profile-photo.jpeg"
+            src={this.props.user.profilePhoto}
             alt="profile photo"
             height="24"
             width="24"
@@ -51,4 +52,8 @@ class NavBar extends Component {
   }
 }
 
-export default NavBar;
+const mapStateToProps = (state) => ({
+  user: state.user,
+});
+
+export default connect(mapStateToProps)(NavBar);
