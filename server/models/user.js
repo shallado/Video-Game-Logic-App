@@ -15,7 +15,8 @@ const userModel = (db, Int32, ObjectID) => {
         gender,
       } = userInfo;
 
-      const defaultProfilePhoto = `https://storage.cloud.google.com/${this.bucket}/default-profile-photo.jpeg`;
+      const defaultProfilePhoto =
+        'https://storage.googleapis.com/vgl-app.appspot.com/default-profile-photo.jpeg';
 
       this.username = username;
       this.password = password;
@@ -164,7 +165,10 @@ const userModel = (db, Int32, ObjectID) => {
           },
           { w: 1, j: 1 }
         )
-        .then((data) => data);
+        .then((data) => ({
+          ...data,
+          path,
+        }));
     }
   }
 

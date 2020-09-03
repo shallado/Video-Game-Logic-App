@@ -16,7 +16,6 @@ class CustomStorage {
       if (errOne) {
         return cb(errOne, null);
       }
-
       // handles the image data so it can be stored in google cloud storage
       this.getFilename(req, file, (errTwo, filename) => {
         if (errTwo) {

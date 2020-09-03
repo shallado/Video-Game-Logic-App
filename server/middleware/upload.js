@@ -1,10 +1,9 @@
 const multer = require('multer');
 const CustomStorage = require('../utils/customStorage');
-const { bucketName } = require('../config/googleCloudStorage');
 
 const storage = new CustomStorage({
   destination(req, file, cb) {
-    cb(null, bucketName);
+    cb(null, 'vgl-app.appspot.com');
   },
   filename(req, file, cb) {
     cb(null, `${req.params.id}-${file.fieldname}-${Date.now()}.jpg`);
