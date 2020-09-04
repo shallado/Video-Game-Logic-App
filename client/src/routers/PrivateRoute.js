@@ -8,7 +8,7 @@ const PrivateRoute = ({ isAuthenticated, component: Component, ...rest }) => (
     {...rest}
     component={(props) =>
       isAuthenticated ? (
-        props.match.path === '/account' ? (
+        props.match.path === '/account' || props.match.path === '/upload' ? (
           <Component {...props} />
         ) : (
           <div>
