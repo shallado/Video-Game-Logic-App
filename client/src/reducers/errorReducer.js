@@ -1,4 +1,5 @@
 const initialState = {
+  data: null,
   errorInfo: null,
   isOpen: false,
 };
@@ -17,6 +18,7 @@ const errorReducer = (state = initialState, action) => {
     };
   } else if (data) {
     return {
+      data,
       isOpen: true,
     };
   }
