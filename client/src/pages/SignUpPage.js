@@ -13,10 +13,7 @@ class SignUpPage extends Component {
     return (
       <div>
         <UserForm handleSubmit={this.handleSubmit} match={this.props.match} />
-        <ErrorNotification
-          signUpSuccessRedirect={() => this.props.history.push('/')}
-          match={this.props.match}
-        />
+        <ErrorNotification />
       </div>
     );
   }

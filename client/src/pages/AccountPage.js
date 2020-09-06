@@ -6,8 +6,6 @@ import { startUserUpdate } from '../actions/user';
 
 export class AccountPage extends Component {
   handleSubmit = (updates) => {
-    console.log('test');
-    console.log(updates);
     this.props.startUserUpdate(this.props.user.id, updates);
   };
 
@@ -21,7 +19,6 @@ export class AccountPage extends Component {
           match={this.props.match}
         />
         <ErrorNotification
-          match={this.props.match}
           updateSuccessRedirect={() => this.props.history.push('/')}
         />
       </div>

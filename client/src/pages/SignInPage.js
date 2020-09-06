@@ -45,7 +45,6 @@ class SignInPage extends Component {
         </Formik>
         <ErrorNotification
           signInSuccessRedirect={() => this.props.history.push('/dashboard')}
-          match={this.props.match}
         />
       </div>
     );
