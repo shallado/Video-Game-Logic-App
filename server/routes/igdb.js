@@ -5,7 +5,7 @@ const Router = express.Router();
 
 // handle all http requests to the third party api igdb
 const igdbRouter = (app) => {
-  Router.get('/', igdbController.find);
+  Router.post('/', igdbController.find);
 
   app.use('/igdb', Router);
 };

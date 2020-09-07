@@ -1,6 +1,3 @@
-const axios = require('axios');
-const { apiKey } = require('../config/igdb');
-
 // find featured game depending on input criteria
 const queryGamesInfo = (page, type, genre) => {
   const limit = type === 'featured' ? ' limit 2' : 'limit 40';

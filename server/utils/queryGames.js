@@ -1,29 +1,35 @@
 const axios = require('axios');
-const { apiKey } = require('../config/igdb');
+const { clientId, token } = require('../config/igdb');
 
 // find games depending on queryInfo given
 const queryGames = (queryInfo) => {
   // communicates to a third party api igdb which is a video game database
   return axios({
     method: 'post',
-    url: 'https://api-v3.igdb.com/games',
+    url: 'https://api.igdb.com/v4/games',
     headers: {
-      'user-key': apiKey,
+      'accept': 'application/json',
+      'Client-ID': clientId,
+      'Authorization': token,
     },
     data: queryInfo,
   })
     .then((results) => results.data)
     .catch((err) => {
+      let error;
+
       if (err.response) {
-        return {
+        error = {
           data: err.response.data,
           status: err.response.status,
         };
       } else if (err.request) {
-        return err.request;
+        error = err.request;
       } else {
-        return err.message;
+        error = err.message;
       }
+
+      return error;
     });
 };
 
