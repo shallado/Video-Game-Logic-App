@@ -1,8 +1,9 @@
 import React from 'react';
+import Header from '../components/Header';
 
 const DashBoardPage = (props) => (
   <div>
-    <h1>DashBoardPage</h1>
+    <Header />
   </div>
 );
 
