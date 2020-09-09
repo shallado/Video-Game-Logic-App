@@ -9,7 +9,7 @@ const queryGamesInfo = (page, type, genre) => {
   query += platform;
   query += genreInfo;
 
-  const data = `${query};${sortBy}${limit}; fields name, summary, cover.url, videos.video_id, age_ratings.rating, involved_companies.company.name, genres.name, platforms.name;`;
+  const data = `${query};${sortBy}${limit}; fields name, summary, cover.url, videos.video_id, videos.name, screenshots.url, age_ratings.rating, involved_companies.company.name, genres.name, platforms.name;`;
 
   return data;
 };
