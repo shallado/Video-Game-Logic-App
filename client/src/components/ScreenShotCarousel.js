@@ -11,7 +11,6 @@ const settings = {
 const ScreenShotCarousel = (props) => (
   <Slider {...settings}>
     {props.gameInfo.screenshots.map(({ id, url }) => {
-      console.log(url);
       return (
         <div key={id}>
           <img src={url.replace('thumb', 'logo_med')} />
