@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { startGetFeatureGames } from '../actions/game';
+import { startGetGames } from '../actions/game';
 import VideoGameCard from './VideoGameCard';
 
 class VideoGameCategory extends Component {
   state = {
-    categoryGames: '',
     genre: '',
-    ratingScale: {},
+    ratingScale: undefined,
   };
 
   componentDidMount() {
@@ -94,48 +93,45 @@ class VideoGameCategory extends Component {
         page = '';
     }
 
-    this.props
-      .startGetFeatureGames(page, 'category', genre[this.props.categoryNum])
-      .then((data) => {
-        this.setState(() => ({
-          categoryGames: data,
-          genre: genre[this.props.genreNum],
-          ratingScale,
-        }));
-        console.log(this.state.categoryGames);
-      });
+    this.props.startGetGames(page, 'category', genre[this.props.categoryNum]);
+    this.setState(() => ({
+      genre: genre[this.props.genreNum],
+      ratingScale,
+    }));
+    console.log(this.props.categoryGames);
   }
 
   render() {
-    if (this.state.categoryGames) {
-      return (
-        <div>
-          <h3>{this.state.genre}</h3>
-          <ion-icon name="caret-back"></ion-icon>
-          {this.state.categoryGames.map((game) => {
-            const { age_ratings } = game;
-            if (age_ratings) {
-              for (let age_rating of age_ratings) {
-                age_rating.rating = this.state.ratingScale.get(
-                  age_rating.rating
-                );
-              }
-            }
+    return (
+      <div>
+        <h3>{this.state.genre}</h3>
+        <ion-icon name="caret-back"></ion-icon>
+        {this.props.categoryGames.map((game) => {
+          const { age_ratings } = game;
 
-            return <VideoGameCard gameInfo={game} key={game.id} />;
-          })}
-          <ion-icon name="caret-forward"></ion-icon>
-        </div>
-      );
-    } else {
-      return <div>...Loading</div>;
-    }
+          if (age_ratings && this.state.ratingScale) {
+            for (let age_rating of age_ratings) {
+              age_rating.rating = this.state.ratingScale.get(age_rating.rating);
+            }
+          }
+
+          return <VideoGameCard gameInfo={game} key={game.id} />;
+        })}
+        <ion-icon name="caret-forward"></ion-icon>
+      </div>
+    );
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  startGetFeatureGames: (page, type, genre) =>
-    dispatch(startGetFeatureGames(page, type, genre)),
+const mapStateToProps = (state) => ({
+  categoryGames: state.game.categoryGames.data,
 });
 
-export default withRouter(connect(null, mapDispatchToProps)(VideoGameCategory));
+const mapDispatchToProps = (dispatch) => ({
+  startGetGames: (page, type, genre) =>
+    dispatch(startGetGames(page, type, genre)),
+});
+
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(VideoGameCategory)
+);

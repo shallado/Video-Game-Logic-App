@@ -1,11 +1,17 @@
 import axios from 'axios';
 import { loadTodoError } from './error';
 
-export const getFeatureGames = () => ({
+export const getFeatureGames = (featureGames) => ({
   type: 'GET_FEATURE_GAMES',
+  featureGames,
 });
 
-export const startGetFeatureGames = (page, type, genre = '') => {
+export const getCategoryGame = (categoryGames) => ({
+  type: 'GET_CATEGORY_GAMES',
+  categoryGames,
+});
+
+export const startGetGames = (page, type, genre = '') => {
   return (dispatch) => {
     return axios({
       method: 'post',
@@ -16,7 +22,13 @@ export const startGetFeatureGames = (page, type, genre = '') => {
         genre,
       },
     })
-      .then((data) => data.data)
+      .then((data) => {
+        if (type === 'featured') {
+          dispatch(getFeatureGames(data));
+        } else {
+          dispatch(getCategoryGame(data));
+        }
+      })
       .catch((err) => {
         let error;
 

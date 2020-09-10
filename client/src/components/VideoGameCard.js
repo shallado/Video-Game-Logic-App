@@ -7,17 +7,14 @@ class VideoGameCard extends Component {
   };
 
   handleMouseEnter = () => {
-    console.log('enter');
     this.setState(() => ({ hover: true }));
   };
 
   handleMouseLeave = () => {
-    console.log('leave');
     this.setState(() => ({ hover: false }));
   };
 
   render() {
-    console.log(this.props.gameInfo);
     return (
       <div>
         {this.state.hover ? (

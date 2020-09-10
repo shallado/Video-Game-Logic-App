@@ -3,7 +3,6 @@ import Slider from 'react-slick';
 
 const settings = {
   infinite: true,
-  speed: 300,
   slidesToShow: 1,
   slidesToScroll: 1,
   autoplay: true,
@@ -11,11 +10,14 @@ const settings = {
 
 const ScreenShotCarousel = (props) => (
   <Slider {...settings}>
-    {props.gameInfo.screenshots.map(({ id, url }) => (
-      <div key={id}>
-        <img src={url.replace('thumb', 'logo_med')} />
-      </div>
-    ))}
+    {props.gameInfo.screenshots.map(({ id, url }) => {
+      console.log(url);
+      return (
+        <div key={id}>
+          <img src={url.replace('thumb', 'logo_med')} />
+        </div>
+      );
+    })}
   </Slider>
 );
 
