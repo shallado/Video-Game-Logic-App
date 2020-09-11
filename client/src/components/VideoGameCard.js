@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ScreenShotCarousel from './ScreenShotCarousel';
+import PlayOptionsModal from './PlayOptionsModal';
 
 class VideoGameCard extends Component {
   state = {
@@ -24,7 +25,7 @@ class VideoGameCard extends Component {
             </div>
             <div>
               <div>
-                <ion-icon name="caret-forward-circle"></ion-icon>
+                <PlayOptionsModal gameInfo={this.props.gameInfo} />
                 <ion-icon name="information-circle"></ion-icon>
                 <ion-icon name="add-circle"></ion-icon>
               </div>

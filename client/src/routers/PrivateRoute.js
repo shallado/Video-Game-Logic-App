@@ -6,9 +6,11 @@ import NavBar from '../components/NavBar';
 const PrivateRoute = ({ isAuthenticated, component: Component, ...rest }) => (
   <Route
     {...rest}
-    component={(props) =>
-      isAuthenticated ? (
-        props.match.path === '/account' || props.match.path === '/upload' ? (
+    component={(props) => {
+      return isAuthenticated ? (
+        props.match.path === '/account' ||
+        props.match.path === '/upload' ||
+        props.match.path === '/watch/:id' ? (
           <Component {...props} />
         ) : (
           <div>
@@ -18,8 +20,8 @@ const PrivateRoute = ({ isAuthenticated, component: Component, ...rest }) => (
         )
       ) : (
         <Redirect to="/" />
-      )
-    }
+      );
+    }}
   />
 );
 

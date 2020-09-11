@@ -10,6 +10,7 @@ import PlatformPage from '../pages/PlatformPage';
 import SignInPage from '../pages/SignInPage';
 import SignUpPage from '../pages/SignUpPage';
 import UploadImagePage from '../pages/UploadImagePage';
+import WatchPage from '../pages/WatchPage';
 
 const AppRouter = () => (
   <BrowserRouter>
@@ -25,6 +26,7 @@ const AppRouter = () => (
       <PrivateRoute path="/pc" component={PlatformPage} />
       <PrivateRoute path="/list" component={MyListPage} />
       <PrivateRoute path="/upload" component={UploadImagePage} />
+      <PrivateRoute path="/watch/:id" component={WatchPage} />
     </Switch>
   </BrowserRouter>
 );
