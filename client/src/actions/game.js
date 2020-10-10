@@ -23,6 +23,36 @@ export const startGetGames = (page, type, genre = '') => {
       },
     })
       .then((data) => {
+        const ratingScale = new Map();
+        const gameRating = [
+          'Three',
+          'Seven',
+          'Twelve',
+          'Sixteen',
+          'Eighteen',
+          'RP',
+          'EC',
+          'E',
+          'E10',
+          'T',
+          'M',
+          'AO',
+        ];
+
+        for (let i = 1; i < 13; i++) {
+          ratingScale.set(i, gameRating[i - 1]);
+        }
+
+        for (let userInfo of data.data) {
+          const { age_ratings } = userInfo;
+
+          if (age_ratings) {
+            for (let age_rating of age_ratings) {
+              age_rating.rating = ratingScale.get(age_rating.rating);
+            }
+          }
+        }
+
         if (type === 'featured') {
           dispatch(getFeatureGames(data));
         } else {
