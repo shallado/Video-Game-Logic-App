@@ -13,24 +13,7 @@ const queryGames = (queryInfo) => {
       'Authorization': token,
     },
     data: queryInfo,
-  })
-    .then((results) => results.data)
-    .catch((err) => {
-      let error;
-
-      if (err.response) {
-        error = {
-          data: err.response.data,
-          status: err.response.status,
-        };
-      } else if (err.request) {
-        error = err.request;
-      } else {
-        error = err.message;
-      }
-
-      return error;
-    });
+  }).then((results) => results.data);
 };
 
 module.exports = queryGames;

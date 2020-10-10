@@ -8,5 +8,15 @@ exports.find = (req, res) => {
 
   queryGames(queryInfo)
     .then((data) => res.send(data))
-    .catch((err) => res.status(500).send(err));
+    .catch((err) => {
+      let error;
+
+      if (err.request) {
+        error = err.request;
+      } else {
+        error = err.message;
+      }
+
+      res.status(500).send(error);
+    });
 };
