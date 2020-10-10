@@ -12,6 +12,7 @@
     "react": "^16.13.1",
     "react-dates": "^21.8.0",
     "react-dom": "^16.13.1",
+    "react-map-gl": "^5.2.9",
     "react-modal": "^3.11.2",
     "react-player": "^2.6.2",
     "react-redux": "^7.2.1",

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import PlayOptionsModal from './PlayOptionsModal';
+import MoreInfoModal from './MoreInfoModal';
 import { startGetGames } from '../actions/game';
 
 class Header extends Component {
@@ -46,8 +47,7 @@ class Header extends Component {
           <PlayOptionsModal gameInfo={this.props.featureGames[0]} />
         </div>
         <div>
-          <ion-icon name="information-circle"></ion-icon>
-          <button>More Info</button>
+          <MoreInfoModal gameInfo={this.props.featureGames[0]} />
         </div>
       </div>
     );
