@@ -3,7 +3,7 @@
 const videoGameModel = (db) => {
   class VideoGame {
     constructor(title) {
-      this.title = title;
+      this.title = title.toLowerCase();
     }
 
     create() {
@@ -12,6 +12,15 @@ const videoGameModel = (db) => {
       return db
         .collection('videoGames')
         .insertOne(doc, { w: 1, j: true })
+        .then((results) => results);
+    }
+
+    findOne() {
+      const doc = { title: this.title };
+
+      return db
+        .collection('videoGames')
+        .findOne(doc)
         .then((results) => results);
     }
   }
