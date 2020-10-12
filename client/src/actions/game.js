@@ -74,3 +74,8 @@ export const startGetGames = (page, type, genre = '') => {
       });
   };
 };
+
+export const setCurrentGame = (currentGame) => ({
+  type: 'SET_CURRENT_GAME',
+  currentGame,
+});

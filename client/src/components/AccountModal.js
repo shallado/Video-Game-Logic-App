@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import Modal from 'react-modal';
+import UserReviewsModal from './UserReviewsModal';
 import { startSignOut } from '../actions/auth';
 
 class AccountModal extends Component {
@@ -30,8 +31,7 @@ class AccountModal extends Component {
           <li>
             <Link to="/upload">Upload</Link>
           </li>
-          <ion-icon name="chatbubbles"></ion-icon>
-          <li>Game Reviews</li>
+          <UserReviewsModal />
           <ion-icon name="log-out"></ion-icon>
           <li onClick={this.handleSignOut}>Sign Out</li>
         </ul>
