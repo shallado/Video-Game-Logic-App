@@ -1,14 +1,21 @@
 import axios from 'axios';
-import { loadTodoError, loadTodoSuccess } from './error';
+import { loadTodoError } from './error';
 
-export const startGetMapLocations = () => {
+const setMapLocations = (locationsInfo) => ({
+  type: 'SET_MAP_LOCATIONS',
+  locationsInfo,
+});
+
+export const startSetMapLocations = () => {
   return (dispatch) => {
     axios({
       method: 'get',
       url: '/map',
     })
       .then((data) => {
-        dispatch(loadTodoSuccess(data.data));
+        const locationsInfo = data.data;
+
+        dispatch(setMapLocations(locationsInfo));
       })
       .catch((err) => {
         let error;

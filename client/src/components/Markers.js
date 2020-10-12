@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { Marker, Popup } from 'react-map-gl';
 
 const Markers = (props) => {
@@ -39,8 +38,4 @@ const Markers = (props) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  locationsInfo: state.error.data,
-});
-
-export default connect(mapStateToProps)(Markers);
+export default Markers;

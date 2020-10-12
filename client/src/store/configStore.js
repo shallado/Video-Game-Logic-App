@@ -4,6 +4,7 @@ import thunk from 'redux-thunk';
 import authReducer from '../reducers/authReducer';
 import gameReducer from '../reducers/gameReducer';
 import errorReducer from '../reducers/errorReducer';
+import mapReducer from '../reducers/mapReducer';
 import userReducer from '../reducers/userReducer';
 import { loadState } from '../utils/localStorage';
 
@@ -14,6 +15,7 @@ const configStore = () => {
     error: errorReducer,
     game: gameReducer,
     user: userReducer,
+    map: mapReducer,
   });
   const store = createStore(
     rootReducer,

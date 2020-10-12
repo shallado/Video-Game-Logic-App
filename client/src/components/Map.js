@@ -6,7 +6,7 @@ import ReactMapGL, {
   FlyToInterpolator,
 } from 'react-map-gl';
 import Markers from './Markers';
-import { startGetMapLocations } from '../actions/map';
+import { startSetMapLocations } from '../actions/map';
 import mapboxConfig from '../config/mapbox';
 
 class Map extends Component {
@@ -53,7 +53,7 @@ class Map extends Component {
   };
 
   componentDidMount() {
-    this.props.startGetMapLocations();
+    this.props.startSetMapLocations();
   }
 
   render() {
@@ -99,6 +99,7 @@ class Map extends Component {
             selectedMarker={this.state.selectedMarker}
             handleOpenPopup={this.handleOpenPopup}
             handleOnClose={this.handleOpenPopup}
+            locationsInfo={this.props.locationsInfo}
           />
         </ReactMapGL>
       </div>
@@ -107,11 +108,11 @@ class Map extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  locationsInfo: state.error.data,
+  locationsInfo: state.map.locationsInfo,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  startGetMapLocations: () => dispatch(startGetMapLocations()),
+  startSetMapLocations: () => dispatch(startSetMapLocations()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Map);
