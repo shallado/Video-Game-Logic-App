@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Slider from 'react-slick';
 
 const settings = {
@@ -10,7 +11,7 @@ const settings = {
 
 const ScreenShotCarousel = (props) => (
   <Slider {...settings}>
-    {props.gameInfo.screenshots.map(({ id, url }) => {
+    {props.currentGame.screenshots.map(({ id, url }) => {
       return (
         <div key={id}>
           <img src={url.replace('thumb', 'logo_med')} />
@@ -20,4 +21,8 @@ const ScreenShotCarousel = (props) => (
   </Slider>
 );
 
-export default ScreenShotCarousel;
+const mapStateToProps = (state) => ({
+  currentGame: state.game.currentGame,
+});
+
+export default connect(mapStateToProps)(ScreenShotCarousel);

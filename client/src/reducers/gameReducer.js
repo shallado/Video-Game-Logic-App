@@ -1,8 +1,7 @@
-import { startGetFeatureGames } from '../actions/game';
-
 const initialState = {
   featureGames: '',
   categoryGames: '',
+  currentGame: {},
 };
 
 const gameReducer = (state = initialState, action) => {
@@ -16,6 +15,11 @@ const gameReducer = (state = initialState, action) => {
       return {
         ...state,
         categoryGames: action.categoryGames,
+      };
+    case 'SET_CURRENT_GAME':
+      return {
+        ...state,
+        currentGame: action.currentGame,
       };
     default:
       return state;

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Modal from 'react-modal';
 
-export default class PlayOptionsModal extends Component {
+class PlayOptionsModal extends Component {
   state = {
     modalIsOpen: false,
   };
@@ -29,10 +30,10 @@ export default class PlayOptionsModal extends Component {
           onRequestClose={this.handleCloseModal}
         >
           <h4>Play Options</h4>
-          {this.props.gameInfo.videos === 'undefined' ? (
+          {this.props.currentGame.videos === 'undefined' ? (
             <p>Unavailable Videos</p>
           ) : (
-            this.props.gameInfo.videos.map(({ id, name, video_id }) => (
+            this.props.currentGame.videos.map(({ id, name, video_id }) => (
               <Link to={`/watch/${video_id}`} key={id}>
                 <p>{name}</p>
               </Link>
@@ -44,3 +45,9 @@ export default class PlayOptionsModal extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  currentGame: state.game.currentGame,
+});
+
+export default connect(mapStateToProps)(PlayOptionsModal);
