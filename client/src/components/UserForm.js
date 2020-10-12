@@ -8,7 +8,6 @@ export default class UserForm extends Component {
   state = {
     birthday: this.props.user ? moment(this.props.user.birthday) : moment(),
     focused: false,
-    error: undefined,
   };
 
   handleDateChange = (date) => {
@@ -162,7 +161,6 @@ export default class UserForm extends Component {
               <option value="female">Female</option>
             </Field>
             <ErrorMessage name="gender" />
-            {this.state.error && <p>{this.state.error}</p>}
             <button type="submit">
               {this.props.match.path === '/signup' ? 'Sign Up' : 'Update'}
             </button>
