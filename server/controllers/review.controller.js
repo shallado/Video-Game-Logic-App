@@ -10,7 +10,7 @@ exports.create = (req, res) => {
 
   // creates reviews associated with a video game
   reviewInfo
-    .create(title)
+    .create(title.toLowerCase())
     .then(() => {
       return reviewInfo.addReview();
     })
