@@ -1,19 +1,25 @@
 const { VideoGame } = require('../models');
-const APIError = require('../utils/apiError');
-const httpStatusCodes = require('../utils/statusCodes');
 const databaseErrorHandling = require('../utils/databaseErrorHandling');
 
 // process user input in order to add videoGame info to database
 exports.create = (req, res) => {
   const { title } = req.body;
-
   const videoGame = new VideoGame(title);
 
   videoGame
-    .create()
+    .findOne()
+    .then((data) => {
+      if (!data) {
+        return videoGame.create();
+      }
+
+      res.send({
+        message: 'video game is in the database',
+      });
+    })
     .then((data) => {
       res.send({
-        message: 'successfully added videoGame',
+        message: 'successfully added video game',
         data: data.ops,
       });
     })

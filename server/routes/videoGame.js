@@ -7,7 +7,7 @@ const router = express.Router();
 const videoGameRouter = (app) => {
   router.post('/', videoGame.create);
 
-  app.use('/video-game', router);
+  app.use('/video-games', router);
 };
 
 module.exports = videoGameRouter;
