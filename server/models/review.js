@@ -1,5 +1,6 @@
 /* eslint-disable consistent-return */
 /* eslint-disable no-underscore-dangle */
+const util = require('util');
 const { Int32 } = require('mongodb');
 const APIError = require('../utils/apiError');
 const httpStatusCodes = require('../utils/statusCodes');
@@ -78,6 +79,7 @@ const reviewModel = (db, int32, ObjectID) => {
     // add a review to a existing video game document structure
     addReview() {
       const doc = {
+        _id: new ObjectID(),
         username: this.username,
         review: this.review,
       };
@@ -111,7 +113,50 @@ const reviewModel = (db, int32, ObjectID) => {
     static findAll(username) {
       return db
         .collection('reviews')
-        .find({ 'reviews.username': username })
+        .aggregate([
+          {
+            $match: {
+              'reviews.username': username,
+            },
+          },
+          {
+            $project: {
+              _id: 0,
+              videoGameId: 1,
+              reviews: {
+                $filter: {
+                  input: '$reviews',
+                  as: 'review',
+                  cond: {
+                    $regexMatch: {
+                      input: '$$review.username',
+                      regex: `${username}`,
+                    },
+                  },
+                },
+              },
+            },
+          },
+          {
+            $unwind: '$reviews',
+          },
+          {
+            $lookup: {
+              from: 'videoGames',
+              localField: 'videoGameId',
+              foreignField: '_id',
+              as: 'videoGame',
+            },
+          },
+          {
+            $project: {
+              'videoGame._id': 0,
+            },
+          },
+          {
+            $unwind: '$videoGame',
+          },
+        ])
         .toArray()
         .then((data) => data);
     }
