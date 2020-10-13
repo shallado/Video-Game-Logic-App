@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Modal from 'react-modal';
+import UserReviews from './UserReviews';
 
 export default class UserReviewsModal extends Component {
   state = {
@@ -25,12 +26,8 @@ export default class UserReviewsModal extends Component {
           isOpen={this.state.modalIsOpen}
           onRequestClose={this.handleCloseModal}
         >
-          <h4>Username Reviews</h4>
-          <div>
-            <h5>Game Title</h5>
-            <h6>Review Title</h6>
-            <p>Review</p>
-          </div>
+          <h4>User Reviews</h4>
+          <UserReviews />
         </Modal>
       </div>
     );

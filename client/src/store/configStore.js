@@ -5,6 +5,7 @@ import authReducer from '../reducers/authReducer';
 import gameReducer from '../reducers/gameReducer';
 import errorReducer from '../reducers/errorReducer';
 import mapReducer from '../reducers/mapReducer';
+import reviewReducer from '../reducers/reviewReducer';
 import userReducer from '../reducers/userReducer';
 import { loadState } from '../utils/localStorage';
 
@@ -14,6 +15,7 @@ const configStore = () => {
     auth: authReducer,
     error: errorReducer,
     game: gameReducer,
+    review: reviewReducer,
     user: userReducer,
     map: mapReducer,
   });

@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Modal from 'react-modal';
 import Map from './Map';
+import VideoGameReviews from './VideoGameReviews';
 import AddReviewModal from './AddReviewModal';
 import PlayOptionsModal from './PlayOptionsModal';
 import ScreenShotCarousel from './ScreenShotCarousel';
 import { setCurrentGame } from '../actions/game';
+import { startSetVideoGameReviews } from '../actions/review';
 
 class MoreInfoModal extends Component {
   state = {
@@ -101,6 +103,7 @@ class MoreInfoModal extends Component {
           <div>
             <h4>Reviews</h4>
             <AddReviewModal gameInfo={this.props.gameInfo} />
+            <VideoGameReviews />
           </div>
         </Modal>
       </div>
@@ -108,8 +111,14 @@ class MoreInfoModal extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  setCurrentGame: (currentGame) => dispatch(setCurrentGame(currentGame)),
+const mapStateToProps = (state) => ({
+  currentGame: state.game.currentGame,
 });
 
-export default connect(null, mapDispatchToProps)(MoreInfoModal);
+const mapDispatchToProps = (dispatch) => ({
+  setCurrentGame: (currentGame) => dispatch(setCurrentGame(currentGame)),
+  startSetVideoGameReviews: (title) =>
+    dispatch(startSetVideoGameReviews(title)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(MoreInfoModal);

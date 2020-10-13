@@ -1,6 +1,4 @@
 const { Review } = require('../models');
-const APIError = require('../utils/apiError');
-const httpStatusCodes = require('../utils/statusCodes');
 const databaseErrorHandling = require('../utils/databaseErrorHandling');
 
 // adds review to an associated video game
@@ -46,7 +44,7 @@ exports.create = (req, res) => {
 
 // finds reviews associated with a user
 exports.findAll = (req, res) => {
-  const { username } = req.body;
+  const { username } = req.query;
 
   Review.findAll(username)
     .then((data) => {
