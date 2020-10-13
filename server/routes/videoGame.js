@@ -7,6 +7,8 @@ const router = express.Router();
 const videoGameRouter = (app) => {
   router.post('/', videoGame.create);
 
+  router.get('/', videoGame.findOne);
+
   app.use('/video-games', router);
 };
 

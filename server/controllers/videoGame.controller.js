@@ -29,3 +29,28 @@ exports.create = (req, res) => {
       res.status(setError.httpStatus).send({ message: setError.description });
     });
 };
+
+exports.findOne = (req, res) => {
+  const { title } = req.query;
+  const videoGame = new VideoGame(title);
+
+  videoGame
+    .findOne()
+    .then((data) => {
+      if (data.length > 0) {
+        return res.send({
+          message: 'successfully found video game',
+          data,
+        });
+      }
+
+      res.status(404).send({
+        message: 'unable to find video game',
+      });
+    })
+    .catch((err) => {
+      const setError = databaseErrorHandling(err);
+
+      res.status(setError.httpStatus).send({ message: setError.description });
+    });
+};

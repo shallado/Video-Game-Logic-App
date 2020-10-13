@@ -16,12 +16,31 @@ const videoGameModel = (db) => {
     }
 
     findOne() {
-      const doc = { title: this.title };
-
       return db
         .collection('videoGames')
-        .findOne(doc)
-        .then((results) => results);
+        .aggregate([
+          {
+            $match: {
+              title: this.title,
+            },
+          },
+          {
+            $lookup: {
+              from: 'reviews',
+              localField: '_id',
+              foreignField: 'videoGameId',
+              as: 'videoGameReviews',
+            },
+          },
+          {
+            $project: {
+              'videoGameReviews.reviews': 1,
+              title: 1,
+            },
+          },
+        ])
+        .toArray()
+        .then((data) => data);
     }
   }
 
