@@ -6,7 +6,6 @@ import VideoGameReviews from './VideoGameReviews';
 import AddReviewModal from './AddReviewModal';
 import PlayOptionsModal from './PlayOptionsModal';
 import ScreenShotCarousel from './ScreenShotCarousel';
-import { setCurrentGame } from '../actions/game';
 import { startSetVideoGameReviews } from '../actions/review';
 
 class MoreInfoModal extends Component {
@@ -19,7 +18,6 @@ class MoreInfoModal extends Component {
 
   handleOpenModal = () => {
     this.setState(() => ({ modalIsOpen: true }));
-    this.props.setCurrentGame(this.props.gameInfo);
   };
 
   handleCloseModal = () => {
@@ -116,7 +114,6 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  setCurrentGame: (currentGame) => dispatch(setCurrentGame(currentGame)),
   startSetVideoGameReviews: (title) =>
     dispatch(startSetVideoGameReviews(title)),
 });
