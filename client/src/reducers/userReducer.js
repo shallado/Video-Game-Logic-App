@@ -1,3 +1,5 @@
+import { startSetMapLocations } from '../actions/map';
+
 const initialState = {};
 
 const userReducer = (state = initialState, action) => {
@@ -12,6 +14,18 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         ...action.updates,
+      };
+    case 'ADD_VIDEO_GAME_TO_WATCH_LIST':
+      return {
+        ...state,
+        videoGames: [...state.videoGames, action.videoGame],
+      };
+    case 'REMOVE_VIDEO_GAME_TO_WATCH_LIST':
+      return {
+        ...state,
+        videoGames: state.videoGames.filter(
+          (videoGame) => action.videoGame.name !== videoGame.name
+        ),
       };
     default:
       return state;

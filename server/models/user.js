@@ -135,11 +135,43 @@ const userModel = (db, Int32, ObjectID) => {
         .then((data) => data.result);
     }
 
+    static addVideoGame(userId, videoGame) {
+      return db
+        .collection('users')
+        .updateOne(
+          { _id: new ObjectID(userId) },
+          {
+            $push: {
+              videoGames: videoGame,
+            },
+          },
+          { w: 1, j: true }
+        )
+        .then((data) => data.result);
+    }
+
+    static removeVideoGame(userId, title) {
+      return db
+        .collection('users')
+        .updateOne(
+          { _id: new ObjectID(userId) },
+          {
+            $pull: {
+              videoGames: {
+                name: title,
+              },
+            },
+          },
+          { w: 1, j: true }
+        )
+        .then((data) => data.result);
+    }
+
     static addJWTToken(userId, token) {
       return db
         .collection('users')
         .updateOne(
-          { _id: ObjectID(userId) },
+          { _id: new ObjectID(userId) },
           {
             $push: {
               webTokens: token,
@@ -236,13 +268,7 @@ const userSchema = (db) => {
               description: 'must be an array',
               items: {
                 bsonType: 'object',
-                required: ['videoGameId'],
-                properties: {
-                  videoGameId: {
-                    bsonType: 'objectId',
-                    description: 'must be an objectId and is required',
-                  },
-                },
+                description: 'must be a object',
               },
             },
             webTokens: {

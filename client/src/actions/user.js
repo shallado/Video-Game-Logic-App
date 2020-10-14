@@ -81,3 +81,76 @@ export const startUploadProfilePhoto = (id, imageFile) => {
       });
   };
 };
+
+export const addVideoGameToWatchList = (videoGame) => ({
+  type: 'ADD_VIDEO_GAME_TO_WATCH_LIST',
+  videoGame,
+});
+
+export const startAddVideoGameToWatchList = (userId, videoGame) => {
+  return (dispatch) => {
+    const request = {
+      method: 'put',
+      url: `/users/${userId}/addWatchList`,
+      data: {
+        videoGame: {
+          ...videoGame,
+          addToWatchList: true,
+        },
+      },
+    };
+
+    axios(request)
+      .then((response) =>
+        dispatch(
+          addVideoGameToWatchList({ ...videoGame, addToWatchList: true })
+        )
+      )
+      .catch((err) => {
+        let error;
+
+        if (err.response) {
+          error = err.response.data;
+        } else if (err.request) {
+          error = err.request;
+        } else {
+          error = err.message;
+        }
+
+        dispatch(loadTodoError(error));
+      });
+  };
+};
+
+export const removeVideoGameToWatchList = (videoGame) => ({
+  type: 'REMOVE_VIDEO_GAME_TO_WATCH_LIST',
+  videoGame,
+});
+
+export const startRemoveVideoGameToWatchList = (userId, videoGame) => {
+  return (dispatch) => {
+    const request = {
+      method: 'put',
+      url: `/users/${userId}/removeWatchList`,
+      data: {
+        title: videoGame.name,
+      },
+    };
+
+    axios(request)
+      .then((response) => dispatch(removeVideoGameToWatchList(videoGame)))
+      .catch((err) => {
+        let error;
+
+        if (err.response) {
+          error = err.response.data;
+        } else if (err.request) {
+          error = err.request;
+        } else {
+          error = err.message;
+        }
+
+        dispatch(loadTodoError(error));
+      });
+  };
+};

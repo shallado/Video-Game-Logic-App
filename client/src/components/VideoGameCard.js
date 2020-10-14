@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import AddRemoveVideoGame from './AddRemoveVideoGame';
 import MoreInfoModal from './MoreInfoModal';
 import ScreenShotCarousel from './ScreenShotCarousel';
 import PlayOptionsModal from './PlayOptionsModal';
+import { setCurrentGame } from '../actions/game';
 
 class VideoGameCard extends Component {
   state = {
@@ -10,6 +13,7 @@ class VideoGameCard extends Component {
 
   handleMouseEnter = () => {
     this.setState(() => ({ hover: true }));
+    this.props.setCurrentGame(this.props.gameInfo);
   };
 
   handleMouseLeave = () => {
@@ -27,10 +31,8 @@ class VideoGameCard extends Component {
             <div>
               <div>
                 <PlayOptionsModal gameInfo={this.props.gameInfo} />
-                <ion-icon name="add-circle"></ion-icon>
-                <div>
-                  <MoreInfoModal gameInfo={this.props.gameInfo} />
-                </div>
+                <AddRemoveVideoGame />
+                <MoreInfoModal gameInfo={this.props.gameInfo} />
               </div>
               <div>
                 {this.props.gameInfo.age_ratings && (
@@ -61,4 +63,8 @@ class VideoGameCard extends Component {
   }
 }
 
-export default VideoGameCard;
+const mapDispatchToProps = (dispatch) => ({
+  setCurrentGame: (currentGame) => dispatch(setCurrentGame(currentGame)),
+});
+
+export default connect(null, mapDispatchToProps)(VideoGameCard);

@@ -1,8 +1,10 @@
 import React from 'react';
+import VideoGameList from '../components/VideoGameList';
 
 const MyListPage = () => (
   <div>
-    <p>My List Page</p>
+    <h1>My List</h1>
+    <VideoGameList />
   </div>
 );
 

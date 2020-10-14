@@ -89,6 +89,52 @@ exports.updateOne = (req, res) => {
     });
 };
 
+exports.addVideoGameWatchList = (req, res) => {
+  const { id } = req.params;
+  const { videoGame } = req.body;
+
+  return User.addVideoGame(id, videoGame)
+    .then((data) => {
+      if (data.n === 0) {
+        return res
+          .status(404)
+          .send({ message: 'unable to add video game to watch list' });
+      }
+
+      res.send({
+        message: 'successfully added video game to watch list',
+      });
+    })
+    .catch((err) => {
+      const setError = databaseErrorHandling(err);
+
+      res.status(setError.httpStatus).send({ message: setError.description });
+    });
+};
+
+exports.removeVideoGameWatchList = (req, res) => {
+  const { id } = req.params;
+  const { title } = req.body;
+
+  return User.removeVideoGame(id, title)
+    .then((data) => {
+      if (data.n === 0) {
+        return res
+          .status(404)
+          .send({ message: 'unable to remove video game from watch list' });
+      }
+
+      res.send({
+        message: 'successfully removed video game from watch list',
+      });
+    })
+    .catch((err) => {
+      const setError = databaseErrorHandling(err);
+
+      res.status(setError.httpStatus).send({ message: setError.description });
+    });
+};
+
 // process user credentials and validates users input
 exports.signIn = (req, res) => {
   const { email, password } = req.body;
@@ -122,6 +168,7 @@ exports.signIn = (req, res) => {
               gender,
               _id: id,
               profilePhoto,
+              videoGames,
             } = userInfo;
 
             res.send({
@@ -136,6 +183,7 @@ exports.signIn = (req, res) => {
                 gender,
                 id,
                 profilePhoto,
+                videoGames,
               },
             });
           });

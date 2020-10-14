@@ -63,6 +63,7 @@ export const startSignIn = (userCredentials) => {
             id,
             token,
             profilePhoto,
+            videoGames,
           } = response.data.data;
 
           dispatch(
@@ -76,6 +77,7 @@ export const startSignIn = (userCredentials) => {
               gender,
               token,
               profilePhoto,
+              videoGames,
             })
           );
           dispatch(signIn(id));

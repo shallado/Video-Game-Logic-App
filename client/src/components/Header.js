@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
+import AddRemoveVideoGame from './AddRemoveVideoGame';
 import PlayOptionsModal from './PlayOptionsModal';
 import MoreInfoModal from './MoreInfoModal';
-import { startGetGames } from '../actions/game';
+import { startGetGames, setCurrentGame } from '../actions/game';
 
 class Header extends Component {
+  handleMouseEnter = () => {
+    this.props.setCurrentGame(this.props.featureGames[0]);
+  };
+
   componentDidMount() {
     const { pathname } = this.props.history.location;
     let page;
@@ -35,7 +40,7 @@ class Header extends Component {
 
   render() {
     return (
-      <div>
+      <div onMouseEnter={this.handleMouseEnter}>
         <h1>{this.props.featureGames[0].name}</h1>
         <p>{this.props.featureGames[0].summary}</p>
         <img
@@ -49,6 +54,7 @@ class Header extends Component {
         <div>
           <MoreInfoModal gameInfo={this.props.featureGames[0]} />
         </div>
+        <AddRemoveVideoGame />
       </div>
     );
   }
@@ -60,6 +66,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   startGetGames: (page, type) => dispatch(startGetGames(page, type)),
+  setCurrentGame: (currentGame) => dispatch(setCurrentGame(currentGame)),
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Header));
