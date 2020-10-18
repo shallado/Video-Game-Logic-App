@@ -1,25 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { PersistGate } from 'redux-persist/integration/react';
 import { Provider } from 'react-redux';
 import AppRouter from './routers/AppRouter';
 import configStore from './store/configStore';
-import { saveState } from './utils/localStorage';
 import 'react-dates/initialize';
 import 'react-dates/lib/css/_datepicker.css';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import * as serviceWorker from './serviceWorker';
+import './sass/main.scss';
 
-const store = configStore();
+const { store, persistor } = configStore();
 
-store.subscribe(() => {
-  saveState(store.getState());
-});
+store.subscribe(() => {});
 
 const jsx = (
   <Provider store={store}>
-    <AppRouter />
+    <PersistGate loading={null} persistor={persistor}>
+      <AppRouter />
+    </PersistGate>
   </Provider>
 );
 

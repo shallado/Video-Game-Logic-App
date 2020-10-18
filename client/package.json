@@ -9,6 +9,7 @@
     "axios": "^0.20.0",
     "formik": "^2.1.5",
     "moment": "^2.27.0",
+    "node-sass": "^4.14.1",
     "react": "^16.13.1",
     "react-dates": "^21.8.0",
     "react-dom": "^16.13.1",
@@ -17,10 +18,10 @@
     "react-player": "^2.6.2",
     "react-redux": "^7.2.1",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "^3.4.3",
+    "react-scripts": "^3.4.4",
     "react-slick": "^0.27.11",
     "redux": "^4.0.5",
-    "redux-devtools-extension": "^2.13.8",
+    "redux-persist": "^6.0.0",
     "redux-thunk": "^2.3.0",
     "slick-carousel": "^1.8.1",
     "yup": "^0.29.3"
@@ -39,7 +40,8 @@
       "pre-commit": "lint-staged"
     }
   },
-  "proxy": "http://localhost:8080",
+  "proxy": "http://localhost:8080/",
+  "secure": false,
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
       "prettier --write"
