@@ -12,11 +12,7 @@ export const startSignUp = (userInfo) => {
       },
     })
       .then((response) => {
-        if (response.status === 200) {
-          dispatch(loadTodoSuccess(response.data));
-        } else {
-          dispatch(loadTodoError(response.error));
-        }
+        dispatch(loadTodoSuccess(response.data));
       })
       .catch((err) => {
         let error;
@@ -34,9 +30,8 @@ export const startSignUp = (userInfo) => {
   };
 };
 
-export const signIn = (userId) => ({
+export const signIn = () => ({
   type: 'SIGN_IN',
-  userId,
 });
 
 export const startSignIn = (userCredentials) => {
@@ -52,38 +47,34 @@ export const startSignIn = (userCredentials) => {
       },
     })
       .then((response) => {
-        if (response.status === 200) {
-          const {
+        const {
+          username,
+          email,
+          city,
+          zipcode,
+          birthday,
+          gender,
+          id,
+          token,
+          profilePhoto,
+          videoGames,
+        } = response.data.data;
+
+        dispatch(
+          setCurrentUser({
+            id,
             username,
             email,
             city,
             zipcode,
             birthday,
             gender,
-            id,
             token,
             profilePhoto,
             videoGames,
-          } = response.data.data;
-
-          dispatch(
-            setCurrentUser({
-              id,
-              username,
-              email,
-              city,
-              zipcode,
-              birthday,
-              gender,
-              token,
-              profilePhoto,
-              videoGames,
-            })
-          );
-          dispatch(signIn(id));
-        } else {
-          dispatch(loadTodoError(response.error));
-        }
+          })
+        );
+        dispatch(signIn());
       })
       .catch((err) => {
         let error;
@@ -104,10 +95,3 @@ export const startSignIn = (userCredentials) => {
 export const signOut = () => ({
   type: 'SIGN_OUT',
 });
-
-export const startSignOut = () => {
-  return (dispatch) => {
-    dispatch(signOut());
-    dispatch(removeCurrentUser());
-  };
-};
