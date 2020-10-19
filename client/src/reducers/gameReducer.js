@@ -1,7 +1,10 @@
+import { startSetMapLocations } from '../actions/map';
+
 const initialState = {
   featureGames: '',
-  categoryGames: '',
+  categoryGames: [],
   currentGame: {},
+  searchResults: [],
 };
 
 const gameReducer = (state = initialState, action) => {
@@ -20,6 +23,11 @@ const gameReducer = (state = initialState, action) => {
       return {
         ...state,
         currentGame: action.currentGame,
+      };
+    case 'VIDEO_GAME_SEARCH_RESULTS':
+      return {
+        ...state,
+        searchResults: action.videoGames,
       };
     default:
       return state;

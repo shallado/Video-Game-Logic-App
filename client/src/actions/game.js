@@ -11,54 +11,50 @@ export const getCategoryGame = (categoryGames) => ({
   categoryGames,
 });
 
-export const startGetGames = (page, type, genre = '') => {
+export const startGetGames = (queriesInfo) => {
   return (dispatch) => {
     return axios({
       method: 'post',
       url: '/igdb',
-      data: {
-        page,
-        type,
-        genre,
-      },
+      data: queriesInfo,
     })
-      .then((data) => {
-        const ratingScale = new Map();
-        const gameRating = [
-          'Three',
-          'Seven',
-          'Twelve',
-          'Sixteen',
-          'Eighteen',
-          'RP',
-          'EC',
-          'E',
-          'E10',
-          'T',
-          'M',
-          'AO',
-        ];
+      .then((response) => {
+        const queryResults = response.data;
 
-        for (let i = 1; i < 13; i++) {
-          ratingScale.set(i, gameRating[i - 1]);
-        }
-
-        for (let userInfo of data.data) {
-          const { age_ratings } = userInfo;
-
-          if (age_ratings) {
-            for (let age_rating of age_ratings) {
-              age_rating.rating = ratingScale.get(age_rating.rating);
-            }
-          }
-        }
-
-        if (type === 'featured') {
-          dispatch(getFeatureGames(data));
-        } else {
-          dispatch(getCategoryGame(data));
-        }
+        dispatch(getFeatureGames(queryResults[1]));
+        dispatch(getCategoryGame([response.data[0]]));
       })
+      .catch((err) => {
+        let error;
+
+        if (err.response) {
+          error = err.response.data;
+        } else if (err.request) {
+          error = err.request;
+        } else {
+          error = err.message;
+        }
+
+        dispatch(loadTodoError(error));
+      });
+  };
+};
+
+export const videoGameSearchResults = (videoGames) => ({
+  type: 'VIDEO_GAME_SEARCH_RESULTS',
+  videoGames,
+});
+
+export const startVideoGameSearchResults = (title) => {
+  return (dispatch) => {
+    const request = {
+      method: 'post',
+      url: '/igdb',
+      data: title,
+    };
+
+    axios(request)
+      .then((response) => dispatch(videoGameSearchResults(response.data)))
       .catch((err) => {
         let error;
 

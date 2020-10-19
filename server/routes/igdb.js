@@ -1,13 +1,13 @@
 const express = require('express');
 const igdbController = require('../controllers/igdb.controller');
 
-const Router = express.Router();
+const router = express.Router();
 
 // handle all http requests to the third party api igdb
 const igdbRouter = (app) => {
-  Router.post('/', igdbController.find);
+  router.post('/', igdbController.find);
 
-  app.use('/igdb', Router);
+  app.use('/igdb', router);
 };
 
 module.exports = igdbRouter;

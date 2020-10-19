@@ -7,6 +7,7 @@ import DashBoardPage from '../pages/DashBoardPage';
 import HomePage from '../pages/HomePage';
 import MyListPage from '../pages/MyListPage';
 import PlatformPage from '../pages/PlatformPage';
+import SearchPage from '../pages/SearchPage';
 import SignInPage from '../pages/SignInPage';
 import SignUpPage from '../pages/SignUpPage';
 import UploadImagePage from '../pages/UploadImagePage';
@@ -27,6 +28,7 @@ const AppRouter = () => (
       <PrivateRoute path="/list" component={MyListPage} />
       <PrivateRoute path="/upload" component={UploadImagePage} />
       <PrivateRoute path="/watch/:id" component={WatchPage} />
+      <PrivateRoute path="/search" component={SearchPage} />
     </Switch>
   </BrowserRouter>
 );

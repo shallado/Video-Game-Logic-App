@@ -30,10 +30,12 @@ class NavBar extends Component {
             <NavLink to="/list">My List</NavLink>
           </ul>
         </div>
-        <form>
-          <input type="text" placeholder="title"></input>
-          <button>magnifying icon</button>
-        </form>
+        <NavLink to="/search">
+          <div>
+            <p>Search</p>
+            <button>magnifying icon</button>
+          </div>
+        </NavLink>
         <div onMouseEnter={this.openModal} onMouseLeave={this.closeModal}>
           <img
             src={this.props.user.profilePhoto}

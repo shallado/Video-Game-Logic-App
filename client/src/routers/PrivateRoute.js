@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import NavBar from '../components/NavBar';
+import Header from '../components/Header';
 
 const PrivateRoute = ({ isAuthenticated, component: Component, ...rest }) => (
   <Route
@@ -12,9 +13,15 @@ const PrivateRoute = ({ isAuthenticated, component: Component, ...rest }) => (
         props.match.path === '/upload' ||
         props.match.path === '/watch/:id' ? (
           <Component {...props} />
+        ) : props.match.path === '/search' || props.match.path === '/list' ? (
+          <div>
+            <NavBar />
+            <Component {...props} />
+          </div>
         ) : (
           <div>
             <NavBar />
+            <Header />
             <Component {...props} />
           </div>
         )
@@ -26,7 +33,7 @@ const PrivateRoute = ({ isAuthenticated, component: Component, ...rest }) => (
 );
 
 const mapStateToProps = (state) => ({
-  isAuthenticated: !!state.auth.userId,
+  isAuthenticated: state.auth.loggedIn,
 });
 
 export default connect(mapStateToProps)(PrivateRoute);
