@@ -48,15 +48,10 @@ exports.findAll = (req, res) => {
 
   Review.findAll(username)
     .then((data) => {
-      if (data.length === 0) {
-        throw new APIError(
-          'Not Found',
-          httpStatusCodes.NOT_FOUND,
-          'unable to find user reviews try again'
-        );
-      }
-
-      res.send(data);
+      res.send({
+        message: 'successfully found the user reviews',
+        data,
+      });
     })
     .catch((err) => {
       const setError = databaseErrorHandling(err);

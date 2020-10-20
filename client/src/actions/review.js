@@ -60,9 +60,9 @@ export const startSetUserReviews = (username) => {
 
     axios(request)
       .then((response) => {
-        const reviews = response.data;
+        const { data } = response.data;
 
-        dispatch(setUserReviews(reviews));
+        dispatch(setUserReviews(data));
       })
       .catch((err) => {
         let error;
