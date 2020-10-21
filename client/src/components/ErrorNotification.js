@@ -6,7 +6,6 @@ import { hideError } from '../actions/error';
 
 class ErrorNotification extends Component {
   handleClose = () => {
-    this.props.history.push('/');
     this.props.hideError();
   };
 
