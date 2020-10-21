@@ -11,9 +11,13 @@ class UserReviews extends Component {
   render() {
     return (
       <div>
-        {this.props.userReviews.map((userReview) => (
-          <UserReview key={userReview.videoGameId} userReview={userReview} />
-        ))}
+        {this.props.userReviews.length === 0 ? (
+          <p>No user reviews</p>
+        ) : (
+          this.props.userReviews.map((userReview) => (
+            <UserReview key={userReview.videoGameId} userReview={userReview} />
+          ))
+        )}
       </div>
     );
   }

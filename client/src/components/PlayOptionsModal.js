@@ -30,7 +30,7 @@ class PlayOptionsModal extends Component {
           onRequestClose={this.handleCloseModal}
         >
           <h4>Play Options</h4>
-          {this.props.currentGame.videos === 'undefined' ? (
+          {this.props.currentGame.videos === undefined ? (
             <p>Unavailable Videos</p>
           ) : (
             this.props.currentGame.videos.map(({ id, name, video_id }) => (

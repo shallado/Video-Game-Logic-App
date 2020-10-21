@@ -12,7 +12,7 @@ class VideoGameReviews extends Component {
     return (
       <div>
         {this.props.videoGameReviews.length > 0 ? (
-          this.props.videoGameReviews.videoGameReviews.map(({ reviews }) =>
+          this.props.videoGameReviews[0].videoGameReviews.map(({ reviews }) =>
             reviews.map((review) => (
               <VideoGameReview key={review._id} review={review} />
             ))
@@ -26,9 +26,7 @@ class VideoGameReviews extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  videoGameReviews: state.review.videoGameReviews
-    ? state.review.videoGameReviews[0]
-    : [],
+  videoGameReviews: state.review.videoGameReviews,
   currentGame: state.game.currentGame,
 });
 
