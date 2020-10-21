@@ -9,10 +9,6 @@ export const setCurrentUser = (user) => ({
   },
 });
 
-export const removeCurrentUser = () => ({
-  type: 'REMOVE_CURRENT_USER',
-});
-
 export const userUpdate = (updates) => ({
   type: 'USER_UPDATE',
   updates,

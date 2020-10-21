@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import Modal from 'react-modal';
 import UserReviewsModal from './UserReviewsModal';
-import { startSignOut } from '../actions/auth';
+import { signOut } from '../actions/auth';
 
 class AccountModal extends Component {
   handleSignOut = () => {
-    this.props.startSignOut();
+    this.props.signOut();
     this.props.history.push('/');
   };
 
@@ -41,7 +41,7 @@ class AccountModal extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  startSignOut: () => dispatch(startSignOut()),
+  signOut: () => dispatch(signOut()),
 });
 
 export default withRouter(connect(null, mapDispatchToProps)(AccountModal));
