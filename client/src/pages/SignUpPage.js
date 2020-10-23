@@ -11,7 +11,7 @@ class SignUpPage extends Component {
 
   render() {
     return (
-      <div>
+      <div className="sign-up">
         <UserForm handleSubmit={this.handleSubmit} match={this.props.match} />
         <ErrorNotification />
       </div>

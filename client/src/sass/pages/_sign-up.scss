@@ -1,0 +1,10 @@
+.sign-up {
+  background-color: $color-primary;
+  @include centerItems;
+
+  &__container {
+    height: 100rem;
+    margin: $xlg-spacing 0;
+    @include containerOne;
+  }
+}

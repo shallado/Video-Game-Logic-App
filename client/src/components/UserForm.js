@@ -119,49 +119,116 @@ export default class UserForm extends Component {
     });
 
     return (
-      <div>
+      <div className="sign-up__container">
+        <h1 className="heading-one heading-one--form">Sign In</h1>
         <Formik
           initialValues={formInitialValues}
           validationSchema={formSchema}
           onSubmit={this.handleSubmit}
         >
-          <Form>
-            <label htmlFor="username">Username</label>
-            <Field name="username" type="text" id="username" />
-            <ErrorMessage name="username" />
-            <label htmlFor="password">Password</label>
-            <Field name="password" type="password" id="password" />
-            <ErrorMessage name="password" />
-            <label htmlFor="email">Email</label>
-            <Field name="email" type="text" id="email" />
-            <ErrorMessage name="email" />
-            <label htmlFor="city">City</label>
-            <Field name="city" type="text" id="city" />
-            <ErrorMessage name="city" />
-            <label htmlFor="zipcode">Zipcode</label>
-            <Field name="zipcode" type="text" id="zipcode" />
-            <ErrorMessage name="zipcode" />
-            <SingleDatePicker
-              date={this.state.birthday}
-              onDateChange={this.handleDateChange}
-              focused={this.state.focused}
-              onFocusChange={this.handleFocusChange}
-              readOnly={true}
-              numberOfMonths={1}
-              small={true}
-              isOutsideRange={() => false}
-              renderMonthElement={this.renderMonthElement}
-              id="user-birthday"
-            />
-            <br></br>
-            <label htmlFor="gender">Gender</label>
-            <Field as="select" name="gender" id="gender">
-              <option value="select">Select</option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-            </Field>
-            <ErrorMessage name="gender" />
-            <button type="submit">
+          <Form className="form">
+            <div className="form__field-container">
+              <label htmlFor="username">Username</label>
+              <Field
+                name="username"
+                type="text"
+                id="username"
+                className="form__field"
+              />
+              <ErrorMessage
+                component="div"
+                name="username"
+                className="form__error-message"
+              />
+            </div>
+            <div className="form__field-container">
+              <label htmlFor="password">Password</label>
+              <Field
+                name="password"
+                type="password"
+                id="password"
+                className="form__field"
+              />
+              <ErrorMessage
+                component="div"
+                name="password"
+                className="form__error-message"
+              />
+            </div>
+            <div className="form__field-container">
+              <label htmlFor="email">Email</label>
+              <Field
+                name="email"
+                type="text"
+                id="email"
+                className="form__field"
+              />
+              <ErrorMessage
+                component="div"
+                name="email"
+                className="form__error-message"
+              />
+            </div>
+            <div className="form__field-container">
+              <label htmlFor="city">City</label>
+              <Field
+                name="city"
+                type="text"
+                id="city"
+                className="form__field"
+              />
+              <ErrorMessage
+                component="div"
+                name="city"
+                className="form__error-message"
+              />
+            </div>
+            <div className="form__field-container">
+              <label htmlFor="zipcode">Zipcode</label>
+              <Field
+                name="zipcode"
+                type="text"
+                id="zipcode"
+                className="form__field"
+              />
+              <ErrorMessage
+                component="div"
+                name="zipcode"
+                className="form__error-message"
+              />
+            </div>
+            <div className="form__field-selects-container">
+              <div className="form__field-select-container">
+                <p>Birthday</p>
+                <SingleDatePicker
+                  date={this.state.birthday}
+                  onDateChange={this.handleDateChange}
+                  focused={this.state.focused}
+                  onFocusChange={this.handleFocusChange}
+                  readOnly={true}
+                  numberOfMonths={1}
+                  small={true}
+                  isOutsideRange={() => false}
+                  renderMonthElement={this.renderMonthElement}
+                  id="user-birthday"
+                />
+              </div>
+              <div className="form__field-select-container">
+                <label htmlFor="gender">Gender</label>
+                <Field
+                  as="select"
+                  name="gender"
+                  id="gender"
+                  className="form__field form__field--select"
+                >
+                  <option value="select">Select</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                </Field>
+                <ErrorMessage name="gender" className="form__error-message" />
+              </div>
+            </div>
+            <button type="submit" className="btn">
               {this.props.match.path === '/signup' ? 'Sign Up' : 'Update'}
             </button>
           </Form>

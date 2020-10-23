@@ -1,0 +1,10 @@
+.sign-in {
+  background-color: $color-primary;
+  height: 100vh;
+  @include centerItems;
+
+  &__container {
+    height: 56.7rem;
+    @include containerOne;
+  }
+}

@@ -27,25 +27,44 @@ class SignInPage extends Component {
     };
 
     return (
-      <div>
-        <Formik
-          initialValues={formikInitialVal}
-          validationSchema={signInSchema}
-          onSubmit={this.handleSubmit}
-        >
-          <Form>
-            <label htmlFor="email">Email</label>
-            <Field type="text" name="email" />
-            <ErrorMessage name="email" />
-            <label htmlFor="password">password</label>
-            <Field type="password" name="password" />
-            <ErrorMessage name="password" />
-            <button type="submit">Sign In</button>
-          </Form>
-        </Formik>
-        <ErrorNotification
-          signInSuccessRedirect={() => this.props.history.push('/dashboard')}
-        />
+      <div className="sign-in">
+        <div className="sign-in__container">
+          <h1 className="heading-one heading-one--form">Sign In</h1>
+          <Formik
+            initialValues={formikInitialVal}
+            validationSchema={signInSchema}
+            onSubmit={this.handleSubmit}
+          >
+            <Form className="form">
+              <div className="form__field-container">
+                <label htmlFor="email">Email</label>
+                <Field type="text" name="email" className="form__field" />
+                <ErrorMessage
+                  component="div"
+                  name="email"
+                  className="form__error-message"
+                />
+              </div>
+              <div className="form__field-container">
+                <label htmlFor="password">Password</label>
+                <Field
+                  type="password"
+                  name="password"
+                  className="form__field"
+                />
+                <ErrorMessage
+                  component="div"
+                  name="password"
+                  className="form__error-message"
+                />
+              </div>
+              <button type="submit" className="btn">
+                Sign In
+              </button>
+            </Form>
+          </Formik>
+          <ErrorNotification />
+        </div>
       </div>
     );
   }

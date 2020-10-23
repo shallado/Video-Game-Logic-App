@@ -1,0 +1,26 @@
+.heading-one {
+  color: $accent-color;
+  font-size: 8rem;
+  font-weight: 100;
+  letter-spacing: 0.5rem;
+  margin: 0;
+  text-align: center;
+
+  &__primary {
+    display: block;
+  }
+
+  &__secondary {
+    display: block;
+  }
+
+  &__sub-heading {
+    font-size: 2rem;
+    margin-bottom: $md-spacing;
+  }
+
+  &--form {
+    font-size: 6rem;
+    margin-bottom: $md-spacing;
+  }
+}

@@ -1,0 +1,47 @@
+.form {
+  color: $color-primary-text;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__field-container {
+    display: flex;
+    flex-direction: column;
+
+    &:not(:first-child) {
+      margin-top: $sm-spacing;
+    }
+  }
+
+  &__field-selects-container {
+    margin-top: $sm-spacing;
+    width: 30rem;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+  }
+
+  &__field-select-container {
+    &:first-child {
+      width: 20rem;
+    }
+  }
+
+  &__field {
+    height: 4rem;
+    width: 30rem;
+    outline: none;
+    border: 1px solid $color-primary-light;
+    border-radius: 1rem;
+
+    &--select {
+      width: 100%;
+    }
+  }
+
+  &__error-message {
+    color: $error-color;
+  }
+}
