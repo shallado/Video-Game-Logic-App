@@ -96,7 +96,7 @@ class DashBoardPage extends Component {
 
   render() {
     return (
-      <div>
+      <div className="category">
         {this.state.genres.map((genre, index) => (
           <VideoGameCategory key={index} genre={genre} index={index} />
         ))}

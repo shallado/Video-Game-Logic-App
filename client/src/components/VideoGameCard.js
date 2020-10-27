@@ -22,8 +22,8 @@ class VideoGameCard extends Component {
 
   render() {
     return (
-      <div>
-        {this.state.hover ? (
+      <div className="video-game-card">
+        {/* {this.state.hover ? (
           <div onMouseLeave={this.handleMouseLeave}>
             <div>
               <ScreenShotCarousel gameInfo={this.props.gameInfo} />
@@ -57,7 +57,12 @@ class VideoGameCard extends Component {
             onMouseEnter={this.handleMouseEnter}
             src={this.props.gameInfo.cover.url.replace('thumb', 'logo_med')}
           />
-        )}
+        )} */}
+        <img
+          onMouseEnter={this.handleMouseEnter}
+          src={this.props.gameInfo.cover.url.replace('thumb', 'cover_big')}
+          className="video-game-card__img"
+        />
       </div>
     );
   }

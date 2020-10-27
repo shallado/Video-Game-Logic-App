@@ -5,6 +5,7 @@ import Map from './Map';
 import VideoGameReviews from './VideoGameReviews';
 import AddReviewModal from './AddReviewModal';
 import PlayOptionsModal from './PlayOptionsModal';
+import IconInfoBtn from '../svgs/IconInfoBtn';
 import ScreenShotCarousel from './ScreenShotCarousel';
 import { startSetVideoGameReviews } from '../actions/review';
 
@@ -35,12 +36,10 @@ class MoreInfoModal extends Component {
 
     return (
       <div>
-        <div>
-          <ion-icon
-            name="information-circle"
-            onClick={this.handleOpenModal}
-          ></ion-icon>
-        </div>
+        <button className="btn header__more-info-btn">
+          <span className="header__btn-text">More Info</span>
+          <IconInfoBtn />
+        </button>
         <Modal
           isOpen={this.state.modalIsOpen}
           onRequestClose={this.handleCloseModal}

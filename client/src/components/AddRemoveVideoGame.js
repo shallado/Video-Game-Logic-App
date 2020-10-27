@@ -4,11 +4,12 @@ import {
   startAddVideoGameToWatchList,
   startRemoveVideoGameToWatchList,
 } from '../actions/user';
+import IconAddBtn from '../svgs/IconAddBtn';
+import IconRemoveBtn from '../svgs/IconRemoveBtn';
 
 class AddRemoveVideoGame extends Component {
   handleAddRemove = () => {
     const { id } = this.props.user;
-    let addGame;
 
     const videoGame = this.props.user.videoGames.find(
       (videoGame) => videoGame.name === this.props.currentGame.name
@@ -27,20 +28,18 @@ class AddRemoveVideoGame extends Component {
     );
 
     return (
-      <div onClick={this.handleAddRemove}>
-        <div>
-          {videoGame || (videoGame && videoGame.addToWatchList) ? (
-            <div>
-              <ion-icon name="remove-circle"></ion-icon>
-              <p>Remove</p>
-            </div>
-          ) : (
-            <div>
-              <ion-icon name="add-circle"></ion-icon>
-              <p>Add</p>
-            </div>
-          )}
-        </div>
+      <div onClick={this.handleAddRemove} className="header__add-remove-btns">
+        {videoGame || (videoGame && videoGame.addToWatchList) ? (
+          <button className="header__add-remove-btn">
+            <span className="header__btn-text">Remove</span>
+            <IconRemoveBtn />
+          </button>
+        ) : (
+          <button className="btn header__add-remove-btn">
+            <span className="header__btn-text">Add</span>
+            <IconAddBtn />
+          </button>
+        )}
       </div>
     );
   }

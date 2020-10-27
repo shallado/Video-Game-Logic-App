@@ -7,12 +7,20 @@
 @import './abstracts/variables';
 
 // Components
+@import './components/alice-carousel';
 @import './components/btn';
-@import './components/headings';
+@import './components/category';
 @import './components/form';
+@import './components/headings';
+@import './components/header';
+@import './components/navbar';
 @import './components/react-dates-overrides';
+@import './components/video-game-card';
 
 // Pages
 @import './pages/home';
 @import './pages/sign-in';
 @import './pages/sign-up';
+
+// Carousel
+@import 'react-alice-carousel/lib/scss/alice-carousel.scss';

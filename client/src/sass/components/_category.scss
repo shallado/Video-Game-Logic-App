@@ -1,0 +1,32 @@
+.category {
+  background-color: $color-primary-dark;
+  padding: $xlg-spacing 0;
+
+  &__container {
+    &:not(:last-child) {
+      padding-bottom: $lg-spacing;
+    }
+  }
+
+  &__heading-container {
+    display: inline-block;
+    padding-left: $md-spacing;
+    margin-bottom: $sm-spacing;
+
+    &:hover {
+      color: $accent-color;
+      cursor: pointer;
+    }
+  }
+
+  &__heading {
+    display: inline-block;
+    font-weight: 100;
+  }
+
+  &__right-arrow-icon {
+    @include headerIcons;
+    margin-left: 1rem;
+    width: 2rem;
+  }
+}

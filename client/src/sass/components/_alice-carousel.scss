@@ -1,0 +1,24 @@
+.alice-carousel {
+  display: flex;
+
+  div:first-child {
+    display: inline-block;
+    flex: 0 0 89%;
+    overflow: hidden;
+  }
+
+  &__prev-btn {
+    order: -1;
+  }
+
+  &__prev-btn,
+  &__next-btn {
+    span {
+      color: #fff;
+
+      &:hover {
+        color: $accent-color;
+      }
+    }
+  }
+}

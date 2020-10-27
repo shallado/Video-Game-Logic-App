@@ -1,23 +1,40 @@
 import React, { Component } from 'react';
+import AliceCarousel from 'react-alice-carousel';
 import { connect } from 'react-redux';
 import VideoGameCard from './VideoGameCard';
+import IconRightArrow from '../svgs/IconRightArrow';
 
 class VideoGameCategory extends Component {
   render() {
+    const items = this.props.categoryGames[0][this.props.index].map((game) => (
+      <VideoGameCard gameInfo={game} key={game.id} />
+    ));
+    const responsive = {
+      1140: { items: 5 },
+    };
+
     return (
-      <div>
-        <h3>{this.props.genre}</h3>
-        <ion-icon name="caret-back"></ion-icon>
-        {this.props.categoryGames.length === 0 ? (
-          <div>
-            <p>...Loading</p>
-          </div>
-        ) : (
-          this.props.categoryGames[0][this.props.index].map((game) => {
-            return <VideoGameCard gameInfo={game} key={game.id} />;
-          })
-        )}
-        <ion-icon name="caret-forward"></ion-icon>
+      <div className="category__container">
+        <div className="category__heading-container">
+          <h2 className="category__heading">{this.props.genre}</h2>
+          <IconRightArrow />
+        </div>
+        <div>
+          {this.props.categoryGames.length === 0 ? (
+            <div>
+              <p>...Loading</p>
+            </div>
+          ) : (
+            <AliceCarousel
+              mouseTracking
+              items={items}
+              responsive={responsive}
+              infinite={true}
+              disableDotsControls={true}
+              paddingLeft={50}
+            />
+          )}
+        </div>
       </div>
     );
   }

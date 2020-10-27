@@ -10,6 +10,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import * as serviceWorker from './serviceWorker';
+import 'react-alice-carousel/lib/alice-carousel.css';
 import './sass/main.scss';
 
 const { store, persistor } = configStore();

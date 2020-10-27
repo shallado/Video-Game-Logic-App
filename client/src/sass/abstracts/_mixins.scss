@@ -24,9 +24,16 @@
   &:hover {
     background-color: darken($accent-color, 15%);
     transform: translateY(-0.5rem);
+    cursor: pointer;
   }
 
   &:active {
     transform: translateY(0);
   }
+}
+
+@mixin headerIcons {
+  fill: currentColor;
+  height: auto;
+  width: 2.5rem;
 }

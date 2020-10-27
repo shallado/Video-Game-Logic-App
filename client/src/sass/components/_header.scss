@@ -1,0 +1,91 @@
+.header {
+  &__container-one {
+    position: absolute;
+    left: $md-spacing;
+    width: 50%;
+    z-index: 1;
+  }
+
+  &__heading {
+    font-size: 6rem;
+    font-weight: 100;
+  }
+
+  &__btns {
+    display: flex;
+  }
+
+  &__play-btn {
+    margin-right: $sm-spacing;
+  }
+
+  &__add-remove-btns {
+    margin-left: auto;
+  }
+
+  &__play-btn,
+  &__add-remove-btn,
+  &__more-info-btn {
+    border-radius: $sm-spacing;
+    padding: 0 $sm-spacing;
+    margin-top: $sm-spacing;
+
+    display: flex;
+    align-items: center;
+  }
+
+  &__more-info-btn,
+  &__add-remove-btn {
+    &:hover {
+      color: #fff;
+      cursor: pointer;
+    }
+  }
+
+  &__more-info-btn,
+  &__add-remove-btn {
+    background-color: #fff;
+    color: $color-primary-text;
+  }
+
+  &__btn-text {
+    margin: $sm-spacing;
+  }
+
+  &__play-icon,
+  &__info-icon,
+  &__remove-icon,
+  &__add-icon {
+    @include headerIcons;
+  }
+
+  &__info-icon,
+  &__remove-icon,
+  &__add-icon {
+    fill: currentColor;
+  }
+
+  &__video-game-image {
+    position: relative;
+    height: 90vh;
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+
+    &:after {
+      background: linear-gradient(
+        rgba($color-primary-dark, 0.8),
+        rgba($color-primary-dark, 0.8)
+      );
+      content: '';
+      display: inline-block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 90vh;
+      width: 100%;
+    }
+  }
+}

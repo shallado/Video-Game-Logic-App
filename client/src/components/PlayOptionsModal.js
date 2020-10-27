@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Modal from 'react-modal';
+import IconPlayBtn from '../svgs/IconPlayBtn';
 
 class PlayOptionsModal extends Component {
   state = {
@@ -19,12 +20,10 @@ class PlayOptionsModal extends Component {
   render() {
     return (
       <div>
-        <div>
-          <ion-icon
-            name="caret-forward-circle"
-            onClick={this.handleOpenModal}
-          ></ion-icon>
-        </div>
+        <button className="btn header__play-btn">
+          <span className="header__btn-text">Play</span>
+          <IconPlayBtn />
+        </button>
         <Modal
           isOpen={this.state.modalIsOpen}
           onRequestClose={this.handleCloseModal}
