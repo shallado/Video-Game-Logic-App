@@ -8,6 +8,7 @@
   &__field-container {
     display: flex;
     flex-direction: column;
+    position: relative;
 
     &:not(:first-child) {
       margin-top: $sm-spacing;
@@ -34,7 +35,7 @@
     width: 30rem;
     outline: none;
     border: 1px solid $color-primary-light;
-    border-radius: 1rem;
+    border-radius: 0.5rem;
 
     &--select {
       width: 100%;
@@ -42,6 +43,25 @@
   }
 
   &__error-message {
-    color: $error-color;
+    background-color: $error-color;
+    border-radius: 0.5rem;
+    color: #fff;
+    padding: 0rem 1rem;
+    position: absolute;
+    top: 7rem;
+    left: 1rem;
+    z-index: 1;
+
+    &:before {
+      border-left: 1rem solid transparent;
+      border-right: 1rem solid transparent;
+      border-bottom: 1rem solid $error-color;
+      content: '';
+      height: 2rem;
+      position: absolute;
+      top: -2rem;
+      left: 0.3rem;
+      width: 2rem;
+    }
   }
 }
