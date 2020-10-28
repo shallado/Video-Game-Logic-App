@@ -119,8 +119,12 @@ export default class UserForm extends Component {
     });
 
     return (
-      <div className="sign-up__container">
-        <h1 className="heading-one heading-one--form">Sign In</h1>
+      <div className="user-form">
+        {this.props.match.path === 'signup' ? (
+          <h1 className="heading-one heading-one--form">Sign Up</h1>
+        ) : (
+          <h1 className="heading-one heading-one--form">Update</h1>
+        )}
         <Formik
           initialValues={formInitialValues}
           validationSchema={formSchema}
