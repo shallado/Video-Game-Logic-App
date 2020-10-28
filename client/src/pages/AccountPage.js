@@ -11,8 +11,7 @@ export class AccountPage extends Component {
 
   render() {
     return (
-      <div>
-        <h1>Update Account</h1>
+      <div className="account">
         <UserForm
           user={this.props.user}
           handleSubmit={this.handleSubmit}
