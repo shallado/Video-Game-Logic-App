@@ -6,9 +6,11 @@ import IconRightArrow from '../svgs/IconRightArrow';
 
 class VideoGameCategory extends Component {
   render() {
-    const items = this.props.categoryGames[0][this.props.index].map((game) => (
-      <VideoGameCard gameInfo={game} key={game.id} />
-    ));
+    const items =
+      this.props.categoryGames &&
+      this.props.categoryGames[0][this.props.index].map((game) => (
+        <VideoGameCard gameInfo={game} key={game.id} />
+      ));
     const responsive = {
       1140: { items: 5 },
     };
