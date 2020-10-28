@@ -3,6 +3,9 @@ import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import Modal from 'react-modal';
 import UserReviewsModal from './UserReviewsModal';
+import IconLogOut from '../svgs/IconLogOut';
+import IconAccount from '../svgs/IconAccount';
+import IconUpload from '../svgs/IconUpload';
 import { signOut } from '../actions/auth';
 
 class AccountModal extends Component {
@@ -20,20 +23,31 @@ class AccountModal extends Component {
       <Modal
         isOpen={this.props.modalIsOpen}
         onRequestClose={this.props.closeModal}
+        className="account-modal"
+        overlayClassName="account-modal__overlay"
       >
         <p>User Name</p>
-        <ul>
-          <ion-icon name="person"></ion-icon>
-          <li>
-            <Link to="/account">Account</Link>
+        <ul className="account-modal__links">
+          <li className="account-modal__link-container">
+            <IconAccount />
+            <Link to="/account" className="account-modal__link-one">
+              Account
+            </Link>
           </li>
-          <ion-icon name="cloud-upload"></ion-icon>
-          <li>
-            <Link to="/upload">Upload</Link>
+          <li className="account-modal__link-container">
+            <IconUpload />
+            <Link to="/upload" className="account-modal__link-two">
+              Upload
+            </Link>
           </li>
           <UserReviewsModal />
-          <ion-icon name="log-out"></ion-icon>
-          <li onClick={this.handleSignOut}>Sign Out</li>
+          <li
+            onClick={this.handleSignOut}
+            className="account-modal__link-container"
+          >
+            <IconLogOut />
+            <span className="account-modal__link-three">Sign Out</span>
+          </li>
         </ul>
       </Modal>
     );

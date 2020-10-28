@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Modal from 'react-modal';
 import UserReviews from './UserReviews';
+import IconReview from '../svgs/IconReview';
 
 export default class UserReviewsModal extends Component {
   state = {
@@ -17,11 +18,12 @@ export default class UserReviewsModal extends Component {
 
   render() {
     return (
-      <div>
-        <div onClick={this.handleOpenModal}>
-          <ion-icon name="chatbubbles"></ion-icon>
-          <li>Game Reviews</li>
-        </div>
+      <li
+        onClick={this.handleOpenModal}
+        className="account-modal__link-container"
+      >
+        <IconReview />
+        <span className="account-modal__link-four">Game Reviews</span>
         <Modal
           isOpen={this.state.modalIsOpen}
           onRequestClose={this.handleCloseModal}
@@ -29,7 +31,7 @@ export default class UserReviewsModal extends Component {
           <h4>User Reviews</h4>
           <UserReviews />
         </Modal>
-      </div>
+      </li>
     );
   }
 }

@@ -8,6 +8,7 @@
 
 // Components
 @import './components/alice-carousel';
+@import './components/account-modal';
 @import './components/btn';
 @import './components/category';
 @import './components/form';
@@ -15,9 +16,11 @@
 @import './components/header';
 @import './components/navbar';
 @import './components/react-dates-overrides';
+@import './components/user-form';
 @import './components/video-game-card';
 
 // Pages
+@import './pages/account';
 @import './pages/home';
 @import './pages/sign-in';
 @import './pages/sign-up';
