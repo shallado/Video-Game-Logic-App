@@ -14,7 +14,7 @@ const getLocations = () => {
   locations.forEach((location) => {
     requests.push({
       method: 'get',
-      url: `https://api.mapbox.com/geocoding/v5/mapbox.places/${location}.json?proximity=-119.19502000000098,34.21827430202288&limit=10&types=poi&access_token=pk.eyJ1Ijoic2hhbGxhZG8iLCJhIjoiY2p0ZGhiZzBhMDF4bzQzcWZwdmRobXozdCJ9.Y1dfJlKry51bWDXHP1vGmw`,
+      url: `https://api.mapbox.com/geocoding/v5/mapbox.places/${location}.json?proximity=-119.19502000000098,34.21827430202288&limit=6&types=poi&access_token=pk.eyJ1Ijoic2hhbGxhZG8iLCJhIjoiY2p0ZGhiZzBhMDF4bzQzcWZwdmRobXozdCJ9.Y1dfJlKry51bWDXHP1vGmw`,
     });
   });
 
