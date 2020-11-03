@@ -1,7 +1,46 @@
 .video-game-card {
+  height: 20rem;
+  position: relative;
+
   &__img {
     border-radius: 1rem;
-    height: 20rem;
-    width: 15rem;
+    height: 100%;
+    width: 70%;
+  }
+
+  &__overlay {
+    background-color: $color-primary;
+    height: 100%;
+    width: 70%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+
+    &:hover {
+      opacity: 0.8;
+      cursor: pointer;
+    }
+  }
+
+  &__icon-container {
+    background-color: #fff;
+    border-radius: 10rem;
+    width: 6rem;
+    height: 6rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__right-arrow-two-icon {
+    fill: $accent-color;
+    margin: 2rem;
+    width: 2rem;
   }
 }
