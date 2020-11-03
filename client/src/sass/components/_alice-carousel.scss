@@ -1,15 +1,15 @@
 .alice-carousel {
-  display: flex;
+  // display: flex;
 
-  div:first-child {
-    display: inline-block;
-    flex: 0 0 89%;
-    overflow: hidden;
-  }
+  // div:first-child {
+  //   display: inline-block;
+  //   flex: 0 0 90%;
+  //   overflow: hidden;
+  // }
 
-  &__prev-btn {
-    order: -1;
-  }
+  // &__prev-btn {
+  //   order: -1;
+  // }
 
   &__prev-btn,
   &__next-btn {

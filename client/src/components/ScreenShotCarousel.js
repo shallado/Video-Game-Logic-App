@@ -1,25 +1,28 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import Slider from 'react-slick';
+import AliceCarousel from 'react-alice-carousel';
 
-const settings = {
-  infinite: true,
-  slidesToShow: 1,
-  slidesToScroll: 1,
-  autoplay: true,
+const ScreenShotCarousel = (props) => {
+  const items = props.currentGame.screenshots.map(({ id, url }) => (
+    <img
+      src={url.replace('thumb', 'screenshot_huge')}
+      key={id}
+      className="more-info-modal__screen-shots"
+    />
+  ));
+
+  return (
+    <AliceCarousel
+      items={items}
+      infinite={true}
+      disableDotsControls={true}
+      disableButtonsControls={true}
+      autoPlayInterval={3000}
+      autoPlay={true}
+      autoWidth={true}
+    />
+  );
 };
-
-const ScreenShotCarousel = (props) => (
-  <Slider {...settings}>
-    {props.currentGame.screenshots.map(({ id, url }) => {
-      return (
-        <div key={id}>
-          <img src={url.replace('thumb', 'logo_med')} />
-        </div>
-      );
-    })}
-  </Slider>
-);
 
 const mapStateToProps = (state) => ({
   currentGame: state.game.currentGame,
