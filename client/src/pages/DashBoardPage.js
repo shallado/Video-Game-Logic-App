@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import AddReviewModal from '../modals/AddReviewModal';
+import MoreInfoModal from '../modals/MoreInfoModal';
+import PlayOptionsModal from '../modals/PlayOptionsModal';
 import VideoGameCategory from '../components/VideoGameCategory';
 import { startGetGames } from '../actions/game';
 
@@ -79,7 +82,6 @@ class DashBoardPage extends Component {
     }));
 
     if (this.props.categoryGames.length === 0) {
-      console.log('asdfhaksdkflahsdflkhasdjkfhaklsdhfkl');
       this.props.startGetGames([
         {
           page,
@@ -100,6 +102,9 @@ class DashBoardPage extends Component {
         {this.state.genres.map((genre, index) => (
           <VideoGameCategory key={index} genre={genre} index={index} />
         ))}
+        <MoreInfoModal />
+        <PlayOptionsModal />
+        <AddReviewModal />
       </div>
     );
   }

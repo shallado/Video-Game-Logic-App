@@ -1,5 +1,3 @@
-import { startSetMapLocations } from '../actions/map';
-
 const initialState = {
   featureGames: '',
   categoryGames: [],

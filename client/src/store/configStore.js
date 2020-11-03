@@ -6,6 +6,7 @@ import authReducer from '../reducers/authReducer';
 import gameReducer from '../reducers/gameReducer';
 import errorReducer from '../reducers/errorReducer';
 import mapReducer from '../reducers/mapReducer';
+import modalReducer from '../reducers/modalReducer';
 import reviewReducer from '../reducers/reviewReducer';
 import userReducer from '../reducers/userReducer';
 
@@ -17,6 +18,7 @@ const configStore = () => {
     review: reviewReducer,
     user: userReducer,
     map: mapReducer,
+    modals: modalReducer,
   });
   const rootReducer = (state, action) => {
     if (action.type === 'SIGN_OUT') {
