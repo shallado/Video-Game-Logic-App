@@ -15,48 +15,12 @@
     display: flex;
   }
 
-  &__play-btn {
-    margin-right: $sm-spacing;
-  }
-
-  &__add-remove-btns {
-    margin-left: auto;
-  }
-
-  &__play-btn,
-  &__add-remove-btn,
-  &__more-info-btn {
-    border-radius: $sm-spacing;
-    padding: 0 $sm-spacing;
-    margin-top: $sm-spacing;
-
-    display: flex;
-    align-items: center;
-  }
-
-  &__more-info-btn,
-  &__add-remove-btn {
-    &:hover {
-      color: #fff;
-      cursor: pointer;
-    }
-  }
-
-  &__more-info-btn,
-  &__add-remove-btn {
-    background-color: #fff;
-    color: $color-primary-text;
-  }
-
-  &__btn-text {
-    margin: $sm-spacing;
-  }
-
   &__play-icon,
   &__info-icon,
   &__remove-icon,
   &__add-icon {
     @include headerIcons;
+    margin-left: 1rem;
   }
 
   &__info-icon,
