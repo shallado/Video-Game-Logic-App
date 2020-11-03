@@ -1,26 +1,26 @@
 .navbar {
   background-color: $color-primary-dark;
-  padding: $sm-spacing 4rem;
-
+  height: 6.7rem;
   display: flex;
+  position: relative;
+  z-index: 1;
 
   &__container {
     &--one {
-      display: flex;
-      align-items: center;
+      padding: 0 $md-spacing;
 
       flex: 0 0 60%;
+      display: flex;
+      align-items: center;
     }
 
     &--two {
-      flex: 0 0 40%;
+      padding: 0 $md-spacing;
 
+      flex: 0 0 40%;
       display: flex;
       justify-content: flex-end;
     }
-  }
-
-  &__logo {
   }
 
   &__links {
@@ -48,8 +48,8 @@
   }
 
   &__search-link {
+    align-self: center;
     height: 2.5rem;
-    margin-right: 2rem;
     width: 2.5rem;
   }
 
@@ -63,8 +63,86 @@
     }
   }
 
+  &__profile-photo-container {
+    flex: 0 0 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:hover .navbar__account {
+      opacity: 1;
+    }
+  }
+
   &__profile-photo {
     height: 2.5rem;
     width: 2.5rem;
+  }
+
+  &__account {
+    background-color: rgba($color-primary, 0.75);
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    opacity: 0;
+    padding: $sm-spacing $md-spacing;
+    position: absolute;
+    top: 6.7rem;
+    right: 2rem;
+    text-align: center;
+  }
+
+  &__overlay {
+    height: 27rem;
+    width: 25rem;
+    position: absolute;
+    top: 6.5rem;
+    left: 97.5rem;
+  }
+
+  &__account-links {
+    list-style: none;
+    margin-top: $sm-spacing;
+  }
+
+  &__account-link-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    &:not(:last-child) {
+      margin-bottom: $sm-spacing;
+    }
+  }
+
+  &__account-link-one,
+  &__account-link-two,
+  &__account-link-three {
+    &:link,
+    &:visited {
+      color: inherit;
+      text-decoration: none;
+      border-bottom: 0.2rem solid transparent;
+    }
+
+    &:hover {
+      border-bottom: 0.2rem solid $accent-color;
+    }
+  }
+
+  &__account-link-four {
+    border-bottom: 0.2rem solid transparent;
+
+    &:hover {
+      border-bottom: 0.2rem solid $accent-color;
+      cursor: pointer;
+    }
+  }
+
+  &__log-out-icon,
+  &__account-icon,
+  &__upload-icon,
+  &__review-icon {
+    @include headerIcons;
+    margin-right: $sm-spacing;
   }
 }

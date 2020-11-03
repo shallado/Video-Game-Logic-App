@@ -2,7 +2,7 @@ import React from 'react';
 
 const IconLogOut = () => (
   <svg
-    className="account-modal__log-out-icon"
+    className="navbar__log-out-icon"
     height="512pt"
     viewBox="0 0 512.005 512"
     width="512pt"

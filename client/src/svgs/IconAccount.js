@@ -2,7 +2,7 @@ import React from 'react';
 
 const IconAccount = () => (
   <svg
-    className="account-modal__account-icon"
+    className="navbar__account-icon"
     xmlns="http://www.w3.org/2000/svg"
     width="512"
     height="512"
