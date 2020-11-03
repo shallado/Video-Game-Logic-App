@@ -6,28 +6,31 @@ import ReactMapGL, {
   FlyToInterpolator,
 } from 'react-map-gl';
 import Markers from './Markers';
-import { startSetMapLocations } from '../actions/map';
 import mapboxConfig from '../config/mapbox';
 
 class Map extends Component {
   state = {
     viewport: {
-      width: 500,
+      width: 940,
       height: 500,
       zoom: 10,
       longitude: 0,
       latitude: 0,
     },
-    selectedMarker: null,
     isLoading: true,
-  };
-
-  handleOpenPopup = (markerId) => {
-    this.setState(() => ({ selectedMarker: markerId }));
+    markerId: null,
   };
 
   handleOnClose = () => {
-    this.setState({ selectedMarker: null });
+    this.setState(() => ({
+      markerId: null,
+    }));
+  };
+
+  handleOnOpen = (markerId) => {
+    this.setState(() => ({
+      markerId,
+    }));
   };
 
   handleGeoLocatorViewportChange = (viewport) => {
@@ -48,61 +51,63 @@ class Map extends Component {
         latitude: center[1],
         zoom: 15,
       },
-      selectedMarker: markerId,
+      markerId,
     }));
   };
 
-  componentDidMount() {
-    this.props.startSetMapLocations();
-  }
-
   render() {
     return (
-      <div>
-        <div>
-          <h6>Physical Stores</h6>
-          {this.props.locationsInfo.map((locationInfo) => {
-            return (
-              <div
-                key={locationInfo.id}
-                onClick={() =>
-                  this.handleLocationZoom(locationInfo.center, locationInfo.id)
-                }
-              >
-                <p>{locationInfo.place_name}</p>
-              </div>
-            );
-          })}
+      <>
+        <div className="more-info-modal__market-place-physical">
+          <h5 className="heading-five">Physical Stores</h5>
+          <ul>
+            {this.props.locationsInfo.map((locationInfo) => {
+              return (
+                <li
+                  key={locationInfo.id}
+                  onClick={this.handleLocationZoom}
+                  className="more-info-modal__market-place-store"
+                >
+                  {locationInfo.place_name}
+                </li>
+              );
+            })}
+          </ul>
         </div>
-        <ReactMapGL
-          {...this.state.viewport}
-          mapStyle="mapbox://styles/mapbox/streets-v11"
-          mapboxApiAccessToken={mapboxConfig.apiToken}
-          transitionInterpolator={
-            new FlyToInterpolator({
-              center: [
-                this.state.viewport.latitude,
-                this.state.viewport.longitude,
-              ],
-            })
-          }
-          onViewportChange={this.handleMapViewportChange}
-        >
-          <GeolocateControl
-            onViewportChange={this.handleGeoLocatorViewportChange}
-            positionOptions={{ enableHighAccuracy: true }}
-            trackUserLocation={true}
-            auto={true}
-          />
-          <NavigationControl showZoom={true} />
-          <Markers
-            selectedMarker={this.state.selectedMarker}
-            handleOpenPopup={this.handleOpenPopup}
-            handleOnClose={this.handleOpenPopup}
-            locationsInfo={this.props.locationsInfo}
-          />
-        </ReactMapGL>
-      </div>
+        <div className="more-info-modal__map">
+          <ReactMapGL
+            {...this.state.viewport}
+            mapStyle="mapbox://styles/mapbox/streets-v11"
+            mapboxApiAccessToken={mapboxConfig.apiToken}
+            transitionInterpolator={
+              new FlyToInterpolator({
+                center: [
+                  this.state.viewport.latitude,
+                  this.state.viewport.longitude,
+                ],
+              })
+            }
+            onViewportChange={this.handleMapViewportChange}
+            scrollZoom={false}
+          >
+            <GeolocateControl
+              onViewportChange={this.handleGeoLocatorViewportChange}
+              positionOptions={{ enableHighAccuracy: true }}
+              auto={true}
+            />
+            <div className="more-info-modal__map-navigation">
+              <NavigationControl showZoom={true} />
+            </div>
+            <Markers
+              handleOnClose={this.handleOnClose}
+              handleOnOpen={this.handleOnOpen}
+              locationsInfo={this.props.locationsInfo}
+              showPop={this.state.showPop}
+              markerId={this.state.markerId}
+            />
+          </ReactMapGL>
+        </div>
+      </>
     );
   }
 }
@@ -111,8 +116,4 @@ const mapStateToProps = (state) => ({
   locationsInfo: state.map.locationsInfo,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  startSetMapLocations: () => dispatch(startSetMapLocations()),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Map);
+export default connect(mapStateToProps)(Map);
