@@ -37,3 +37,17 @@
   height: auto;
   width: 2.5rem;
 }
+
+@mixin closeModal {
+  width: 100%;
+  text-align: right;
+  margin-bottom: $sm-spacing;
+
+  & div {
+    display: inline-block;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}

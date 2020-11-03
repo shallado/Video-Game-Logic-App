@@ -24,3 +24,34 @@
     margin-bottom: $md-spacing;
   }
 }
+
+.heading-four {
+  display: inline-block;
+  font-size: 4rem;
+  font-weight: 100;
+  margin-bottom: $xlg-spacing;
+  position: relative;
+
+  &__container {
+    text-align: center;
+  }
+
+  &::after {
+    // border-bottom: solid 1px $accent-color;
+    content: '';
+    height: 0.2rem;
+    position: absolute;
+    bottom: -0.4rem;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    width: 10rem;
+    background: $accent-color;
+  }
+}
+
+.heading-five {
+  font-size: 1.8rem;
+  font-weight: 100;
+  color: $accent-color;
+}

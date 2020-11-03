@@ -2,7 +2,7 @@ import React from 'react';
 
 const IconPlayBtn = () => (
   <svg
-    className="header__play-icon"
+    className="header__play-icon more-info-modal__play-icon"
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 477.867 477.867"
     aria-labelledby="play"

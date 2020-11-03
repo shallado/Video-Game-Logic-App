@@ -1,0 +1,19 @@
+.play-modal {
+  &__close-icon-container {
+    @include closeModal;
+  }
+
+  &__btn {
+    border-radius: $sm-spacing;
+    padding: 0 $sm-spacing;
+    margin-top: $sm-spacing;
+    margin-right: $sm-spacing;
+
+    display: flex;
+    align-items: center;
+  }
+
+  &__btn-text {
+    margin: $sm-spacing;
+  }
+}

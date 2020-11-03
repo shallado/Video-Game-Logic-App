@@ -8,18 +8,18 @@ import IconAddBtn from '../svgs/IconAddBtn';
 import IconRemoveBtn from '../svgs/IconRemoveBtn';
 
 class AddRemoveVideoGame extends Component {
-  handleAddRemove = () => {
-    const { id } = this.props.user;
-
-    const videoGame = this.props.user.videoGames.find(
-      (videoGame) => videoGame.name === this.props.currentGame.name
+  handleAddVideoGame = () => {
+    this.props.startAddVideoGameToWatchList(
+      this.props.user.id,
+      this.props.currentGame
     );
+  };
 
-    if (videoGame || (videoGame && videoGame.addToWatchList)) {
-      this.props.startRemoveVideoGameToWatchList(id, this.props.currentGame);
-    } else {
-      this.props.startAddVideoGameToWatchList(id, this.props.currentGame);
-    }
+  handleRemoveVideoGame = () => {
+    this.props.startRemoveVideoGameToWatchList(
+      this.props.user.id,
+      this.props.currentGame
+    );
   };
 
   render() {
@@ -28,19 +28,25 @@ class AddRemoveVideoGame extends Component {
     );
 
     return (
-      <div onClick={this.handleAddRemove} className="header__add-remove-btns">
-        {videoGame || (videoGame && videoGame.addToWatchList) ? (
-          <button className="header__add-remove-btn">
-            <span className="header__btn-text">Remove</span>
+      <>
+        {videoGame ? (
+          <button
+            onClick={this.handleRemoveVideoGame}
+            className="btn add-remove-btn"
+          >
+            <span>Remove</span>
             <IconRemoveBtn />
           </button>
         ) : (
-          <button className="btn header__add-remove-btn">
-            <span className="header__btn-text">Add</span>
+          <button
+            onClick={this.handleAddVideoGame}
+            className="btn add-remove-btn"
+          >
+            <span>Add</span>
             <IconAddBtn />
           </button>
         )}
-      </div>
+      </>
     );
   }
 }
@@ -51,10 +57,10 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  startAddVideoGameToWatchList: (userId, title) =>
-    dispatch(startAddVideoGameToWatchList(userId, title)),
-  startRemoveVideoGameToWatchList: (userId, title) =>
-    dispatch(startRemoveVideoGameToWatchList(userId, title)),
+  startAddVideoGameToWatchList: (userId, videoGame) =>
+    dispatch(startAddVideoGameToWatchList(userId, videoGame)),
+  startRemoveVideoGameToWatchList: (userId, videoGame) =>
+    dispatch(startRemoveVideoGameToWatchList(userId, videoGame)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddRemoveVideoGame);

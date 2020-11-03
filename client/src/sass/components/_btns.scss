@@ -1,0 +1,43 @@
+.btn {
+  margin-top: $md-spacing;
+  @include btn;
+  @include btnAnimation;
+}
+
+.btn-link {
+  &:link,
+  &:visited {
+    text-decoration: none;
+    transition: transform 0.2s;
+    @include btn;
+  }
+
+  @include btnAnimation;
+}
+
+.add-remove-btns-container {
+  margin-left: auto;
+}
+
+.add-remove-btn,
+.play-btn,
+.more-info-btn,
+.add-review-btn {
+  background-color: #fff;
+  border-radius: $sm-spacing;
+  color: $color-primary-text;
+  padding: 1rem $sm-spacing;
+  margin-top: $sm-spacing;
+
+  display: flex;
+  align-items: center;
+
+  &:hover {
+    color: #fff;
+    cursor: pointer;
+  }
+}
+
+.play-btn {
+  margin-right: $sm-spacing;
+}
