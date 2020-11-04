@@ -33,6 +33,10 @@
 
   &__close-icon-container {
     @include closeModal;
+
+    & div {
+      height: 4rem;
+    }
   }
 
   &__screen-shots {
@@ -44,11 +48,6 @@
   &__btn-container {
     display: flex;
     justify-content: flex-start;
-  }
-
-  &__play-icon {
-    @include headerIcons;
-    margin-left: 1rem;
   }
 
   &__section-container-main {

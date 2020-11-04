@@ -1,19 +1,50 @@
 .play-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  bottom: 4rem;
+  background-color: $color-primary-dark;
+  transform: translate(-50%, -50%);
+  height: 35%;
+  width: 35%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &:focus {
+    outline: none;
+  }
+
+  &__overlay {
+    background-color: $color-primary;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 3;
+  }
+
   &__close-icon-container {
     @include closeModal;
+
+    & div {
+      margin: $sm-spacing $sm-spacing 0 0;
+      height: 2rem;
+    }
   }
 
-  &__btn {
-    border-radius: $sm-spacing;
-    padding: 0 $sm-spacing;
-    margin-top: $sm-spacing;
-    margin-right: $sm-spacing;
+  &__play-options {
+    text-decoration: none;
 
-    display: flex;
-    align-items: center;
-  }
+    &:link,
+    &:visited {
+      color: inherit;
+    }
 
-  &__btn-text {
-    margin: $sm-spacing;
+    &:hover {
+      color: $color-primary-light;
+    }
   }
 }

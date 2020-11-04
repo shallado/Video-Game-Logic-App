@@ -1,0 +1,36 @@
+.watch {
+  background-color: $color-primary-dark;
+  height: 100vh;
+  padding: $md-spacing;
+  width: 100vw;
+
+  &__left-arrow-icon-container {
+    @include closeModal;
+    text-align: left;
+    margin: 0;
+
+    & div {
+      height: 4rem;
+
+      :hover {
+        fill: $accent-color;
+      }
+    }
+  }
+
+  &__link {
+    &:link,
+    &:visited {
+      color: #fff;
+    }
+  }
+
+  &__video-player-container {
+    height: 86%;
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
