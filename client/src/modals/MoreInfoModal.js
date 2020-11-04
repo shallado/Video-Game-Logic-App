@@ -27,6 +27,14 @@ class MoreInfoModal extends Component {
     this.props.startSetMapLocations();
   }
 
+  componentDidUpdate() {
+    if (this.props.modals.includes('moreInfoModal')) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+  }
+
   render() {
     const {
       age_ratings = '',
@@ -56,7 +64,9 @@ class MoreInfoModal extends Component {
               className="btn play-btn"
             >
               <span className="more-info-modal__btn-text">Play</span>
-              <IconPlayBtn />
+              <div className="icon__container">
+                <IconPlayBtn />
+              </div>
             </button>
             <div className="more-info-modal__btns-container">
               <AddRemoveVideoGame />
@@ -70,7 +80,9 @@ class MoreInfoModal extends Component {
           <div className="more-info-modal__section-container-main">
             <div className="more-info-modal__section-container-one">
               <div className="more-info-modal__ratings-container">
-                <h5 className="heading-five">ESRB Rating :</h5>
+                <h5 className="heading-five heading-five--no-margin">
+                  ESRB Rating :
+                </h5>
                 <ul>
                   {age_ratings &&
                     age_ratings.map(({ id, rating }) => (

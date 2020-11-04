@@ -2,10 +2,8 @@ import React from 'react';
 
 const IconClose = () => (
   <svg
-    className="icon close-icon"
-    height="487.595"
+    className="icon icon--close"
     viewBox="0 0 365.696 365.696"
-    width="487.595"
     xmlns="http://www.w3.org/2000/svg"
     aria-labelledby="close"
   >

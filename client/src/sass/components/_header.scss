@@ -15,20 +15,6 @@
     display: flex;
   }
 
-  &__play-icon,
-  &__info-icon,
-  &__remove-icon,
-  &__add-icon {
-    @include headerIcons;
-    margin-left: 1rem;
-  }
-
-  &__info-icon,
-  &__remove-icon,
-  &__add-icon {
-    fill: currentColor;
-  }
-
   &__video-game-image {
     position: relative;
     height: 90vh;

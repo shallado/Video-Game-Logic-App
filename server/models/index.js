@@ -14,16 +14,16 @@ client.connect().then(() => {
   console.log('Successfully connected to the database');
 
   // production purposes
-  client
-    .db(dbName)
-    .dropDatabase()
-    .then(() => userIndexFields(client.db(dbName)))
-    .then(() => reviewIndexFields(client.db(dbName)))
-    .then(() => videoGameIndexFields(client.db(dbName)))
-    .then(() => userSchema(client.db(dbName)))
-    .then(() => reviewSchema(client.db(dbName)))
-    .then(() => videoGameSchema(client.db(dbName)))
-    .catch((err) => console.log(err.stack));
+  // client
+  //   .db(dbName)
+  //   .dropDatabase()
+  //   .then(() => userIndexFields(client.db(dbName)))
+  //   .then(() => reviewIndexFields(client.db(dbName)))
+  //   .then(() => videoGameIndexFields(client.db(dbName)))
+  //   .then(() => userSchema(client.db(dbName)))
+  //   .then(() => reviewSchema(client.db(dbName)))
+  //   .then(() => videoGameSchema(client.db(dbName)))
+  //   .catch((err) => console.log(err.stack));
 });
 
 const db = client.db(dbName);

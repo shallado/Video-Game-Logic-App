@@ -35,7 +35,9 @@ class AddRemoveVideoGame extends Component {
             className="btn add-remove-btn"
           >
             <span>Remove</span>
-            <IconRemoveBtn />
+            <span className="icon__container">
+              <IconRemoveBtn />
+            </span>
           </button>
         ) : (
           <button
@@ -43,7 +45,9 @@ class AddRemoveVideoGame extends Component {
             className="btn add-remove-btn"
           >
             <span>Add</span>
-            <IconAddBtn />
+            <span className="icon__container">
+              <IconAddBtn />
+            </span>
           </button>
         )}
       </>

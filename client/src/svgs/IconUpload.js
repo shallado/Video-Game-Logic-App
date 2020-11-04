@@ -2,7 +2,7 @@ import React from 'react';
 
 const IconUpload = () => (
   <svg
-    className="navbar__upload-icon"
+    className="icon"
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 34.39 34.39"
     aria-labelledby="upload"

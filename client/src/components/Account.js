@@ -7,7 +7,7 @@ import IconReview from '../svgs/IconReview';
 import IconUpload from '../svgs/IconUpload';
 import { signOut } from '../actions/auth';
 
-class AccountModal extends Component {
+class Account extends Component {
   handleSignOut = () => {
     this.props.signOut();
     this.props.history.push('/');
@@ -19,13 +19,17 @@ class AccountModal extends Component {
         <p>User Name</p>
         <ul className="navbar__account-links">
           <li className="navbar__account-link-container">
-            <IconAccount />
+            <span className="navbar__icon-container">
+              <IconAccount />
+            </span>
             <Link to="/account" className="navbar__account-link-one">
               Account
             </Link>
           </li>
           <li className="navbar__account-link-container">
-            <IconUpload />
+            <span className="navbar__icon-container">
+              <IconUpload />
+            </span>
             <Link to="/upload" className="navbar__account-link-two">
               Upload
             </Link>
@@ -34,7 +38,9 @@ class AccountModal extends Component {
             onClick={this.handleOpenModal}
             className="navbar__account-link-container"
           >
-            <IconReview />
+            <span className="navbar__icon-container">
+              <IconReview />
+            </span>
             <Link to="/user-reviews" className="navbar__account-link-three">
               Game Reviews
             </Link>
@@ -43,7 +49,9 @@ class AccountModal extends Component {
             onClick={this.handleSignOut}
             className="navbar__account-link-container"
           >
-            <IconLogOut />
+            <span className="navbar__icon-container">
+              <IconLogOut />
+            </span>
             <span className="navbar__account-link-four">Sign Out</span>
           </li>
         </ul>
@@ -56,4 +64,4 @@ const mapDispatchToProps = (dispatch) => ({
   signOut: () => dispatch(signOut()),
 });
 
-export default withRouter(connect(null, mapDispatchToProps)(AccountModal));
+export default withRouter(connect(null, mapDispatchToProps)(Account));

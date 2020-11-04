@@ -2,7 +2,7 @@ import React from 'react';
 
 const IconReview = () => (
   <svg
-    className="navbar__review-icon"
+    className="icon"
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 372.96 372.96"
     aria-labelledby="review"

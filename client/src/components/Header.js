@@ -21,8 +21,6 @@ class Header extends Component {
     } else if (modal === 'moreInfoModal') {
       this.props.showMoreInfoModal(modal);
     }
-
-    this.props.showModal();
   };
 
   render() {
@@ -42,18 +40,24 @@ class Header extends Component {
                 <p>{this.props.featureGames[0].summary}</p>
               </div>
               <div className="header__btns">
-                <button className="btn play-btn">
-                  <span className="header__btn-text">Play</span>
-                  <IconPlayBtn
-                    onClick={() => this.handleShowModal('playOptionsModal')}
-                  />
+                <button
+                  onClick={() => this.handleShowModal('playOptionsModal')}
+                  className="btn play-btn"
+                >
+                  <span>Play</span>
+                  <span className="icon__container">
+                    <IconPlayBtn />
+                  </span>
                 </button>
                 <PlayOptionsModal gameInfo={this.props.featureGames[0]} />
-                <button className="btn more-info-btn">
-                  <span className="header__btn-text">More Info</span>
-                  <IconInfoBtn
-                    onClick={() => this.handleShowModal('moreInfoModal')}
-                  />
+                <button
+                  onClick={() => this.handleShowModal('moreInfoModal')}
+                  className="btn more-info-btn"
+                >
+                  <span>More Info</span>
+                  <span className="icon__container">
+                    <IconInfoBtn />
+                  </span>
                 </button>
                 <MoreInfoModal />
               </div>

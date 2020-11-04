@@ -1,4 +1,15 @@
 .icon {
-  @include headerIcons;
-  fill: $accent-color;
+  @include icons;
+  fill: currentColor;
+
+  margin-left: 1rem;
+
+  &__container {
+    height: 2.5rem;
+  }
+
+  &--close {
+    fill: $accent-color;
+    margin-left: 0;
+  }
 }

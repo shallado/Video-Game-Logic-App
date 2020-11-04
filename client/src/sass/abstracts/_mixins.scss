@@ -18,6 +18,10 @@
   border: 1px solid $accent-color;
   border-radius: 2rem;
   padding: 1rem $md-spacing;
+
+  &:focus {
+    outline: none;
+  }
 }
 
 @mixin btnAnimation {
@@ -32,10 +36,9 @@
   }
 }
 
-@mixin headerIcons {
+@mixin icons {
   fill: currentColor;
-  height: auto;
-  width: 2.5rem;
+  height: 100%;
 }
 
 @mixin closeModal {
