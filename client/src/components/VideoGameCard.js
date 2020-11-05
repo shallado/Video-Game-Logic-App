@@ -5,23 +5,27 @@ import { setCurrentGame } from '../actions/game';
 import { showModal } from '../actions/modal';
 
 class VideoGameCard extends Component {
-  handleMouseEnter = () => {
+  handleShowModal = () => {
     if (this.props.gameInfo.id !== this.props.currentGame.id) {
       this.props.setCurrentGame(this.props.gameInfo);
     }
-  };
 
-  handleShowModal = () => {
     this.props.showModal();
   };
 
   render() {
     return (
-      <div className="video-game-card" onMouseEnter={this.handleMouseEnter}>
-        <img
-          src={this.props.gameInfo.cover.url.replace('thumb', 'cover_big')}
-          className="video-game-card__img"
-        />
+      <div className="video-game-card">
+        {this.props.gameInfo.cover ? (
+          <img
+            src={this.props.gameInfo.cover.url.replace('thumb', 'cover_big')}
+            className="video-game-card__img"
+          />
+        ) : (
+          <div className="video-game-card__img-unavailable">
+            <p>{this.props.gameInfo.name}</p>
+          </div>
+        )}
         <div className="video-game-card__overlay">
           <div
             className="video-game-card__icon-container"
