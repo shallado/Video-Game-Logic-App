@@ -3,9 +3,9 @@ import React from 'react';
 const VideoGameReview = (props) => (
   <li className="more-info-modal__review">
     <span className="more-info-modal__review-username">
-      {props.review.username} :
+      {props.videoGameReview.username} :
     </span>
-    <span>{props.review.review}</span>
+    <span>{props.videoGameReview.review}</span>
   </li>
 );
 

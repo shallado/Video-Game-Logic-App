@@ -22,19 +22,19 @@ class AddReviewModal extends Component {
       <Modal
         isOpen={this.props.modals.includes('addReviewModal')}
         onRequestClose={this.handleCloseModal}
+        className="add-review-modal"
+        overlayClassName="add-review-modal__overlay"
       >
-        <div>
-          <div className="more-info-modal__close-icon-container">
-            <div onClick={this.handleCloseModal}>
-              <IconClose />
-            </div>
+        <div className="add-review-modal__close-icon-container">
+          <div onClick={this.handleCloseModal}>
+            <IconClose />
           </div>
-          <h4>Add Review</h4>
-          <ReviewForm
-            handleSubmit={this.handleSubmit}
-            handleCloseModal={this.handleCloseModal}
-          />
         </div>
+        <h4 className="heading-four">Add Review</h4>
+        <ReviewForm
+          handleSubmit={this.handleSubmit}
+          handleCloseModal={this.handleCloseModal}
+        />
       </Modal>
     );
   }

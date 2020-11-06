@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import { hideModal } from '../actions/modal';
+import { setUserReviews } from '../actions/review';
 
 class ReviewForm extends Component {
   handleSubmit = (review) => {
@@ -11,7 +13,7 @@ class ReviewForm extends Component {
     };
 
     this.props.handleSubmit(reviewInfo);
-    this.props.handleCloseModal();
+    this.props.hideModal();
   };
 
   render() {
@@ -21,28 +23,42 @@ class ReviewForm extends Component {
     };
 
     const formSchema = Yup.object({
-      title: Yup.string().required('Required'),
       review: Yup.string().required('Required'),
     });
 
     return (
-      <div>
-        <Formik
-          initialValues={formInitialValues}
-          validationSchema={formSchema}
-          onSubmit={this.handleSubmit}
-        >
-          <Form>
-            <label htmlFor="title">Title</label>
-            <Field name="title" type="text" disabled={true} />
-            <ErrorMessage name="title" />
-            <label htmlFor="review">Review</label>
-            <Field as="textarea" name="review" type="text" />
-            <ErrorMessage name="review" />
-            <button type="submit">Post</button>
-          </Form>
-        </Formik>
-      </div>
+      <Formik
+        initialValues={formInitialValues}
+        validationSchema={formSchema}
+        onSubmit={this.handleSubmit}
+      >
+        <Form className="add-review-modal__form">
+          <div className="add-review-modal__form-input-container">
+            <label
+              htmlFor="review"
+              className="add-review-modal__form-input-label"
+            >
+              Review :
+            </label>
+            <Field
+              as="textarea"
+              name="review"
+              type="text"
+              className="add-review-modal__form-input add-review-modal__form-input--review"
+            />
+            <ErrorMessage
+              name="review"
+              className="error-message"
+              component="div"
+            />
+          </div>
+          <div className="add-review-modal__btn-container">
+            <button type="submit" className="btn">
+              Post
+            </button>
+          </div>
+        </Form>
+      </Formik>
     );
   }
 }
@@ -52,4 +68,9 @@ const mapStateToProps = (state) => ({
   currentGame: state.game.currentGame,
 });
 
-export default connect(mapStateToProps)(ReviewForm);
+const mapDispatchToProps = (dispatch) => ({
+  hideModal: () => dispatch(hideModal('addReviewModal')),
+  setUserReviews: (review) => dispatch(setUserReviews([review])),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ReviewForm);

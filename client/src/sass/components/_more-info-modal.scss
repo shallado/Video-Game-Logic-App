@@ -28,7 +28,9 @@
   }
 
   &__section {
-    margin-bottom: $xlg-spacing;
+    &:not(:last-child) {
+      margin-bottom: $xlg-spacing;
+    }
   }
 
   &__close-icon-container {
@@ -152,17 +154,24 @@
   }
 
   &__reviews-container {
-    flex: 0 0 90%;
-  }
-
-  &__reviews {
+    border: 1px solid $color-primary-light;
+    flex: 0 0 100%;
+    max-height: 79rem;
+    margin-top: $md-spacing;
+    overflow-y: scroll;
   }
 
   &__review {
-    margin-top: $sm-spacing;
-
     display: flex;
     flex-direction: column;
+
+    &:not(:last-child) {
+      margin-bottom: $sm-spacing;
+    }
+  }
+
+  &__reviews {
+    margin: $md-spacing;
   }
 
   &__review-username {

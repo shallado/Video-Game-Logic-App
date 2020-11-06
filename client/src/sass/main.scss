@@ -7,9 +7,11 @@
 @import './abstracts/variables';
 
 // Components
+@import './components/add-review-modal';
 @import './components/alice-carousel';
 @import './components/btns';
 @import './components/category';
+@import './components/error-message';
 @import './components/form';
 @import './components/headings';
 @import './components/header';
