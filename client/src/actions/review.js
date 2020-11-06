@@ -20,13 +20,13 @@ export const startAddReview = ({ title, username, review } = {}) => {
       },
     };
 
-    axios(requestOne)
-      .then(() => {
-        return axios(requestTwo);
-      })
-      .then((responseTwo) => {
-        console.log(responseTwo);
-      })
+    axios
+      .all([axios(requestOne), axios(requestTwo)])
+      .then(
+        axios.spread(() => {
+          dispatch(setUserReviews({ title, username, review }));
+        })
+      )
       .catch((err) => {
         let error;
 
@@ -113,7 +113,9 @@ export const startSetVideoGameReviews = (title) => {
           error = err.message;
         }
 
-        dispatch(loadTodoError(error));
+        if (error.status === 404) {
+          dispatch(setVideoGameReviews({ videoGameReviews: [] }));
+        }
       });
   };
 };
