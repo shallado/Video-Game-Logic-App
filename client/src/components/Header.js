@@ -9,17 +9,15 @@ import { setCurrentGame } from '../actions/game';
 import { showModal } from '../actions/modal';
 
 class Header extends Component {
-  handleMouseEnter = () => {
-    if (this.props.featureGames[0].id !== this.props.currentGame.id) {
-      this.props.setCurrentGame(this.props.featureGames[0]);
-    }
-  };
-
   handleShowModal = (modal) => {
     if (modal === 'playOptionsModal') {
       this.props.showPlayOptionsModal(modal);
     } else if (modal === 'moreInfoModal') {
       this.props.showMoreInfoModal(modal);
+
+      if (this.props.featureGames[0].id !== this.props.currentGame.id) {
+        this.props.setCurrentGame(this.props.featureGames[0]);
+      }
     }
   };
 
