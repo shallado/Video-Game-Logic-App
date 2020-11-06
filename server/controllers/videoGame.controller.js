@@ -6,21 +6,16 @@ exports.create = (req, res) => {
   const { title } = req.body;
   const videoGame = new VideoGame(title);
 
-  videoGame
-    .findOne()
+  return videoGame
+    .create()
     .then((data) => {
       if (!data) {
-        return videoGame.create();
+        return res.send({ message: 'video game has been already added' });
       }
 
       res.send({
-        message: 'video game is in the database',
-      });
-    })
-    .then((data) => {
-      res.send({
         message: 'successfully added video game',
-        data: data.ops,
+        data: data.ops[0],
       });
     })
     .catch((err) => {
@@ -40,7 +35,10 @@ exports.findOne = (req, res) => {
       if (data.length > 0) {
         return res.send({
           message: 'successfully found video game',
-          data,
+          data: {
+            ...data[0],
+            videoGameReviews: data[0].videoGameReviews[0].reviews,
+          },
         });
       }
 

@@ -1,6 +1,5 @@
 /* eslint-disable consistent-return */
 /* eslint-disable no-underscore-dangle */
-const util = require('util');
 const { Int32 } = require('mongodb');
 const APIError = require('../utils/apiError');
 const httpStatusCodes = require('../utils/statusCodes');

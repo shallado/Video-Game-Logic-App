@@ -8,11 +8,12 @@ const VideoGameReviews = (props) => {
       {props.videoGameReviews.length > 0 ? (
         <div className="more-info-modal__reviews-container">
           <ul className="more-info-modal__reviews">
-            {props.videoGameReviews[0].videoGameReviews.map(({ reviews }) =>
-              reviews.map((review) => (
-                <VideoGameReview key={review._id} review={review} />
-              ))
-            )}
+            {props.videoGameReviews.map((videoGameReview) => (
+              <VideoGameReview
+                key={videoGameReview._id}
+                videoGameReview={videoGameReview}
+              />
+            ))}
           </ul>
         </div>
       ) : (
