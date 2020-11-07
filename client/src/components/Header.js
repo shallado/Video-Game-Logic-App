@@ -47,7 +47,6 @@ class Header extends Component {
                     <IconPlayBtn />
                   </span>
                 </button>
-                <PlayOptionsModal gameInfo={this.props.featureGames[0]} />
                 <button
                   onClick={() => this.handleShowModal('moreInfoModal')}
                   className="btn more-info-btn"
@@ -57,7 +56,6 @@ class Header extends Component {
                     <IconInfoBtn />
                   </span>
                 </button>
-                <MoreInfoModal />
               </div>
             </div>
             <div className="header__video-game-image">
