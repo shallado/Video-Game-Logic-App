@@ -9,7 +9,10 @@ import ScreenShotCarousel from '../components/ScreenShotCarousel';
 import IconClose from '../svgs/IconClose';
 import IconPlayBtn from '../svgs/IconPlayBtn';
 import { hideModal, showModal } from '../actions/modal';
-import { startSetVideoGameReviews } from '../actions/review';
+import {
+  startSetVideoGameReviews,
+  resetVideoGameReviews,
+} from '../actions/review';
 import { startSetMapLocations } from '../actions/map';
 
 Modal.setAppElement('#root');
@@ -26,6 +29,11 @@ class MoreInfoModal extends Component {
   componentDidUpdate(prevProps) {
     if (this.props.modals.includes('moreInfoModal')) {
       document.body.style.overflow = 'hidden';
+      console.log(
+        prevProps.videoGameReviews.reviews.length !==
+          this.props.videoGameReviews.reviews.length
+      );
+      console.log(this.props.videoGameReviews.reviews.length === 0);
       if (
         prevProps.videoGameReviews.reviews.length !==
           this.props.videoGameReviews.reviews.length ||
@@ -35,6 +43,7 @@ class MoreInfoModal extends Component {
       }
     } else {
       document.body.style.overflow = 'unset';
+      this.props.resetVideoGameReviews();
     }
   }
 
@@ -188,6 +197,7 @@ const mapDispatchToProps = (dispatch) => ({
   startSetVideoGameReviews: (title) =>
     dispatch(startSetVideoGameReviews(title)),
   startSetMapLocations: () => dispatch(startSetMapLocations()),
+  resetVideoGameReviews: () => dispatch(resetVideoGameReviews()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MoreInfoModal);

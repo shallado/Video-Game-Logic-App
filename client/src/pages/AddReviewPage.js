@@ -19,15 +19,15 @@ class AddReviewPage extends Component {
 
   render() {
     return (
-      <div className="review">
-        <div className="add-review-modal__close-icon-container">
+      <div className="review-page">
+        <div className="review-page__close-icon-container">
           <div>
-            <Link to="/dashboard" className="add-review-modal__link">
+            <Link to="/dashboard" className="review-page__link">
               <IconLeftArrow />
             </Link>
           </div>
         </div>
-        <div className="add-review-modal">
+        <div className="review-page__form-container">
           <h4 className="heading-four">Add Review</h4>
           <ReviewForm handleSubmit={this.handleSubmit} />
         </div>

@@ -7,7 +7,6 @@
 @import './abstracts/variables';
 
 // Components
-@import './components/add-review-modal';
 @import './components/alice-carousel';
 @import './components/btns';
 @import './components/category';
@@ -27,6 +26,7 @@
 // Pages
 @import './pages/account';
 @import './pages/home';
+@import './pages/review';
 @import './pages/sign-in';
 @import './pages/sign-up';
 @import './pages/watch';

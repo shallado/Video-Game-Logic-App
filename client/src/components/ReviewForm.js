@@ -22,19 +22,16 @@ export default class ReviewForm extends Component {
         validationSchema={formSchema}
         onSubmit={this.handleSubmit}
       >
-        <Form className="add-review-modal__form">
-          <div className="add-review-modal__form-input-container">
-            <label
-              htmlFor="review"
-              className="add-review-modal__form-input-label"
-            >
+        <Form className="review-page__form">
+          <div className="review-page__form-input-container">
+            <label htmlFor="review" className="review-page__form-input-label">
               Review :
             </label>
             <Field
               as="textarea"
               name="review"
               type="text"
-              className="add-review-modal__form-input add-review-modal__form-input--review"
+              className="review-page__form-input review-page__form-input--review"
             />
             <ErrorMessage
               name="review"
@@ -42,7 +39,7 @@ export default class ReviewForm extends Component {
               component="div"
             />
           </div>
-          <div className="add-review-modal__btn-container">
+          <div className="review-page__btn-container">
             <button type="submit" className="btn">
               {this.props.videoGameId ? 'Update' : 'Post'}
             </button>
