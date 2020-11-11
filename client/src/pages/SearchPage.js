@@ -15,20 +15,28 @@ class SearchPage extends Component {
 
   render() {
     return (
-      <div>
-        <SearchForm handleSubmit={this.handleSubmit} />
-        <h1>Results</h1>
-        {this.props.errorMessage ? (
-          <p>{this.props.errorMessage}</p>
-        ) : this.props.searchResults.length === 0 ? (
-          <p>Start Search</p>
-        ) : (
-          <div>
-            {this.props.searchResults[0].map((videoGame) => (
-              <VideoGameCard gameInfo={videoGame} key={videoGame.id} />
-            ))}
-          </div>
-        )}
+      <div className="search-page">
+        <div className="search-page__search-form-container">
+          <SearchForm handleSubmit={this.handleSubmit} />
+        </div>
+        <h1 className="heading-one heading-one--search-results">Results</h1>
+        <div className="search-page__results-container">
+          {this.props.errorMessage ? (
+            <p>{this.props.errorMessage}</p>
+          ) : this.props.searchResults.length === 0 ? (
+            <div>
+              <p>Start Search</p>
+            </div>
+          ) : (
+            <ul className="search-page__results">
+              {this.props.searchResults[0].map((videoGame) => (
+                <li className="search-page__video-game-card-container">
+                  <VideoGameCard gameInfo={videoGame} key={videoGame.id} />
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
       </div>
     );
   }

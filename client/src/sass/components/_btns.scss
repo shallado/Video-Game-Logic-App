@@ -42,6 +42,12 @@
   text-decoration: none;
 }
 
+.search-btn {
+  @include btn;
+  border-radius: 0;
+  flex: 0 0 10%;
+}
+
 .play-btn {
   margin-right: $sm-spacing;
 }
