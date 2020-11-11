@@ -11,7 +11,9 @@ const PrivateRoute = ({ isAuthenticated, component: Component, ...rest }) => (
       return isAuthenticated ? (
         props.match.path === '/account' ||
         props.match.path === '/upload' ||
-        props.match.path === '/watch/:id' ? (
+        props.match.path === '/watch/:id' ||
+        props.match.path === '/review' ||
+        props.match.path === '/review/:id' ? (
           <Component {...props} />
         ) : props.match.path === '/search' || props.match.path === '/list' ? (
           <div>

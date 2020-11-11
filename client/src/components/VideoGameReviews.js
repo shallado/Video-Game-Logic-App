@@ -5,7 +5,7 @@ import VideoGameReview from './VideoGameReview';
 const VideoGameReviews = (props) => {
   return (
     <>
-      {props.videoGameReviews.length > 0 ? (
+      {props.videoGameReviews.length ? (
         <div className="more-info-modal__reviews-container">
           <ul className="more-info-modal__reviews">
             {props.videoGameReviews.map((videoGameReview) => (
@@ -26,7 +26,7 @@ const VideoGameReviews = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-  videoGameReviews: state.review.videoGameReviews,
+  videoGameReviews: state.review.videoGameReviews.reviews,
   currentGame: state.game.currentGame,
 });
 

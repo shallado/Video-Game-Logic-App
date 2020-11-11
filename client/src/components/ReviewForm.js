@@ -1,25 +1,15 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { hideModal } from '../actions/modal';
-import { setUserReviews } from '../actions/review';
 
-class ReviewForm extends Component {
-  handleSubmit = (review) => {
-    const reviewInfo = {
-      ...review,
-      username: this.props.user.username,
-    };
-
-    this.props.handleSubmit(reviewInfo);
-    this.props.hideModal();
+export default class ReviewForm extends Component {
+  handleSubmit = ({ review }) => {
+    this.props.handleSubmit(review);
   };
 
   render() {
     const formInitialValues = {
-      title: this.props.currentGame.name,
-      review: '',
+      review: !!this.props.userReview ? this.props.userReview.review : '',
     };
 
     const formSchema = Yup.object({
@@ -54,7 +44,7 @@ class ReviewForm extends Component {
           </div>
           <div className="add-review-modal__btn-container">
             <button type="submit" className="btn">
-              Post
+              {this.props.videoGameId ? 'Update' : 'Post'}
             </button>
           </div>
         </Form>
@@ -62,15 +52,3 @@ class ReviewForm extends Component {
     );
   }
 }
-
-const mapStateToProps = (state) => ({
-  user: state.user,
-  currentGame: state.game.currentGame,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  hideModal: () => dispatch(hideModal('addReviewModal')),
-  setUserReviews: (review) => dispatch(setUserReviews([review])),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ReviewForm);

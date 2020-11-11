@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import AddReviewModal from '../modals/AddReviewModal';
 import MoreInfoModal from '../modals/MoreInfoModal';
 import PlayOptionsModal from '../modals/PlayOptionsModal';
 import VideoGameCategory from '../components/VideoGameCategory';
@@ -104,13 +103,13 @@ class DashBoardPage extends Component {
         ))}
         <MoreInfoModal />
         <PlayOptionsModal />
-        <AddReviewModal />
       </div>
     );
   }
 }
 
 const mapStateToProps = (state) => ({
+  username: state.user.username,
   categoryGames: state.game.categoryGames,
 });
 

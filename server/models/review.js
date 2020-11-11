@@ -108,6 +108,23 @@ const reviewModel = (db, int32, ObjectID) => {
         .then((data) => data.value);
     }
 
+    static edit(userReviews) {
+      const { videoGameId, review, username } = userReviews;
+
+      return db
+        .collection('reviews')
+        .updateOne(
+          {
+            videoGameId: new ObjectID(videoGameId),
+            'reviews.username': username,
+          },
+          {
+            $set: { 'reviews.$.review': review },
+          }
+        )
+        .then((data) => data);
+    }
+
     // finds user reviews
     static findAll(username) {
       return db
@@ -122,7 +139,7 @@ const reviewModel = (db, int32, ObjectID) => {
             $project: {
               _id: 0,
               videoGameId: 1,
-              reviews: {
+              reviewInfo: {
                 $filter: {
                   input: '$reviews',
                   as: 'review',
@@ -137,7 +154,7 @@ const reviewModel = (db, int32, ObjectID) => {
             },
           },
           {
-            $unwind: '$reviews',
+            $unwind: '$reviewInfo',
           },
           {
             $lookup: {

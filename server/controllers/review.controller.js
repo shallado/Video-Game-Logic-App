@@ -42,6 +42,24 @@ exports.create = (req, res) => {
     });
 };
 
+exports.editOne = (req, res) => {
+  const { id } = req.params;
+  const userReview = req.body;
+
+  Review.edit({ ...userReview, videoGameId: id })
+    .then((data) => {
+      res.send({
+        message: 'Successfully reset document structure',
+        result: data,
+      });
+    })
+    .catch((err) => {
+      const setError = databaseErrorHandling(err);
+
+      res.status(setError.httpStatus).send({ message: setError.description });
+    });
+};
+
 // finds reviews associated with a user
 exports.findAll = (req, res) => {
   const { username } = req.query;

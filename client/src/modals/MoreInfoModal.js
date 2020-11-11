@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Modal from 'react-modal';
 import Map from '../components/Map';
@@ -14,22 +15,24 @@ import { startSetMapLocations } from '../actions/map';
 Modal.setAppElement('#root');
 
 class MoreInfoModal extends Component {
-  handleShowModal = (modalType) => {
-    this.props.showModal(modalType);
+  handleShowModal = () => {
+    this.props.showModal();
   };
 
-  handleCloseModal = (modalType) => {
-    this.props.hideModal(modalType);
+  handleCloseModal = () => {
+    this.props.hideModal();
   };
 
-  componentDidMount() {
-    this.props.startSetVideoGameReviews(this.props.currentGame.name);
-    this.props.startSetMapLocations();
-  }
-
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
     if (this.props.modals.includes('moreInfoModal')) {
       document.body.style.overflow = 'hidden';
+      if (
+        prevProps.videoGameReviews.reviews.length !==
+          this.props.videoGameReviews.reviews.length ||
+        this.props.videoGameReviews.reviews.length === 0
+      ) {
+        this.props.startSetVideoGameReviews(this.props.currentGame.name);
+      }
     } else {
       document.body.style.overflow = 'unset';
     }
@@ -47,22 +50,19 @@ class MoreInfoModal extends Component {
     return (
       <Modal
         isOpen={this.props.modals.includes('moreInfoModal')}
-        onRequestClose={() => this.handleCloseModal('moreInfoModal')}
+        onRequestClose={this.handleCloseModal}
         className="more-info-modal"
         overlayClassName="more-info-modal__overlay"
       >
         <div className="more-info-modal__section">
           <div className="more-info-modal__close-icon-container">
-            <div onClick={() => this.props.hideModal('moreInfoModal')}>
+            <div onClick={this.handleCloseModal}>
               <IconClose />
             </div>
           </div>
           <ScreenShotCarousel />
           <div className="more-info-modal__btn-container">
-            <button
-              onClick={() => this.handleShowModal('playOptionsModal')}
-              className="btn play-btn"
-            >
+            <button onClick={this.handleShowModal} className="btn play-btn">
               <span className="more-info-modal__btn-text">Play</span>
               <div className="icon__container">
                 <IconPlayBtn />
@@ -153,12 +153,18 @@ class MoreInfoModal extends Component {
             <h4 className="heading-four">Reviews</h4>
           </div>
           <div className="more-info-modal__reviews-container-main">
-            <button
-              onClick={() => this.handleShowModal('addReviewModal')}
-              className="btn add-review-btn"
-            >
-              Add Review
-            </button>
+            {this.props.userReview !== undefined ? (
+              <Link
+                to={`/review/${this.props.userReview._id}`}
+                className="btn add-review-btn"
+              >
+                Update Review
+              </Link>
+            ) : (
+              <Link to="/review" className="btn add-review-btn">
+                Add Review
+              </Link>
+            )}
             <VideoGameReviews />
           </div>
         </div>
@@ -170,11 +176,15 @@ class MoreInfoModal extends Component {
 const mapStateToProps = (state) => ({
   currentGame: state.game.currentGame,
   modals: state.modals,
+  userReview: state.review.videoGameReviews.reviews.find(
+    (review) => review.username === state.user.username
+  ),
+  videoGameReviews: state.review.videoGameReviews,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  hideModal: (modalType) => dispatch(hideModal(modalType)),
-  showModal: (modalType) => dispatch(showModal(modalType)),
+  hideModal: () => dispatch(hideModal('moreInfoModal')),
+  showModal: () => dispatch(showModal('playOptionsModal')),
   startSetVideoGameReviews: (title) =>
     dispatch(startSetVideoGameReviews(title)),
   startSetMapLocations: () => dispatch(startSetMapLocations()),

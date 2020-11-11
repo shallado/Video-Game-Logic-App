@@ -7,6 +7,8 @@ import DashBoardPage from '../pages/DashBoardPage';
 import HomePage from '../pages/HomePage';
 import MyListPage from '../pages/MyListPage';
 import PlatformPage from '../pages/PlatformPage';
+import AddReviewPage from '../pages/AddReviewPage';
+import UpdateReviewPage from '../pages/UpdateReviewPage';
 import UserReviewsPage from '../pages/UserReviewsPage';
 import SearchPage from '../pages/SearchPage';
 import SignInPage from '../pages/SignInPage';
@@ -22,6 +24,8 @@ const AppRouter = () => (
       <PublicRoute path="/signup" component={SignUpPage} />
       <PrivateRoute path="/account" component={AccountPage} />
       <PrivateRoute path="/user-reviews" component={UserReviewsPage} />
+      <PrivateRoute path="/review" component={AddReviewPage} exact={true} />
+      <PrivateRoute path="/review/:id" component={UpdateReviewPage} />
       <PrivateRoute path="/dashboard" component={DashBoardPage} />
       <PrivateRoute path="/nintendo" component={PlatformPage} />
       <PrivateRoute path="/playstation" component={PlatformPage} />

@@ -9,6 +9,8 @@ const reviewRouter = (app) => {
 
   router.get('/', reviewController.findAll);
 
+  router.put('/:id', reviewController.editOne);
+
   app.use('/reviews', router);
 };
 
