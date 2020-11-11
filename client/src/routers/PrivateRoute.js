@@ -3,6 +3,8 @@ import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import NavBar from '../components/NavBar';
 import Header from '../components/Header';
+import MoreInfoModal from '../modals/MoreInfoModal';
+import PlayOptionsModal from '../modals/PlayOptionsModal';
 
 const PrivateRoute = ({ isAuthenticated, component: Component, ...rest }) => (
   <Route
@@ -19,12 +21,16 @@ const PrivateRoute = ({ isAuthenticated, component: Component, ...rest }) => (
           <div>
             <NavBar />
             <Component {...props} />
+            <MoreInfoModal />
+            <PlayOptionsModal />
           </div>
         ) : (
           <div>
             <NavBar />
             <Header />
             <Component {...props} />
+            <MoreInfoModal />
+            <PlayOptionsModal />
           </div>
         )
       ) : (
