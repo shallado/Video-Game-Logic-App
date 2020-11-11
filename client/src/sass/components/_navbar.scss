@@ -68,9 +68,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 
-    &:hover .navbar__account {
-      opacity: 1;
+    &:hover {
+      & .navbar__account {
+        display: inline-block;
+      }
     }
   }
 
@@ -83,7 +86,7 @@
     background-color: rgba($color-primary, 0.75);
     border-bottom-left-radius: 1rem;
     border-bottom-right-radius: 1rem;
-    opacity: 0;
+    display: none;
     padding: $sm-spacing $md-spacing;
     position: absolute;
     top: 6.7rem;
