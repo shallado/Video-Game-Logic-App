@@ -131,6 +131,10 @@ export const startEditVideoGameReview = ({ videoGameId, username, review }) => {
   };
 };
 
+export const resetVideoGameReviews = () => ({
+  type: 'RESET_VIDEO_GAME_REVIEWS',
+});
+
 export const setUserVideoGameReviews = (reviews) => ({
   type: 'SET_USER_VIDEO_GAME_REVIEWS',
   reviews,

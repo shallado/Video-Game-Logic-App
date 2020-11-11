@@ -36,7 +36,7 @@ const reviewReducer = (state = initialState, action) => {
         ...state,
         videoGameReviews: {
           ...state.videoGameReviews,
-          reviews: [action.userReview, ...state.videoGameReviews],
+          reviews: [action.userReview, ...state.videoGameReviews.reviews],
         },
       };
     case 'SET_VIDEO_GAME_REVIEWS':
@@ -48,6 +48,11 @@ const reviewReducer = (state = initialState, action) => {
           title: action.reviews.title,
           reviews: action.reviews.videoGameReviews,
         },
+      };
+    case 'RESET_VIDEO_GAME_REVIEWS':
+      return {
+        ...state,
+        videoGameReviews: initialState.videoGameReviews,
       };
     default:
       return state;
