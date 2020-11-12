@@ -168,24 +168,15 @@
   }
 
   &__reviews-container {
-    border: 1px solid $color-primary-light;
-    flex: 0 0 100%;
-    max-height: 79rem;
-    margin-top: $md-spacing;
-    overflow-y: scroll;
+    @include reviewsContainer;
   }
 
   &__review {
-    display: flex;
-    flex-direction: column;
-
-    &:not(:last-child) {
-      margin-bottom: $sm-spacing;
-    }
+    @include review;
   }
 
   &__reviews {
-    margin: $md-spacing;
+    @include reviews;
   }
 
   &__review-username {
