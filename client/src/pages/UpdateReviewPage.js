@@ -7,12 +7,19 @@ import { startEditVideoGameReview } from '../actions/review';
 
 class UpdateReviewPage extends Component {
   handleSubmit = (review) => {
+    const videoGameId = !!this.props.videoGameReviewsUserReview.reviews
+      ? this.props.videoGameReviewsUserReview.videoGameId
+      : this.props.userReviewsUserReview.videoGameId;
+    const route = !!this.props.videoGameReviewsUserReview.reviews
+      ? '/dashboard'
+      : '/user-reviews';
+
     this.props.startEditVideoGameReview({
-      videoGameId: this.props.videoGameId,
-      username: this.props.userReview.username,
+      videoGameId,
+      username: this.props.username,
       review,
     });
-    this.props.history.push('/dashboard');
+    this.props.history.push(route);
   };
 
   render() {
@@ -28,7 +35,8 @@ class UpdateReviewPage extends Component {
         <div className="review-page__form-container">
           <h4 className="heading-four">Update Review</h4>
           <ReviewForm
-            userReview={this.props.userReview}
+            videoGameReviewsUserReview={this.props.videoGameReviewsUserReview}
+            userReviewsUserReview={this.props.userReviewsUserReview}
             videoGameId={this.props.videoGameId}
             handleSubmit={this.handleSubmit}
           />
@@ -38,10 +46,16 @@ class UpdateReviewPage extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  videoGameId: state.review.videoGameReviews.videoGameId,
-  userReview: state.review.videoGameReviews.reviews.find(
-    (review) => review.username === state.user.username
+const mapStateToProps = (state, props) => ({
+  username: state.user.username,
+  videoGameReviewsUserReview: {
+    ...state.review.videoGameReviews,
+    reviews: state.review.videoGameReviews.reviews.find(
+      (review) => review.username === state.user.username
+    ),
+  },
+  userReviewsUserReview: state.review.userReviews.find(
+    (userReview) => userReview.reviewInfo._id === props.match.params.id
   ),
 });
 
