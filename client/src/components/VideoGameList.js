@@ -3,11 +3,18 @@ import { connect } from 'react-redux';
 import VideoGameCard from './VideoGameCard';
 
 const VideoGameList = (props) => (
-  <div>
-    {props.user.videoGames.map((videoGame) => (
-      <VideoGameCard gameInfo={videoGame} key={videoGame.id} />
-    ))}
-  </div>
+  <>
+    <h1 className="heading-one heading-one--results">My List</h1>
+    <div className="my-list-page__results-container">
+      <ul className="my-list-page__results">
+        {props.user.videoGames.map((videoGame) => (
+          <li className="my-list-page__video-game-card-container">
+            <VideoGameCard gameInfo={videoGame} key={videoGame.id} />
+          </li>
+        ))}
+      </ul>
+    </div>
+  </>
 );
 
 const mapStateToProps = (state) => ({

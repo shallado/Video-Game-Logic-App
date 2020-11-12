@@ -1,0 +1,15 @@
+.my-list-page {
+  @include resultPage;
+
+  &__results {
+    @include results;
+  }
+
+  &__results-container {
+    @include resultContainer;
+  }
+
+  &__video-game-card-container {
+    @include videoGameCardContainer;
+  }
+}

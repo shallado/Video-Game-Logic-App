@@ -1,7 +1,5 @@
 .search-page {
-  background-color: $color-dark;
-  width: 100%;
-  padding: 0 0 0 $md-spacing;
+  @include resultPage;
 
   &__search-form-container {
     height: 6rem;
@@ -29,21 +27,14 @@
   }
 
   &__results-container {
-    min-height: 92.2vh;
-    max-height: 100%;
+    @include resultContainer;
   }
 
   &__results {
-    display: flex;
-    min-height: inherit;
-    max-height: inherit;
-    flex-wrap: wrap;
-    list-style: none;
-    align-content: space-around;
+    @include results;
   }
 
   &__video-game-card-container {
-    height: 20rem;
-    width: 23.9rem;
+    @include videoGameCardContainer;
   }
 }
