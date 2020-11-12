@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import VideoGameCard from '../components/VideoGameCard';
 import SearchForm from '../components/SearchForm';
+import SearchResults from '../components/SearchResults';
 import { startVideoGameSearchResults } from '../actions/game';
 
 class SearchPage extends Component {
@@ -19,24 +19,7 @@ class SearchPage extends Component {
         <div className="search-page__search-form-container">
           <SearchForm handleSubmit={this.handleSubmit} />
         </div>
-        <h1 className="heading-one heading-one--search-results">Results</h1>
-        <div className="search-page__results-container">
-          {this.props.errorMessage ? (
-            <p>{this.props.errorMessage}</p>
-          ) : this.props.searchResults.length === 0 ? (
-            <div>
-              <p>Start Search</p>
-            </div>
-          ) : (
-            <ul className="search-page__results">
-              {this.props.searchResults[0].map((videoGame) => (
-                <li className="search-page__video-game-card-container">
-                  <VideoGameCard gameInfo={videoGame} key={videoGame.id} />
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
+        <SearchResults />
       </div>
     );
   }
