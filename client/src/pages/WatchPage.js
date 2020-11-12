@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import IconLeftArrow from '../svgs/IconLeftArrow';
 import ReactPlayer from 'react-player/youtube';
+import IconLeftArrow from '../svgs/IconLeftArrow';
 
 const WatchPage = (props) => {
   return (

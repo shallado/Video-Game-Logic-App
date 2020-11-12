@@ -78,3 +78,45 @@
   flex-wrap: wrap;
   list-style: none;
 }
+
+@mixin reviews {
+  margin: $md-spacing;
+}
+
+@mixin review {
+  display: flex;
+  flex-direction: column;
+
+  &:not(:last-child) {
+    margin-bottom: $md-spacing;
+  }
+}
+
+@mixin reviewsContainer {
+  border: 1px solid $color-primary-light;
+  flex: 0 0 100%;
+  max-height: 79rem;
+  margin-top: $md-spacing;
+  overflow-y: scroll;
+}
+
+@mixin leftArrowIcon {
+  @include closeModal;
+  text-align: left;
+  margin: 0;
+
+  & div {
+    height: 4rem;
+
+    :hover {
+      fill: $accent-color;
+    }
+  }
+}
+
+@mixin leftArrowIconLink {
+  &:link,
+  &:visited {
+    color: #fff;
+  }
+}

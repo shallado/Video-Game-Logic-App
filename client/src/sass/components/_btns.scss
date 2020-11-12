@@ -51,3 +51,14 @@
 .play-btn {
   margin-right: $sm-spacing;
 }
+
+.user-review-btn {
+  height: 3rem;
+  width: 10rem;
+
+  &:link,
+  &:visited {
+    padding-left: $sm-spacing;
+    padding-top: 0;
+  }
+}

@@ -1,0 +1,40 @@
+.user-reviews-page {
+  background-color: $color-primary;
+  height: 100vh;
+  padding: $md-spacing;
+
+  &__left-arrow-icon-container {
+    @include leftArrowIcon;
+  }
+
+  &__link {
+    @include leftArrowIconLink;
+  }
+
+  &__reviews-container {
+    @include reviewsContainer;
+    background-color: $color-primary-dark;
+    height: 43rem;
+    width: 50%;
+    margin: 0 auto;
+  }
+
+  &__reviews {
+    @include reviews;
+    list-style: none;
+  }
+
+  &__review {
+    @include review;
+  }
+
+  &__review-content-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__review-title {
+    color: $accent-color;
+  }
+}

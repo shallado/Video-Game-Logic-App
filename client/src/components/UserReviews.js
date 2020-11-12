@@ -1,22 +1,27 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import UserReview from './UserReview';
-import { startSetUserReviews } from '../actions/review';
+import { startSetUserVideoGameReviews } from '../actions/review';
 
 class UserReviews extends Component {
   componentDidMount() {
-    this.props.startSetUserReviews(this.props.user.username);
+    this.props.startSetUserVideoGameReviews(this.props.username);
   }
 
   render() {
     return (
-      <div>
+      <div className="user-reviews-page__reviews-container">
         {this.props.userReviews.length === 0 ? (
           <p>No user reviews</p>
         ) : (
-          this.props.userReviews.map((userReview) => (
-            <UserReview key={userReview.videoGameId} userReview={userReview} />
-          ))
+          <ul className="user-reviews-page__reviews">
+            {this.props.userReviews.map((userReview) => (
+              <UserReview
+                key={userReview.videoGameId}
+                userReview={userReview}
+              />
+            ))}
+          </ul>
         )}
       </div>
     );
@@ -25,11 +30,12 @@ class UserReviews extends Component {
 
 const mapStateToProps = (state) => ({
   userReviews: state.review.userReviews,
-  user: state.user,
+  username: state.user.username,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  startSetUserReviews: (username) => dispatch(startSetUserReviews(username)),
+  startSetUserVideoGameReviews: (username) =>
+    dispatch(startSetUserVideoGameReviews(username)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserReviews);
