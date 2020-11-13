@@ -41,7 +41,7 @@
   height: 100%;
 }
 
-@mixin closeModal {
+@mixin leftArrowContainer {
   width: 100%;
   text-align: right;
   margin-bottom: $sm-spacing;
@@ -101,7 +101,7 @@
 }
 
 @mixin leftArrowIcon {
-  @include closeModal;
+  @include leftArrowContainer;
   text-align: left;
   margin: 0;
 

@@ -1,7 +1,15 @@
 .upload-page {
   background-color: $color-primary;
   height: 100vh;
-  padding-top: $xlg-spacing;
+  padding: $md-spacing;
+
+  &__close-icon-container {
+    @include leftArrowIcon;
+  }
+
+  &__link {
+    @include leftArrowIconLink;
+  }
 
   &__form-container {
     background-color: $color-primary-dark;

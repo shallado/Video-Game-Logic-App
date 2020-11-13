@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import ErrorNotification from '../components/ErrorNotification';
+import IconLeftArrow from '../svgs/IconLeftArrow';
 import { startUploadProfilePhoto } from '../actions/user';
 
 class UploadImagePage extends Component {
@@ -26,6 +28,13 @@ class UploadImagePage extends Component {
   render() {
     return (
       <div className="upload-page">
+        <div className="upload-page__close-icon-container">
+          <div>
+            <Link to="/dashboard" className="upload-page__link">
+              <IconLeftArrow />
+            </Link>
+          </div>
+        </div>
         <div className="upload-page__form-container">
           <h1 className="heading-one heading-one--form">
             Upload Profile Photo
