@@ -214,6 +214,7 @@ export default class UserForm extends Component {
                   small={true}
                   isOutsideRange={() => false}
                   renderMonthElement={this.renderMonthElement}
+                  openDirection="up"
                   id="user-birthday"
                 />
               </div>
