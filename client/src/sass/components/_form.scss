@@ -35,7 +35,12 @@
     width: 30rem;
     outline: none;
     border: 1px solid $color-primary-light;
-    border-radius: 0.5rem;
+    border-radius: 1rem;
+
+    &[type='text'],
+    &[type='password'] {
+      padding: 1rem;
+    }
 
     &--select {
       width: 100%;

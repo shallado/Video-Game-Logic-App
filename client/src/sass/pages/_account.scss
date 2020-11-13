@@ -1,4 +1,15 @@
 .account {
   background-color: $color-primary;
+  min-height: 100vh;
+  padding: $md-spacing;
+
+  &__close-icon-container {
+    @include leftArrowIcon;
+  }
+
+  &__link {
+    @include leftArrowIconLink;
+  }
+
   @include centerItems;
 }
