@@ -9,7 +9,7 @@ export default class ReviewForm extends Component {
 
   render() {
     const formInitialValues = {
-      review: !!this.props.videoGameReviewsUserReview.reviews
+      review: !!this.props.videoGameReviewsUserReview
         ? this.props.videoGameReviewsUserReview.reviews.review
         : !!this.props.userReviewsUserReview
         ? this.props.userReviewsUserReview.reviewInfo.review
