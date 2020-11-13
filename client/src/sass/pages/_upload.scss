@@ -1,0 +1,53 @@
+.upload-page {
+  background-color: $color-primary;
+  height: 100vh;
+  padding-top: $xlg-spacing;
+
+  &__form-container {
+    background-color: $color-primary-dark;
+    border-radius: 1rem;
+    height: 50rem;
+    margin: 0 auto;
+    padding: $xlg-spacing $md-spacing 0 $md-spacing;
+    position: relative;
+    width: 50%;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__form-input {
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    width: 0.1px;
+    position: absolute;
+    z-index: -1;
+  }
+
+  &__form-input-label {
+    border: solid 1px $accent-color;
+    border-radius: 1rem;
+    cursor: pointer;
+    width: 40rem;
+
+    display: flex;
+
+    & span {
+      padding: 1rem 0 1rem 2rem;
+
+      &:first-child {
+        background-color: #fff;
+        border-radius: 1rem 0 0 1rem;
+        color: black;
+        flex: 0 0 50%;
+      }
+
+      &:last-child {
+      }
+    }
+  }
+}

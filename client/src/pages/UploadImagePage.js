@@ -20,17 +20,38 @@ class UploadImagePage extends Component {
 
     formData.append('profile', this.state.fileUpload);
     this.props.startUploadProfilePhoto(this.props.user.id, formData);
+    this.props.history.push('/dashboard');
   };
 
   render() {
     return (
-      <div>
-        <h1>Upload Profile Photo</h1>
-        <form onSubmit={this.handleSubmit}>
-          <input name="profile" type="file" onChange={this.handleFileChange} />
-          <button type="submit">Upload</button>
-        </form>
-        <ErrorNotification />
+      <div className="upload-page">
+        <div className="upload-page__form-container">
+          <h1 className="heading-one heading-one--form">
+            Upload Profile Photo
+          </h1>
+          <form onSubmit={this.handleSubmit} className="upload-page__form">
+            <div className="upload-page__input-container">
+              <input
+                name="profile"
+                type="file"
+                id="file"
+                onChange={this.handleFileChange}
+                className="upload-page__form-input"
+              />
+              <label htmlFor="file" className="upload-page__form-input-label">
+                <span>
+                  {this.state.fileUpload && this.state.fileUpload.name}
+                </span>
+                <span>Choose an image</span>
+              </label>
+            </div>
+            <button type="submit" className="btn">
+              Upload
+            </button>
+          </form>
+          <ErrorNotification />
+        </div>
       </div>
     );
   }
