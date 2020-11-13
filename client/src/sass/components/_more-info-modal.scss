@@ -34,7 +34,7 @@
   }
 
   &__close-icon-container {
-    @include closeModal;
+    @include closeContainer;
 
     & div {
       height: 4rem;

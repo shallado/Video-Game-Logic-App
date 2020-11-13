@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import UserForm from '../components/UserForm';
 import ErrorNotification from '../components/ErrorNotification';
+import IconLeftArrow from '../svgs/IconLeftArrow';
 import { startUserUpdate } from '../actions/user';
 
 export class AccountPage extends Component {
@@ -12,6 +14,13 @@ export class AccountPage extends Component {
   render() {
     return (
       <div className="account">
+        <div className="account__close-icon-container">
+          <div>
+            <Link to="/dashboard" className="account__link">
+              <IconLeftArrow />
+            </Link>
+          </div>
+        </div>
         <UserForm
           user={this.props.user}
           handleSubmit={this.handleSubmit}

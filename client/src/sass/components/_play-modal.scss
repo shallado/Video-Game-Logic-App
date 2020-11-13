@@ -27,7 +27,7 @@
   }
 
   &__close-icon-container {
-    @include closeModal;
+    @include closeContainer;
 
     & div {
       margin: $sm-spacing $sm-spacing 0 0;
