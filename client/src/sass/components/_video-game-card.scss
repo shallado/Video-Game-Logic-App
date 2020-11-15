@@ -7,6 +7,13 @@
     border-radius: 1rem;
     height: 100%;
     width: 70%;
+
+    // @include setBreakPoints(phone) {
+    //   width: 50%;
+    // }
+    @media only screen and (max-width: 33.7em) {
+      width: 50%;
+    }
   }
 
   &__img-unavailable {
@@ -23,7 +30,7 @@
     width: 70%;
     position: absolute;
     top: 0;
-    left: 0;
+    left: 15%;
     opacity: 0;
 
     &:hover {

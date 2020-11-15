@@ -8,6 +8,14 @@
 
 html {
   font-size: 62.5%;
+
+  @include setBreakPoints(700) {
+    font-size: 50%;
+  }
+
+  @include setBreakPoints(550) {
+    font-size: 43.8%;
+  }
 }
 
 body {

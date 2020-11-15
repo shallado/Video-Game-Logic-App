@@ -11,7 +11,10 @@ const VideoGameCategory = (props) => {
       <VideoGameCard gameInfo={game} key={game.id} />
     ));
   const responsive = {
-    1140: { items: 5 },
+    539: { items: 2 },
+    699: { items: 3 },
+    849: { items: 4 },
+    1049: { items: 5 },
   };
 
   return (
@@ -32,7 +35,6 @@ const VideoGameCategory = (props) => {
             responsive={responsive}
             infinite={true}
             disableDotsControls={true}
-            paddingLeft={70}
           />
         )}
       </div>

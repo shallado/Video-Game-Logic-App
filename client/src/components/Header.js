@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import AddRemoveVideoGame from './AddRemoveVideoGame';
-import PlayOptionsModal from '../modals/PlayOptionsModal';
-import MoreInfoModal from '../modals/MoreInfoModal';
 import IconInfoBtn from '../svgs/IconInfoBtn';
 import IconPlayBtn from '../svgs/IconPlayBtn';
 import { setCurrentGame } from '../actions/game';
@@ -29,7 +26,19 @@ class Header extends Component {
             <p>...Loading</p>
           </div>
         ) : (
-          <div onMouseEnter={this.handleMouseEnter}>
+          <>
+            <div
+              onMouseEnter={this.handleMouseEnter}
+              className="header__video-game-image"
+            >
+              <img
+                src={this.props.featureGames[0].cover.url.replace(
+                  'thumb',
+                  '720p'
+                )}
+                alt="feature game"
+              />
+            </div>
             <div className="header__container-one">
               <div>
                 <h1 className="header__heading">
@@ -58,16 +67,7 @@ class Header extends Component {
                 </button>
               </div>
             </div>
-            <div className="header__video-game-image">
-              <img
-                src={this.props.featureGames[0].cover.url.replace(
-                  'thumb',
-                  '720p'
-                )}
-                alt="feature game"
-              />
-            </div>
-          </div>
+          </>
         )}
       </div>
     );

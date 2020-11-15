@@ -1,9 +1,19 @@
 .header {
+  position: relative;
+
   &__container-one {
-    position: absolute;
     left: $md-spacing;
+    position: absolute;
+    top: -2rem;
     width: 63.25rem;
-    z-index: 1;
+
+    @include setBreakPoints(700) {
+      width: 50rem;
+    }
+
+    @include setBreakPoints(400) {
+      width: 45rem;
+    }
   }
 
   &__heading {

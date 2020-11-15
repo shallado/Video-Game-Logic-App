@@ -5,21 +5,75 @@
   position: relative;
   z-index: 1;
 
-  &__container {
-    &--one {
-      padding: 0 $md-spacing;
+  @include setBreakPoints(700) {
+    height: 20rem;
+    flex-wrap: wrap;
+    height: 7rem;
+  }
 
-      flex: 0 0 60%;
-      display: flex;
-      align-items: center;
+  &__logo-container {
+    flex: 0 0 10%;
+    padding-left: $md-spacing;
+
+    display: flex;
+    align-items: center;
+
+    @include setBreakPoints(700) {
+      flex: 0 0 70%;
     }
 
-    &--two {
-      padding: 0 $md-spacing;
+    @include setBreakPoints(550) {
+      flex: 0 0 60%;
+    }
+  }
 
+  &__container-one {
+    padding: 0 $md-spacing 0 0;
+
+    flex: 0 0 60%;
+    display: flex;
+    align-items: center;
+
+    @include setBreakPoints(700) {
+      background-color: $color-dark;
+      flex-direction: column;
+      order: 1;
+      padding: 0;
+      position: absolute;
+      transform: translateX(-100%);
+      width: 100%;
+
+      &--active {
+        transform: translateX(0);
+      }
+    }
+  }
+
+  &__container-two {
+    padding-right: $md-spacing;
+
+    flex: 0 0 30%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    & > div {
+      height: 2.5rem;
+      width: 2.5rem;
+    }
+
+    @include setBreakPoints(700) {
+      justify-content: space-around;
+      flex: 0 0 30%;
+
+      & > div {
+        height: 3.5rem;
+        width: 3.5rem;
+      }
+    }
+
+    @include setBreakPoints(550) {
       flex: 0 0 40%;
-      display: flex;
-      justify-content: flex-end;
     }
   }
 
@@ -30,8 +84,24 @@
 
     flex: 1 0 0;
 
+    @include setBreakPoints(700) {
+      flex-direction: column;
+
+      &:first-child {
+        padding: 8rem 0 2rem 0;
+      }
+    }
+
     & li {
       list-style: none;
+
+      @include setBreakPoints(700) {
+        padding-top: 1rem;
+
+        &:last-child {
+          padding-bottom: 1rem;
+        }
+      }
     }
   }
 
@@ -45,12 +115,25 @@
     &:hover {
       border-bottom: 0.2rem solid $accent-color;
     }
+
+    @include setBreakPoints(700) {
+      &:hover {
+        border-bottom: none;
+      }
+
+      &:active {
+        border-bottom: 0.2rem solid $accent-color;
+      }
+    }
+  }
+
+  &__search-link-container {
+    align-self: center;
   }
 
   &__search-link {
-    align-self: center;
-    height: 2.5rem;
-    width: 2.5rem;
+    height: 100%;
+    width: 100%;
   }
 
   &__search-icon {
@@ -64,47 +147,48 @@
   }
 
   &__profile-photo-container {
-    flex: 0 0 20%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     cursor: pointer;
+    margin-left: $sm-spacing;
 
-    &:hover {
-      & .navbar__account {
+    @include setBreakPoints(700) {
+      margin: 0;
+
+      &:active {
         display: inline-block;
       }
     }
   }
 
   &__profile-photo {
-    height: 2.5rem;
-    width: 2.5rem;
+    height: 100%;
+    width: 100%;
   }
 
   &__account {
-    background-color: rgba($color-primary, 0.75);
+    background-color: rgba($color-dark, 0.75);
     border-bottom-left-radius: 1rem;
     border-bottom-right-radius: 1rem;
-    display: none;
     padding: $sm-spacing $md-spacing;
     position: absolute;
     top: 6.7rem;
     right: 2rem;
     text-align: center;
-  }
 
-  &__overlay {
-    height: 27rem;
-    width: 25rem;
-    position: absolute;
-    top: 6.5rem;
-    left: 97.5rem;
+    @include setBreakPoints(700) {
+      background-color: $color-dark;
+      right: 0;
+      width: 100%;
+    }
   }
 
   &__account-links {
     list-style: none;
     margin-top: $sm-spacing;
+
+    @include setBreakPoints(700) {
+      width: 50%;
+      margin: $sm-spacing auto 0 auto;
+    }
   }
 
   &__account-link-container {
@@ -128,10 +212,24 @@
       color: inherit;
       text-decoration: none;
       border-bottom: 0.2rem solid transparent;
+
+      @include setBreakPoints(700) {
+        border-bottom: none;
+      }
     }
 
     &:hover {
       border-bottom: 0.2rem solid $accent-color;
+
+      @include setBreakPoints(700) {
+        border-bottom: none;
+      }
+    }
+
+    @include setBreakPoints(700) {
+      &:active {
+        border-bottom: 0.2rem solid $accent-color;
+      }
     }
   }
 
@@ -141,6 +239,10 @@
     &:hover {
       border-bottom: 0.2rem solid $accent-color;
       cursor: pointer;
+
+      @include setBreakPoints(700) {
+        border-bottom: none;
+      }
     }
   }
 
@@ -150,5 +252,50 @@
   &__review-icon {
     @include icons;
     margin-right: $sm-spacing;
+  }
+
+  &__menu-icon-container {
+    display: none;
+
+    @include setBreakPoints(700) {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 4rem;
+    }
+
+    &:hover {
+      cursor: pointer;
+      color: $accent-color;
+    }
+
+    & div {
+      background-color: #fff;
+      border-radius: 1rem;
+      height: 0.5rem;
+      width: 4rem;
+    }
+
+    &--active {
+      @include setBreakPoints(700) {
+        & div {
+          background-color: $accent-color;
+          transform-origin: -1px;
+          z-index: 1;
+
+          &:first-child {
+            transform: rotate(45deg);
+          }
+
+          &:nth-child(2) {
+            opacity: 0;
+          }
+
+          &:last-child {
+            transform: rotate(-45deg);
+          }
+        }
+      }
+    }
   }
 }
