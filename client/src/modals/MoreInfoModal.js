@@ -29,11 +29,6 @@ class MoreInfoModal extends Component {
   componentDidUpdate(prevProps) {
     if (this.props.modals.includes('moreInfoModal')) {
       document.body.style.overflow = 'hidden';
-      console.log(
-        prevProps.videoGameReviews.reviews.length !==
-          this.props.videoGameReviews.reviews.length
-      );
-      console.log(this.props.videoGameReviews.reviews.length === 0);
       if (
         prevProps.videoGameReviews.reviews.length !==
           this.props.videoGameReviews.reviews.length ||
@@ -88,7 +83,13 @@ class MoreInfoModal extends Component {
           </div>
           <div className="more-info-modal__section-container-main">
             <div className="more-info-modal__section-container-one">
-              <div className="more-info-modal__ratings-container">
+              <div className="more-info-modal__summary-container">
+                <h5 className="heading-five">Summary :</h5>
+                <p className="more-info-modal__summary">{summary}</p>
+              </div>
+            </div>
+            <div className="more-info-modal__section-container-two">
+              <div className="more-info-modal__info-container">
                 <h5 className="heading-five heading-five--no-margin">
                   ESRB Rating :
                 </h5>
@@ -101,21 +102,7 @@ class MoreInfoModal extends Component {
                     ))}
                 </ul>
               </div>
-              <div className="more-info-modal__summary-container">
-                <h5 className="heading-five">Summary :</h5>
-                <p className="more-info-modal__summary">{summary}</p>
-              </div>
-            </div>
-            <div className="more-info-modal__section-container-two">
-              <div>
-                <h5 className="heading-five">Involved Companies :</h5>
-                <ul>
-                  {involved_companies.map(({ id, company }) => (
-                    <li key={id}>{company.name}</li>
-                  ))}
-                </ul>
-              </div>
-              <div>
+              <div className="more-info-modal__info-container">
                 <h5 className="heading-five">Genres :</h5>
                 <ul>
                   {genres.map(({ id, name }) => (
@@ -123,7 +110,15 @@ class MoreInfoModal extends Component {
                   ))}
                 </ul>
               </div>
-              <div>
+              <div className="more-info-modal__info-container">
+                <h5 className="heading-five">Involved Companies :</h5>
+                <ul>
+                  {involved_companies.map(({ id, company }) => (
+                    <li key={id}>{company.name}</li>
+                  ))}
+                </ul>
+              </div>
+              <div className="more-info-modal__info-container">
                 <h5 className="heading-five">Platforms :</h5>
                 <ul>
                   {platforms.map(({ id, name }) => (

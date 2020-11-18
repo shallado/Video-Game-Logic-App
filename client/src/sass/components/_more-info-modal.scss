@@ -29,7 +29,7 @@
 
   &__section {
     &:not(:last-child) {
-      margin-bottom: $xlg-spacing;
+      margin-bottom: 10rem;
     }
   }
 
@@ -43,7 +43,6 @@
 
   &__screen-shots,
   &__unavailable-screenshots {
-    border-radius: 1rem;
     height: 40rem;
     width: 100%;
   }
@@ -68,37 +67,29 @@
 
   &__section-container-main {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
-  &__section-container-one {
+  &__section-container-two {
+    flex: 0 0 100%;
+
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+
+    @include setBreakPoints(450) {
+      flex-direction: column;
+    }
+  }
+
+  &__info-container {
     flex: 0 0 50%;
-    margin-right: $xlg-spacing;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-
-  &__ratings-container {
-    display: flex;
-    align-items: center;
-  }
-
-  &__rating {
-    display: inline-block;
-    margin-left: 1rem;
+    margin-top: $sm-spacing;
   }
 
   &__summary-container {
     margin-top: $sm-spacing;
-  }
-
-  &__section-container-two {
-    & div {
-      &:not(:first-child) {
-        margin-top: $sm-spacing;
-      }
-    }
   }
 
   &__marketplace {
@@ -112,6 +103,7 @@
   }
 
   &__marketplace-digital {
+    margin-bottom: $md-spacing;
     flex: 0 0 30%;
 
     display: flex;
@@ -145,9 +137,16 @@
   }
 
   &__map {
-    color: $color-primary-dark;
     flex: 0 0 100%;
-    margin-top: $lg-spacing;
+    height: 50rem;
+
+    @include setBreakPoints(960) {
+      height: 40rem;
+    }
+
+    @include setBreakPoints(600) {
+      height: 30rem;
+    }
   }
 
   &__pin-icon {

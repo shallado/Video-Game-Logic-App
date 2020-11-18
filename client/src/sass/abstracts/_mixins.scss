@@ -123,20 +123,14 @@
 }
 
 @mixin setBreakPoints($breakpoint) {
-  @if $breakpoint == 400 {
-    @media only screen and (max-width: 25em) {
+  @if $breakpoint == 960 {
+    @media only screen and (max-width: 60em) {
       @content;
     }
   }
 
-  @if $breakpoint == 450 {
-    @media only screen and (max-width: 28.1em) {
-      @content;
-    }
-  }
-
-  @if $breakpoint == 550 {
-    @media only screen and (max-width: 34.4em) {
+  @if $breakpoint == 700 {
+    @media only screen and (max-width: 43.8em) {
       @content;
     }
   }
@@ -147,8 +141,20 @@
     }
   }
 
-  @if $breakpoint == 700 {
-    @media only screen and (max-width: 43.8em) {
+  @if $breakpoint == 550 {
+    @media only screen and (max-width: 34.4em) {
+      @content;
+    }
+  }
+
+  @if $breakpoint == 450 {
+    @media only screen and (max-width: 28.1em) {
+      @content;
+    }
+  }
+
+  @if $breakpoint == 400 {
+    @media only screen and (max-width: 25em) {
       @content;
     }
   }

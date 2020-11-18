@@ -11,8 +11,8 @@ import mapboxConfig from '../config/mapbox';
 class Map extends Component {
   state = {
     viewport: {
-      width: 940,
-      height: 500,
+      height: '100%',
+      width: '100%',
       zoom: 10,
       longitude: 0,
       latitude: 0,
@@ -40,7 +40,14 @@ class Map extends Component {
   };
 
   handleMapViewportChange = (nextViewport) => {
-    this.setState(() => ({ viewport: nextViewport }));
+    this.setState((prevState) => ({
+      viewport: {
+        ...prevState.viewport,
+        ...nextViewport,
+        height: '100%',
+        width: '100%',
+      },
+    }));
   };
 
   handleLocationZoom = (center, markerId) => {

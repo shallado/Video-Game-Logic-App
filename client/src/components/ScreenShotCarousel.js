@@ -13,6 +13,9 @@ const ScreenShotCarousel = (props) => {
         className="more-info-modal__screen-shots"
       />
     ));
+  const responsive = {
+    1049: { items: 1 },
+  };
 
   return (
     <>
@@ -24,7 +27,7 @@ const ScreenShotCarousel = (props) => {
           disableButtonsControls={true}
           autoPlayInterval={3000}
           autoPlay={true}
-          autoWidth={true}
+          responsive={responsive}
         />
       ) : (
         <div className="more-info-modal__unavailable-screenshots">
