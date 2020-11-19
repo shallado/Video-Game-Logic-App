@@ -26,8 +26,12 @@
 
   &__field-select-container {
     &:first-child {
-      width: 20rem;
+      flex: 0 0 75%;
     }
+
+    // &:first-child {
+    //   width: 20rem;
+    // }
   }
 
   &__field {

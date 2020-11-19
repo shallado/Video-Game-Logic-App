@@ -3,6 +3,14 @@
   border-radius: 1rem;
   padding: $xlg-spacing 0;
   width: 50%;
+
+  @include setBreakPoints(1150) {
+    width: 65%;
+  }
+
+  @include setBreakPoints(750) {
+    width: 90%;
+  }
 }
 
 @mixin centerItems {
@@ -123,8 +131,20 @@
 }
 
 @mixin setBreakPoints($breakpoint) {
+  @if $breakpoint == 1150 {
+    @media only screen and (max-width: 71.9em) {
+      @content;
+    }
+  }
+
   @if $breakpoint == 960 {
     @media only screen and (max-width: 60em) {
+      @content;
+    }
+  }
+
+  @if $breakpoint == 750 {
+    @media only screen and (max-width: 46.9em) {
       @content;
     }
   }
