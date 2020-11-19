@@ -36,9 +36,7 @@ class UploadImagePage extends Component {
           </div>
         </div>
         <div className="upload-page__form-container">
-          <h1 className="heading-one heading-one--form">
-            Upload Profile Photo
-          </h1>
+          <h1 className="heading-one heading-one--form">Profile Photo</h1>
           <form onSubmit={this.handleSubmit} className="upload-page__form">
             <div className="upload-page__input-container">
               <input

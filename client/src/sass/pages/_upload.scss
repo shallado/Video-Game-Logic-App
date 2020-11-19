@@ -19,6 +19,26 @@
     padding: $xlg-spacing $md-spacing 0 $md-spacing;
     position: relative;
     width: 50%;
+
+    @include setBreakPoints(1050) {
+      width: 65%;
+    }
+
+    @include setBreakPoints(960) {
+      margin: $xlg-spacing auto 0 auto;
+    }
+
+    @include setBreakPoints(700) {
+      margin: 18rem auto 0 auto;
+    }
+
+    @include setBreakPoints(600) {
+      width: 85%;
+    }
+
+    @include setBreakPoints(400) {
+      width: 95%;
+    }
   }
 
   &__form {
@@ -52,9 +72,6 @@
         border-radius: 1rem 0 0 1rem;
         color: black;
         flex: 0 0 50%;
-      }
-
-      &:last-child {
       }
     }
   }
