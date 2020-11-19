@@ -12,8 +12,10 @@ const UserReviewsPage = () => (
         </Link>
       </div>
     </div>
-    <h1 className="heading-one">User Reviews</h1>
-    <UserReviews />
+    <div className="user-reviews-page__reviews-container-main">
+      <h1 className="heading-one heading-one--form">User Reviews</h1>
+      <UserReviews />
+    </div>
   </div>
 );
 

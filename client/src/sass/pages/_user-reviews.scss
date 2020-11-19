@@ -11,12 +11,30 @@
     @include leftArrowIconLink;
   }
 
+  &__reviews-container-main {
+    @include setBreakPoints(960) {
+      margin-top: $xlg-spacing;
+    }
+
+    @include setBreakPoints(550) {
+      margin-top: 14rem;
+    }
+  }
+
   &__reviews-container {
     @include reviewsContainer;
     background-color: $color-primary-dark;
     height: 43rem;
-    width: 50%;
+    width: 70%;
     margin: 0 auto;
+
+    @include setBreakPoints(960) {
+      height: 42rem;
+    }
+
+    @include setBreakPoints(550) {
+      width: 90%;
+    }
   }
 
   &__reviews {
