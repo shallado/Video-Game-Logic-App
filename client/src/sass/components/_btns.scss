@@ -44,8 +44,11 @@
 
 .search-btn {
   @include btn;
-  border-radius: 0;
-  flex: 0 0 10%;
+  border: none;
+  border-radius: 0 1rem 1rem 0;
+  width: 10%;
+  height: 100%;
+  padding: 0;
 }
 
 .play-btn {
