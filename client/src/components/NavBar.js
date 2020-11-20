@@ -7,18 +7,40 @@ import IconMenu from '../svgs/IconMenu';
 import IconSearch from '../svgs/IconSearch';
 
 class NavBar extends Component {
-  state = {
-    accountActive: false,
-    menuActive: false,
+  constructor(props) {
+    super(props);
+
+    this.accountRef = React.createRef();
+    this.accountLinksRef = React.createRef();
+    this.state = {
+      accountActive: false,
+      menuActive: false,
+    };
+  }
+
+  handleToggleAccount = () => {
+    this.setState((prevState) => ({ accountActive: !prevState.accountActive }));
   };
 
-  handleOpenAccount = () => {
-    this.setState((prevState) => ({ accountActive: !prevState.accountActive }));
+  handleCloseAccount = (e) => {
+    if (this.accountRef && !this.accountRef.current.contains(e.target)) {
+      this.setState(() => ({
+        accountActive: false,
+      }));
+    }
   };
 
   handleOpenMenu = () => {
     this.setState((prevState) => ({ menuActive: !prevState.menuActive }));
   };
+
+  componentDidMount() {
+    document.addEventListener('mousedown', this.handleCloseAccount);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('mousedown', this.handleCloseAccount);
+  }
 
   render() {
     const account = classNames('navbar__container-one', {
@@ -75,7 +97,8 @@ class NavBar extends Component {
           </div>
           <div
             className="navbar__profile-photo-container"
-            onClick={this.handleOpenAccount}
+            onClick={this.handleToggleAccount}
+            ref={this.accountRef}
           >
             <img
               src={this.props.user.profilePhoto}
