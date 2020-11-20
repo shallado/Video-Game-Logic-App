@@ -16,7 +16,7 @@ class Account extends Component {
   render() {
     return (
       <div className="navbar__account">
-        <p>User Name</p>
+        <p>{this.props.username}</p>
         <ul className="navbar__account-links">
           <li className="navbar__account-link-container">
             <span className="navbar__icon-container">
@@ -60,8 +60,14 @@ class Account extends Component {
   }
 }
 
+const mapStateToProps = (state) => ({
+  username: state.user.username,
+});
+
 const mapDispatchToProps = (dispatch) => ({
   signOut: () => dispatch(signOut()),
 });
 
-export default withRouter(connect(null, mapDispatchToProps)(Account));
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(Account)
+);
