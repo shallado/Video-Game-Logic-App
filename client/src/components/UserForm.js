@@ -97,7 +97,6 @@ export default class UserForm extends Component {
     const passwordCriteria =
       '^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\\s).{8,15}$';
     const regex = new RegExp(passwordCriteria);
-
     let formSchema = Yup.object({
       username: Yup.string()
         .trim()
@@ -120,7 +119,7 @@ export default class UserForm extends Component {
 
     return (
       <div className="user-form">
-        {this.props.match.path === 'signup' ? (
+        {this.props.match.path === '/signup' ? (
           <h1 className="heading-one heading-one--form">Sign Up</h1>
         ) : (
           <h1 className="heading-one heading-one--form">Update</h1>
