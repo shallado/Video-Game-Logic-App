@@ -3,18 +3,32 @@
   height: 100vh;
   padding: $md-spacing;
 
+  &__form-container-main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 87vh;
+  }
+
   &__form-container {
     bottom: 4rem;
     background-color: $color-primary-dark;
     border-radius: 1rem;
     padding: $sm-spacing $md-spacing;
-    margin: 0 auto;
     height: 50rem;
     width: 50%;
 
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    @include setBreakPoints(1050) {
+      width: 60%;
+    }
+
+    @include setBreakPoints(550) {
+      width: 80%;
+    }
 
     &:focus {
       outline: none;

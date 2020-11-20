@@ -32,14 +32,20 @@ class UpdateReviewPage extends Component {
             </Link>
           </div>
         </div>
-        <div className="review-page__form-container">
-          <h4 className="heading-four">Update Review</h4>
-          <ReviewForm
-            videoGameReviewsUserReview={this.props.videoGameReviewsUserReview}
-            userReviewsUserReview={this.props.userReviewsUserReview}
-            videoGameId={this.props.videoGameId}
-            handleSubmit={this.handleSubmit}
-          />
+        <div className="review-page__form-container-main">
+          <div className="review-page__form-container">
+            <h4 className="heading-four">Update Review</h4>
+            <div>
+              <ReviewForm
+                videoGameReviewsUserReview={
+                  this.props.videoGameReviewsUserReview
+                }
+                userReviewsUserReview={this.props.userReviewsUserReview}
+                videoGameId={this.props.videoGameId}
+                handleSubmit={this.handleSubmit}
+              />
+            </div>
+          </div>
         </div>
       </div>
     );
