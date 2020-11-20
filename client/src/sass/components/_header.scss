@@ -1,6 +1,11 @@
 .header {
   position: relative;
 
+  &__loading-container {
+    background-color: $color-primary-dark;
+    height: 90vh;
+  }
+
   &__container-one {
     left: $md-spacing;
     position: absolute;

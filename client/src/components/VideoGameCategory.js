@@ -3,6 +3,7 @@ import AliceCarousel from 'react-alice-carousel';
 import { connect } from 'react-redux';
 import VideoGameCard from './VideoGameCard';
 import IconRightArrow from '../svgs/IconRightArrow';
+import IconLoading from '../svgs/IconLoading';
 
 const VideoGameCategory = (props) => {
   const items =
@@ -25,8 +26,8 @@ const VideoGameCategory = (props) => {
       </div>
       <div className="category__carousel-container">
         {props.categoryGames.length === 0 ? (
-          <div>
-            <p>...Loading</p>
+          <div className="category__loading-container">
+            <IconLoading />
           </div>
         ) : (
           <AliceCarousel

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import IconInfoBtn from '../svgs/IconInfoBtn';
+import IconLoading from '../svgs/IconLoading';
 import IconPlayBtn from '../svgs/IconPlayBtn';
 import { setCurrentGame } from '../actions/game';
 import { showModal } from '../actions/modal';
@@ -22,8 +23,8 @@ class Header extends Component {
     return (
       <div className="header">
         {this.props.featureGames.length === 0 ? (
-          <div>
-            <p>...Loading</p>
+          <div className="header__loading-container">
+            <IconLoading />
           </div>
         ) : (
           <>

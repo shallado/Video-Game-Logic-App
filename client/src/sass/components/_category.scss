@@ -29,4 +29,9 @@
     margin-left: 1rem;
     width: 2rem;
   }
+
+  &__loading-container {
+    background-color: $color-primary-dark;
+    height: 90vh;
+  }
 }
