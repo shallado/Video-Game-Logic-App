@@ -27,9 +27,11 @@ class AddReviewPage extends Component {
             </Link>
           </div>
         </div>
-        <div className="review-page__form-container">
-          <h4 className="heading-four">Add Review</h4>
-          <ReviewForm handleSubmit={this.handleSubmit} />
+        <div className="review-page__form-container-main">
+          <div className="review-page__form-container">
+            <h4 className="heading-four">Add Review</h4>
+            <ReviewForm handleSubmit={this.handleSubmit} />
+          </div>
         </div>
       </div>
     );

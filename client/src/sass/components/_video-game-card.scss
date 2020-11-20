@@ -2,8 +2,8 @@
   height: 20rem;
   position: relative;
 
-  &--search-page {
-    height: 100%;
+  @include setBreakPoints(550) {
+    height: 40rem;
   }
 
   &__img,
@@ -12,16 +12,18 @@
     height: 100%;
     width: 70%;
 
-    @include setBreakPoints(450) {
-      width: 80%;
+    @include setBreakPoints(600) {
+      width: 50%;
     }
   }
 
   &__img-unavailable {
     background-color: $color-primary;
-    text-align: center;
+    margin: 0 auto;
+    padding: $sm-spacing;
 
     display: flex;
+    justify-content: center;
     align-items: center;
   }
 
@@ -33,6 +35,11 @@
     top: 0;
     left: 15%;
     opacity: 0;
+
+    @include setBreakPoints(600) {
+      left: 25%;
+      width: 50%;
+    }
 
     &:hover {
       opacity: 0.8;

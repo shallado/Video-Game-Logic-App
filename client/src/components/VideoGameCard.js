@@ -15,7 +15,7 @@ class VideoGameCard extends Component {
 
   render() {
     return (
-      <div className="video-game-card video-game-card--search-page">
+      <div className="video-game-card">
         {this.props.gameInfo.cover ? (
           <img
             src={this.props.gameInfo.cover.url.replace('thumb', 'cover_big')}
