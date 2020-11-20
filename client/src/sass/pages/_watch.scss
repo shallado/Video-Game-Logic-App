@@ -13,11 +13,19 @@
   }
 
   &__video-player-container {
-    height: 86%;
-    width: 100%;
+    margin: $sm-spacing auto 0 auto;
+    width: 70%;
+    height: 90%;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    @include setBreakPoints(960) {
+      margin-top: $xlg-spacing;
+      width: 95%;
+      height: 70%;
+    }
+
+    @include setBreakPoints(550) {
+      margin-top: 20rem;
+      height: 50%;
+    }
   }
 }

@@ -12,6 +12,15 @@
   flex-direction: column;
   align-items: center;
 
+  @include setBreakPoints(750) {
+    height: 30%;
+    width: 50%;
+  }
+
+  @include setBreakPoints(550) {
+    height: 25%;
+  }
+
   &:focus {
     outline: none;
   }
@@ -32,6 +41,16 @@
     & div {
       margin: $sm-spacing $sm-spacing 0 0;
       height: 2rem;
+    }
+  }
+
+  &__content {
+    @include setBreakPoints(960) {
+      margin-top: $md-spacing;
+    }
+
+    @include setBreakPoints(750) {
+      margin-top: $sm-spacing;
     }
   }
 

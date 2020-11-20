@@ -25,7 +25,7 @@ class PlayOptionsModal extends Component {
             <IconClose />
           </div>
         </div>
-        <div>
+        <div className="play-modal__content">
           <h5 className="heading-five">Play Options</h5>
           {this.props.currentGame.videos === undefined ? (
             <p>Unavailable Videos</p>

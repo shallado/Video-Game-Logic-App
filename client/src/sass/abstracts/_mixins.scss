@@ -73,6 +73,10 @@
 @mixin resultContainer {
   min-height: 62vh;
   max-height: 100%;
+
+  @include setBreakPoints(960) {
+    min-height: 67.5vh;
+  }
 }
 
 @mixin videoGameCardContainer {

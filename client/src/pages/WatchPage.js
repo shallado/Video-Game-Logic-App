@@ -17,6 +17,8 @@ const WatchPage = (props) => {
         <ReactPlayer
           url={`https://www.youtube.com/watch?v=${props.match.params.id}`}
           controls={true}
+          width="100%"
+          height="100%"
         />
       </div>
     </div>
