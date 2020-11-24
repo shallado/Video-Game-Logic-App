@@ -15,7 +15,6 @@
 
 @mixin centerItems {
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
