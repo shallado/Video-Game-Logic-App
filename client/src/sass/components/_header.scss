@@ -1,16 +1,21 @@
 .header {
   position: relative;
+  height: 100vh;
 
   &__loading-container {
     background-color: $color-primary-dark;
-    height: 90vh;
+    height: 100vh;
   }
 
   &__container-one {
-    left: $md-spacing;
+    height: 100%;
     position: absolute;
     top: -2rem;
-    width: 63.25rem;
+    left: $md-spacing;
+    width: 76rem;
+
+    display: flex;
+    flex-direction: column;
 
     @include setBreakPoints(700) {
       width: 50rem;
@@ -31,12 +36,11 @@
   }
 
   &__video-game-image {
-    position: relative;
-    height: 90vh;
+    height: inherit;
 
     img {
       width: 100%;
-      height: 100%;
+      height: inherit;
     }
 
     &:after {
@@ -49,7 +53,7 @@
       position: absolute;
       top: 0;
       left: 0;
-      height: 90vh;
+      height: 100vh;
       width: 100%;
     }
   }
