@@ -1,6 +1,7 @@
 .video-game-card {
   height: 20rem;
   position: relative;
+  padding: 0 $md-spacing;
 
   @include setBreakPoints(550) {
     height: 40rem;
@@ -10,7 +11,7 @@
   &__img-unavailable {
     border-radius: 1rem;
     height: 100%;
-    width: 70%;
+    width: 100%;
 
     @include setBreakPoints(600) {
       width: 50%;
@@ -29,11 +30,12 @@
 
   &__overlay {
     background-color: $color-primary;
+    border-radius: 1rem;
     height: 100%;
-    width: 70%;
+    width: 66%;
     position: absolute;
     top: 0;
-    left: 15%;
+    left: 17%;
     opacity: 0;
 
     @include setBreakPoints(600) {

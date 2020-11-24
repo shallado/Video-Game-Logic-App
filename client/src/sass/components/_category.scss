@@ -3,6 +3,9 @@
   padding: $xlg-spacing 0;
 
   &__container {
+    margin: 0 auto;
+    width: 90%;
+
     &:not(:last-child) {
       padding-bottom: $lg-spacing;
     }
@@ -33,5 +36,10 @@
   &__loading-container {
     background-color: $color-primary-dark;
     height: 90vh;
+  }
+
+  &__carousel-items {
+    list-style: none;
+    display: flex;
   }
 }

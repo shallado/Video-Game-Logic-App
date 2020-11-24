@@ -11,7 +11,13 @@ export const getCategoryGame = (categoryGames) => ({
   categoryGames,
 });
 
-export const startGetGames = (queriesInfo) => {
+export const updateCategoryGame = (categoryIndex, updateGames) => ({
+  type: 'UPDATE_CATEGORY_GAMES',
+  updateGames,
+  categoryIndex,
+});
+
+export const startGetGames = (queriesInfo, categoryIndex) => {
   return (dispatch) => {
     return axios({
       method: 'post',
@@ -21,8 +27,12 @@ export const startGetGames = (queriesInfo) => {
       .then((response) => {
         const queryResults = response.data;
 
-        dispatch(getFeatureGames(queryResults[1]));
-        dispatch(getCategoryGame([response.data[0]]));
+        if (queryResults[0].length === 1) {
+          dispatch(updateCategoryGame(categoryIndex, queryResults[0]));
+        } else {
+          dispatch(getFeatureGames(queryResults[1]));
+          dispatch(getCategoryGame(queryResults[0]));
+        }
       })
       .catch((err) => {
         let error;
@@ -74,4 +84,8 @@ export const startVideoGameSearchResults = (title) => {
 export const setCurrentGame = (currentGame) => ({
   type: 'SET_CURRENT_GAME',
   currentGame,
+});
+
+export const resetGames = () => ({
+  type: 'RESET_GAMES',
 });

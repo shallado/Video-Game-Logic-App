@@ -1,5 +1,5 @@
 const initialState = {
-  featureGames: '',
+  featureGames: [],
   categoryGames: [],
   currentGame: {},
   searchResults: [],
@@ -15,7 +15,18 @@ const gameReducer = (state = initialState, action) => {
     case 'GET_CATEGORY_GAMES':
       return {
         ...state,
-        categoryGames: action.categoryGames,
+        categoryGames: [...state.categoryGames, ...action.categoryGames],
+      };
+    case 'UPDATE_CATEGORY_GAMES':
+      return {
+        ...state,
+        categoryGames: state.categoryGames.map((category, index) => {
+          if (index === action.categoryIndex) {
+            return [...category, ...action.updateGames[0]];
+          }
+
+          return category;
+        }),
       };
     case 'SET_CURRENT_GAME':
       return {
@@ -27,6 +38,8 @@ const gameReducer = (state = initialState, action) => {
         ...state,
         searchResults: action.videoGames,
       };
+    case 'RESET_GAMES':
+      return initialState;
     default:
       return state;
   }

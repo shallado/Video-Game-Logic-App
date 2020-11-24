@@ -1,50 +1,95 @@
-import React from 'react';
-import AliceCarousel from 'react-alice-carousel';
+import React, { Component } from 'react';
+import Slider from 'react-slick';
 import { connect } from 'react-redux';
 import VideoGameCard from './VideoGameCard';
 import IconRightArrow from '../svgs/IconRightArrow';
 import IconLoading from '../svgs/IconLoading';
+import { startGetGames } from '../actions/game';
 
-const VideoGameCategory = (props) => {
-  const items =
-    props.categoryGames.length > 0 &&
-    props.categoryGames[0][props.index].map((game) => (
-      <VideoGameCard gameInfo={game} key={game.id} />
-    ));
-  const responsive = {
-    539: { items: 2 },
-    699: { items: 3 },
-    849: { items: 4 },
-    1049: { items: 5 },
+class VideoGameCategory extends Component {
+  state = {
+    currentIndex: 0,
+    numCards: [],
+    offset: 11,
   };
 
-  return (
-    <div className="category__container">
-      <div className="category__heading-container">
-        <h2 className="category__heading">{props.genre}</h2>
-        <IconRightArrow />
-      </div>
-      <div className="category__carousel-container">
-        {props.categoryGames.length === 0 ? (
-          <div className="category__loading-container">
-            <IconLoading />
-          </div>
-        ) : (
-          <AliceCarousel
-            mouseTracking
-            items={items}
-            responsive={responsive}
-            infinite={true}
-            disableDotsControls={true}
-          />
-        )}
-      </div>
-    </div>
-  );
-};
+  handleBeforeChange = () => {
+    if (!this.state.offset <= 36) {
+      this.props.startGetGames(
+        [
+          {
+            page: this.props.page,
+            type: 'category',
+            genres: [this.props.genre],
+            offset: this.state.offset,
+          },
+        ],
+        this.props.categoryIndex
+      );
 
-const mapStateToProps = (state) => ({
-  categoryGames: state.game.categoryGames,
+      this.setState((prevState) => ({
+        slideChange: true,
+        offset: (prevState.offset += 5),
+      }));
+    }
+  };
+
+  componentDidMount() {
+    const numCards = [];
+    for (let i = 0; i < 40; i++) {
+      numCards.push(i);
+    }
+    this.setState(() => ({
+      numCards,
+    }));
+  }
+
+  render() {
+    const settings = {
+      slidesToShow: 5,
+      slidesToScroll: 5,
+      beforeChange: this.handleBeforeChange,
+      speed: 2000,
+    };
+
+    return (
+      <div className="category__container">
+        <div className="category__heading-container">
+          <h2 className="category__heading">{this.props.genre}</h2>
+          <IconRightArrow />
+        </div>
+        <div className="category__carousel-container">
+          {this.props.categoryGamesCount === 0 ? (
+            <div className="category__loading-container">
+              <IconLoading />
+            </div>
+          ) : (
+            <Slider {...settings}>
+              {this.state.numCards.map((positionIndex, index) => (
+                <VideoGameCard
+                  key={index}
+                  categoryIndex={this.props.categoryIndex}
+                  positionIndex={positionIndex}
+                />
+              ))}
+            </Slider>
+          )}
+        </div>
+      </div>
+    );
+  }
+}
+
+const mapStateToProps = (state, ownProps) => ({
+  categoryGames: state.game.categoryGames[ownProps.categoryIndex],
+  categoryGamesCount: !!!state.game.categoryGames[ownProps.categoryIndex]
+    ? 0
+    : state.game.categoryGames[ownProps.categoryIndex].length,
 });
 
-export default connect(mapStateToProps)(VideoGameCategory);
+const mapDispatchToProps = (dispatch) => ({
+  startGetGames: (page, type, genre) =>
+    dispatch(startGetGames(page, type, genre)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(VideoGameCategory);

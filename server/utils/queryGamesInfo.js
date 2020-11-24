@@ -1,7 +1,6 @@
 // find featured game depending on input criteria
 const queryGamesInfo = (queriesInfo) => {
-  return queriesInfo.map(({ page, type, genres, title }) => {
-    const limit = type === 'featured' ? ' limit 2' : 'limit 40';
+  return queriesInfo.map(({ page, type, genres, title, offset }) => {
     const sortBy = type === 'featured' ? ' sort popularity desc;' : ' ';
     const platform =
       page === 'Dashboard' ? '' : ` & platforms.name = "${page}"`;
@@ -11,7 +10,18 @@ const queryGamesInfo = (queriesInfo) => {
       ? genres.map((genre) => ` & genres.name="${genre}"`)
       : '';
     let queries = 'where release_dates.date >= 1580515200';
+    let pagination = '';
+    let limit;
     let data;
+
+    if (genres && genres.length === 1) {
+      limit = 'limit 5';
+      pagination = ` offset ${offset};`;
+    } else if (type === 'featured') {
+      limit = ' limit 2';
+    } else {
+      limit = 'limit 10';
+    }
 
     queries += platform;
 
@@ -19,10 +29,10 @@ const queryGamesInfo = (queriesInfo) => {
       data = `search "${title}";`;
     } else if (Array.isArray(genresInfo)) {
       queries = genresInfo.map((genreInfo) => `${queries}${genreInfo}`);
-      data = queries.map((query) => `${query};${sortBy}${limit};`);
+      data = queries.map((query) => `${query};${sortBy}${limit};${pagination}`);
     } else {
       queries += genresInfo;
-      data = `${queries};${sortBy}${limit};`;
+      data = `${queries};${sortBy}${limit};${pagination}`;
     }
 
     if (Array.isArray(data)) {

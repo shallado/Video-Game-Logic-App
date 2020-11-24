@@ -3,10 +3,9 @@ import { BrowserRouter, Switch } from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
 import AccountPage from '../pages/AccountPage';
-import DashBoardPage from '../pages/DashBoardPage';
+import PlatformPage from '../pages/PlatformPage';
 import HomePage from '../pages/HomePage';
 import MyListPage from '../pages/MyListPage';
-import PlatformPage from '../pages/PlatformPage';
 import AddReviewPage from '../pages/AddReviewPage';
 import UpdateReviewPage from '../pages/UpdateReviewPage';
 import UserReviewsPage from '../pages/UserReviewsPage';
@@ -26,7 +25,7 @@ const AppRouter = () => (
       <PrivateRoute path="/user-reviews" component={UserReviewsPage} />
       <PrivateRoute path="/review" component={AddReviewPage} exact={true} />
       <PrivateRoute path="/review/:id" component={UpdateReviewPage} />
-      <PrivateRoute path="/dashboard" component={DashBoardPage} />
+      <PrivateRoute path="/dashboard" component={PlatformPage} />
       <PrivateRoute path="/nintendo" component={PlatformPage} />
       <PrivateRoute path="/playstation" component={PlatformPage} />
       <PrivateRoute path="/xbox" component={PlatformPage} />
