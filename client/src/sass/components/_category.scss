@@ -2,6 +2,14 @@
   background-color: $color-primary-dark;
   padding: $xlg-spacing 0;
 
+  @include setBreakPoints(750) {
+    padding: $xlg-spacing $sm-spacing;
+  }
+
+  @include setBreakPoints(550) {
+    padding: $xlg-spacing $md-spacing;
+  }
+
   &__container {
     margin: 0 auto;
     width: 90%;
@@ -15,6 +23,10 @@
     display: inline-block;
     padding-left: $md-spacing;
     margin-bottom: $sm-spacing;
+
+    @include setBreakPoints(500) {
+      margin-bottom: $md-spacing;
+    }
 
     &:hover {
       color: $accent-color;
