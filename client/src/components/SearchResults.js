@@ -15,8 +15,11 @@ const SearchResults = (props) => (
       ) : (
         <ul className="search-page__results">
           {props.searchResults[0].map((videoGame) => (
-            <li className="search-page__video-game-card-container">
-              <VideoGameCard gameInfo={videoGame} key={videoGame.id} />
+            <li
+              className="search-page__video-game-card-container"
+              key={videoGame.id}
+            >
+              <VideoGameCard videoGameList={videoGame} />
             </li>
           ))}
         </ul>

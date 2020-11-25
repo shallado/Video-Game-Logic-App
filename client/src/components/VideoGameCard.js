@@ -15,21 +15,30 @@ class VideoGameCard extends Component {
   };
 
   render() {
+    let gameInfo;
+
+    if (!!this.props.videoGameList) {
+      gameInfo = this.props.videoGameList;
+    } else {
+      if (!!this.props.videoGameCategory) {
+        gameInfo = this.props.videoGameCategory;
+      } else {
+        gameInfo = {};
+      }
+    }
+
     return (
       <>
-        {Object.keys(this.props.gameInfo).length !== 0 ? (
+        {Object.keys(gameInfo).length !== 0 ? (
           <div className="video-game-card">
-            {this.props.gameInfo.cover ? (
+            {gameInfo.cover ? (
               <img
-                src={this.props.gameInfo.cover.url.replace(
-                  'thumb',
-                  'cover_big'
-                )}
+                src={gameInfo.cover.url.replace('thumb', 'cover_big')}
                 className="video-game-card__img"
               />
             ) : (
               <div className="video-game-card__img-unavailable">
-                <p>{this.props.gameInfo.name}</p>
+                <p>{gameInfo.name}</p>
               </div>
             )}
             <div className="video-game-card__overlay">
@@ -53,11 +62,9 @@ class VideoGameCard extends Component {
 
 const mapStateToProps = (state, ownProps) => ({
   currentGame: state.game.currentGame,
-  gameInfo: !!!state.game.categoryGames[ownProps.categoryIndex][
-    ownProps.positionIndex
-  ]
-    ? {}
-    : state.game.categoryGames[ownProps.categoryIndex][ownProps.positionIndex],
+  videoGameCategory: !!state.game.categoryGames[ownProps.categoryIndex]
+    ? state.game.categoryGames[ownProps.categoryIndex][ownProps.positionIndex]
+    : {},
 });
 
 const mapDispatchToProps = (dispatch) => ({

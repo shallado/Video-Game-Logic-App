@@ -14,7 +14,7 @@ class VideoGameCategory extends Component {
   };
 
   handleBeforeChange = () => {
-    if (!this.state.offset <= 36) {
+    if (this.state.offset <= 36) {
       this.props.startGetGames(
         [
           {

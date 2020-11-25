@@ -8,8 +8,11 @@ const VideoGameList = (props) => (
     <div className="my-list-page__results-container">
       <ul className="my-list-page__results">
         {props.user.videoGames.map((videoGame) => (
-          <li className="my-list-page__video-game-card-container">
-            <VideoGameCard gameInfo={videoGame} key={videoGame.id} />
+          <li
+            className="my-list-page__video-game-card-container"
+            key={videoGame.id}
+          >
+            <VideoGameCard videoGameList={videoGame} />
           </li>
         ))}
       </ul>
