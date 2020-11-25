@@ -58,32 +58,57 @@ class NavBar extends Component {
         <div className={account}>
           <ul className="navbar__links">
             <li>
-              <NavLink to="/" className="navbar__link">
+              <NavLink
+                to="/"
+                className="navbar__link"
+                activeClassName="navbar__active-link"
+                exact={true}
+              >
                 Home
               </NavLink>
             </li>
             <li>
-              <NavLink to="/nintendo" className="navbar__link">
+              <NavLink
+                to="/nintendo"
+                className="navbar__link"
+                activeClassName="navbar__active-link"
+              >
                 Nintendo
               </NavLink>
             </li>
             <li>
-              <NavLink to="/playstation" className="navbar__link">
+              <NavLink
+                to="/playstation"
+                className="navbar__link"
+                activeClassName="navbar__active-link"
+              >
                 PlayStation
               </NavLink>
             </li>
             <li>
-              <NavLink to="/xbox" className="navbar__link">
+              <NavLink
+                to="/xbox"
+                className="navbar__link"
+                activeClassName="navbar__active-link"
+              >
                 Xbox
               </NavLink>
             </li>
             <li>
-              <NavLink to="/pc" className="navbar__link">
+              <NavLink
+                to="/pc"
+                className="navbar__link"
+                activeClassName="navbar__active-link"
+              >
                 PC
               </NavLink>
             </li>
             <li>
-              <NavLink to="/list" className="navbar__link">
+              <NavLink
+                to="/list"
+                className="navbar__link"
+                activeClassName="navbar__active-link"
+              >
                 My List
               </NavLink>
             </li>

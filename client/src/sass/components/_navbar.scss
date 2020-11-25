@@ -127,6 +127,10 @@
     }
   }
 
+  &__active-link {
+    border-bottom: 0.2rem solid $accent-color;
+  }
+
   &__search-link-container {
     align-self: center;
   }
