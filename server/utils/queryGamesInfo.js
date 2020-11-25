@@ -9,7 +9,7 @@ const queryGamesInfo = (queriesInfo) => {
     const genresInfo = genres
       ? genres.map((genre) => ` & genres.name="${genre}"`)
       : '';
-    let queries = 'where release_dates.date >= 1580515200';
+    let queries = 'where release_dates.date >= 1542931200';
     let pagination = '';
     let limit;
     let data;
@@ -44,3 +44,5 @@ const queryGamesInfo = (queriesInfo) => {
 };
 
 module.exports = queryGamesInfo;
+
+631152000;

@@ -28,14 +28,7 @@ class PlatformPage extends Component {
         break;
       case '/nintendo':
         page = 'Nintendo Switch';
-        genres = [
-          'Music',
-          'Card & Board Game',
-          'Adventure',
-          'Arcade',
-          'Puzzle',
-          'Shooter',
-        ];
+        genres = ['Music', 'Sport', 'Adventure', 'Arcade', 'Puzzle', 'Shooter'];
         break;
       case '/playstation':
         page = 'PlayStation 4';
@@ -53,7 +46,7 @@ class PlatformPage extends Component {
         genres = [
           'Fighting',
           'Shooter',
-          'Sport',
+          'Indie',
           'Racing',
           'Role-playing (RPG)',
           'Adventure',
@@ -67,7 +60,7 @@ class PlatformPage extends Component {
           'Role-playing (RPG)',
           'Puzzle',
           'Shooter',
-          'Moba',
+          "Hack and slash/Beat 'em up",
         ];
         break;
       default:
