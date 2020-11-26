@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import Modal from 'react-modal';
+import IconClose from '../svgs/IconClose';
 import { hideError } from '../actions/error';
 
 class ErrorNotification extends Component {
-  handleClose = () => {
+  handleCloseModal = () => {
     this.props.hideError();
   };
 
@@ -15,13 +16,20 @@ class ErrorNotification extends Component {
 
   render() {
     return (
-      <Modal isOpen={this.props.isOpen} onRequestClose={this.handleClose}>
-        {this.props.errorInfo ? (
-          <p>{this.props.errorInfo.message}</p>
-        ) : (
-          this.props.data && <p>{this.props.data.message}</p>
-        )}
-        <button onClick={this.handleClose}>X</button>
+      <Modal
+        isOpen={!!this.props.errorInfo}
+        onRequestClose={this.handleClose}
+        className="error-notification"
+        overlayClassName="error-notification__overlay"
+      >
+        <div className="error-notification__close-icon-container">
+          <div onClick={this.handleCloseModal}>
+            <IconClose />
+          </div>
+        </div>
+        <div className="error-notification__content">
+          {this.props.errorInfo && <p>{this.props.errorInfo.message}</p>}
+        </div>
       </Modal>
     );
   }
@@ -29,8 +37,6 @@ class ErrorNotification extends Component {
 
 const mapStateToProps = (state) => ({
   errorInfo: state.error.errorInfo,
-  isOpen: state.error.isOpen,
-  data: state.error.data,
 });
 
 const mapDispatchToProps = (dispatch) => ({

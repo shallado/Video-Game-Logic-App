@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { loadTodoSuccess, loadTodoError } from './error';
+import { loadSuccess, loadError } from './error';
 
 export const setCurrentUser = (user) => ({
   type: 'SET_CURRENT_USER',
@@ -21,13 +21,8 @@ export const startUserUpdate = (id, updates) => {
       url: `/users/${id}`,
       data: { ...updates },
     })
-      .then((response) => {
-        if (response.status === 200) {
-          dispatch(loadTodoSuccess(response.data));
-          dispatch(userUpdate({ ...updates }));
-        } else {
-          dispatch(loadTodoError(response.error));
-        }
+      .then(() => {
+        dispatch(userUpdate({ ...updates }));
       })
       .catch((err) => {
         let error;
@@ -40,7 +35,7 @@ export const startUserUpdate = (id, updates) => {
           error = err.message;
         }
 
-        dispatch(loadTodoError(error));
+        dispatch(loadError(error));
       });
   };
 };
@@ -54,12 +49,12 @@ export const startUploadProfilePhoto = (id, imageFile) => {
     })
       .then((response) => {
         if (response.status === 200) {
-          dispatch(loadTodoSuccess(response.data));
+          dispatch(loadSuccess(response.data));
           dispatch(
             userUpdate({ profilePhoto: response.data.data.profilePhoto })
           );
         } else {
-          dispatch(loadTodoError(response.error));
+          dispatch(loadError(response.error));
         }
       })
       .catch((err) => {
@@ -73,7 +68,7 @@ export const startUploadProfilePhoto = (id, imageFile) => {
           error = err.message;
         }
 
-        dispatch(loadTodoError(error));
+        dispatch(loadError(error));
       });
   };
 };
@@ -113,7 +108,7 @@ export const startAddVideoGameToWatchList = (userId, videoGame) => {
           error = err.message;
         }
 
-        dispatch(loadTodoError(error));
+        dispatch(loadError(error));
       });
   };
 };
@@ -146,7 +141,7 @@ export const startRemoveVideoGameToWatchList = (userId, videoGame) => {
           error = err.message;
         }
 
-        dispatch(loadTodoError(error));
+        dispatch(loadError(error));
       });
   };
 };

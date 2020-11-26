@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { loadTodoError } from './error';
+import { loadError } from './error';
 
 export const setVideoGameReviews = (
   reviews = {
@@ -86,7 +86,7 @@ export const startAddVideoGameReview = ({ title, username, review } = {}) => {
           error = err.message;
         }
 
-        dispatch(loadTodoError(error));
+        dispatch(loadError(error));
       });
   };
 };
@@ -126,7 +126,7 @@ export const startEditVideoGameReview = ({ videoGameId, username, review }) => {
           error = err.message;
         }
 
-        dispatch(loadTodoError(error));
+        dispatch(loadError(error));
       });
   };
 };
@@ -167,7 +167,7 @@ export const startSetUserVideoGameReviews = (username) => {
           error = err.message;
         }
 
-        dispatch(loadTodoError(error));
+        dispatch(loadError(error));
       });
   };
 };

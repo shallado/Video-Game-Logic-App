@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { loadTodoError } from './error';
+import { loadError } from './error';
 
 export const getFeatureGames = (featureGames) => ({
   type: 'GET_FEATURE_GAMES',
@@ -45,7 +45,7 @@ export const startGetGames = (queriesInfo, categoryIndex) => {
           error = err.message;
         }
 
-        dispatch(loadTodoError(error));
+        dispatch(loadError(error));
       });
   };
 };
@@ -76,7 +76,7 @@ export const startVideoGameSearchResults = (title) => {
           error = err.message;
         }
 
-        dispatch(loadTodoError(error));
+        dispatch(loadError(error));
       });
   };
 };

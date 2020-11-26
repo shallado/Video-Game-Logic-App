@@ -1,12 +1,9 @@
-export const loadTodoSuccess = (data) => ({
-  type: 'GET_TODO_SUCCESS',
-  data,
-  error: null,
+export const loadSuccess = () => ({
+  type: 'LOAD_SUCCESS',
 });
 
-export const loadTodoError = (error) => ({
-  type: 'GET_TODO_SUCCESS',
-  data: null,
+export const loadError = (error) => ({
+  type: 'LOAD_ERROR',
   error,
 });
 

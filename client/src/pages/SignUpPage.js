@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import UserForm from '../components/UserForm';
-import ErrorNotification from '../components/ErrorNotification';
+import ErrorNotification from '../modals/ErrorNotification';
 import { startSignUp } from '../actions/auth';
 
 class SignUpPage extends Component {
   handleSubmit = (userInfo) => {
     this.props.startSignUp(userInfo);
+    this.props.history.push('/signin');
   };
 
   render() {

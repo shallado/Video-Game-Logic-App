@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { loadTodoError } from './error';
+import { loadError } from './error';
 
 const setMapLocations = (locationsInfo) => ({
   type: 'SET_MAP_LOCATIONS',
@@ -31,7 +31,7 @@ export const startSetMapLocations = () => {
           error = err.message;
         }
 
-        dispatch(loadTodoError(error));
+        dispatch(loadError(error));
       });
   };
 };

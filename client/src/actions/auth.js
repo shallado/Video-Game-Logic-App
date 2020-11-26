@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { loadTodoSuccess, loadTodoError } from './error';
-import { setCurrentUser, removeCurrentUser } from './user';
+import { loadSuccess, loadError } from './error';
+import { setCurrentUser } from './user';
 
 export const startSignUp = (userInfo) => {
   return (dispatch) => {
@@ -11,8 +11,8 @@ export const startSignUp = (userInfo) => {
         ...userInfo,
       },
     })
-      .then((response) => {
-        dispatch(loadTodoSuccess(response.data));
+      .then(() => {
+        dispatch(loadSuccess());
       })
       .catch((err) => {
         let error;
@@ -25,7 +25,7 @@ export const startSignUp = (userInfo) => {
           error = err.message;
         }
 
-        dispatch(loadTodoError(error));
+        dispatch(loadError(error));
       });
   };
 };
@@ -87,7 +87,7 @@ export const startSignIn = (userCredentials) => {
           error = err.message;
         }
 
-        dispatch(loadTodoError(error));
+        dispatch(loadError(error));
       });
   };
 };

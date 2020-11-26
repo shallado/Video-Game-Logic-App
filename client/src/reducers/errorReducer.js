@@ -1,29 +1,27 @@
 const initialState = {
-  data: null,
   errorInfo: null,
-  isOpen: false,
 };
 
 const errorReducer = (state = initialState, action) => {
-  const { error, data } = action;
-
-  if (error) {
-    return {
-      errorInfo: error,
-      isOpen: true,
-    };
-  } else if (action.type === 'HIDE_ERROR') {
-    return {
-      isOpen: false,
-    };
-  } else if (data) {
-    return {
-      data,
-      isOpen: true,
-    };
+  switch (action.type) {
+    case 'LOAD_SUCCESS':
+      return {
+        ...state,
+        errorInfo: null,
+      };
+    case 'LOAD_ERROR':
+      return {
+        ...state,
+        errorInfo: action.error,
+      };
+    case 'HIDE_ERROR':
+      return {
+        ...state,
+        errorInfo: null,
+      };
+    default:
+      return state;
   }
-
-  return state;
 };
 
 export default errorReducer;

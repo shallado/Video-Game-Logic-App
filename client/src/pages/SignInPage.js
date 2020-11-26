@@ -3,13 +3,11 @@ import { connect } from 'react-redux';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { startSignIn } from '../actions/auth';
-import { hideError } from '../actions/error';
-import ErrorNotification from '../components/ErrorNotification';
+import ErrorNotification from '../modals/ErrorNotification';
 
 class SignInPage extends Component {
   handleSubmit = (userCredentials) => {
     this.props.startSignIn(userCredentials);
-    this.props.hideError();
   };
 
   render() {
@@ -72,7 +70,6 @@ class SignInPage extends Component {
 
 const mapDispatchToProps = (dispatch) => ({
   startSignIn: (userCredentials) => dispatch(startSignIn(userCredentials)),
-  hideError: () => dispatch(hideError()),
 });
 
 export default connect(null, mapDispatchToProps)(SignInPage);
