@@ -1,15 +1,16 @@
-export const loadSuccess = () => ({
+export const loadSuccess = (successInfo) => ({
   type: 'LOAD_SUCCESS',
+  successInfo,
 });
 
-export const loadError = (error) => ({
+export const loadError = (errorInfo) => ({
   type: 'LOAD_ERROR',
-  error,
+  errorInfo,
 });
 
-export const setError = (error) => ({
+export const setError = (errorInfo) => ({
   type: 'SET_ERROR',
-  error,
+  errorInfo,
 });
 
 export const hideError = () => ({

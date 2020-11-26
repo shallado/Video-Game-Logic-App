@@ -15,9 +15,19 @@ class ErrorNotification extends Component {
   }
 
   render() {
+    let errorInfoContent;
+
+    if (!!this.props.errorInfo) {
+      errorInfoContent = this.props.errorInfo.message;
+    } else if (!!this.props.successInfo) {
+      errorInfoContent = this.props.successInfo;
+    } else {
+      errorInfoContent = null;
+    }
+
     return (
       <Modal
-        isOpen={!!this.props.errorInfo}
+        isOpen={!!this.props.errorInfo || !!this.props.successInfo}
         onRequestClose={this.handleClose}
         className="error-notification"
         overlayClassName="error-notification__overlay"
@@ -28,7 +38,7 @@ class ErrorNotification extends Component {
           </div>
         </div>
         <div className="error-notification__content">
-          {this.props.errorInfo && <p>{this.props.errorInfo.message}</p>}
+          <p>{errorInfoContent}</p>
         </div>
       </Modal>
     );
@@ -37,6 +47,7 @@ class ErrorNotification extends Component {
 
 const mapStateToProps = (state) => ({
   errorInfo: state.error.errorInfo,
+  successInfo: state.error.successInfo,
 });
 
 const mapDispatchToProps = (dispatch) => ({
