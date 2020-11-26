@@ -6,15 +6,19 @@ import IconLoading from '../svgs/IconLoading';
 import { showModal } from '../actions/modal';
 
 class VideoGameCard extends Component {
+  state = {
+    gameInfo: {},
+  };
+
   handleShowModal = () => {
-    if (this.props.gameInfo.id !== this.props.currentGame.id) {
-      this.props.setCurrentGame(this.props.gameInfo);
+    if (this.state.gameInfo.id !== this.props.currentGame.id) {
+      this.props.setCurrentGame(this.state.gameInfo);
     }
 
     this.props.showModal();
   };
 
-  render() {
+  componentDidMount() {
     let gameInfo;
 
     if (!!this.props.videoGameList) {
@@ -27,18 +31,27 @@ class VideoGameCard extends Component {
       }
     }
 
+    this.setState(() => ({
+      gameInfo,
+    }));
+  }
+
+  render() {
     return (
       <>
-        {Object.keys(gameInfo).length !== 0 ? (
+        {Object.keys(this.state.gameInfo).length !== 0 ? (
           <div className="video-game-card">
-            {gameInfo.cover ? (
+            {this.state.gameInfo.cover ? (
               <img
-                src={gameInfo.cover.url.replace('thumb', 'cover_big')}
+                src={this.state.gameInfo.cover.url.replace(
+                  'thumb',
+                  'cover_big'
+                )}
                 className="video-game-card__img"
               />
             ) : (
               <div className="video-game-card__img-unavailable">
-                <p>{gameInfo.name}</p>
+                <p>{this.state.gameInfo.name}</p>
               </div>
             )}
             <div className="video-game-card__overlay">
