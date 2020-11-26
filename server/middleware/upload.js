@@ -18,8 +18,19 @@ const fileFilter = (req, file, cb) => {
   cb(null, true);
 };
 
-const limits = { fileSize: 100000 };
+const upload = multer({ storage, fileFilter });
+const uploadImage = upload.single('profile');
 
-const uploadImage = multer({ storage, fileFilter, limits });
+const uploadFiles = (req, res, next) => {
+  uploadImage(req, res, (err) => {
+    if (err) {
+      return res.status(401).send({ message: err });
+    }
 
-module.exports = uploadImage;
+    next();
+  });
+};
+
+module.exports = {
+  uploadFiles,
+};

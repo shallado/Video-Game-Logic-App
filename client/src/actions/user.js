@@ -48,14 +48,8 @@ export const startUploadProfilePhoto = (id, imageFile) => {
       data: imageFile,
     })
       .then((response) => {
-        if (response.status === 200) {
-          dispatch(loadSuccess(response.data));
-          dispatch(
-            userUpdate({ profilePhoto: response.data.data.profilePhoto })
-          );
-        } else {
-          dispatch(loadError(response.error));
-        }
+        dispatch(loadSuccess(response.data.message));
+        dispatch(userUpdate({ profilePhoto: response.data.data.path }));
       })
       .catch((err) => {
         let error;
@@ -92,7 +86,7 @@ export const startAddVideoGameToWatchList = (userId, videoGame) => {
     };
 
     axios(request)
-      .then((response) =>
+      .then(() =>
         dispatch(
           addVideoGameToWatchList({ ...videoGame, addToWatchList: true })
         )
@@ -129,7 +123,7 @@ export const startRemoveVideoGameToWatchList = (userId, videoGame) => {
     };
 
     axios(request)
-      .then((response) => dispatch(removeVideoGameToWatchList(videoGame)))
+      .then(() => dispatch(removeVideoGameToWatchList(videoGame)))
       .catch((err) => {
         let error;
 

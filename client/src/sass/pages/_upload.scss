@@ -42,6 +42,8 @@
   }
 
   &__form {
+    position: relative;
+
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -64,6 +66,10 @@
 
     display: flex;
 
+    &:hover {
+      background-color: darken($accent-color, 15%);
+    }
+
     & span {
       padding: 1rem 0 1rem 2rem;
 
@@ -74,5 +80,9 @@
         flex: 0 0 50%;
       }
     }
+  }
+
+  &__form-error {
+    color: $error-color;
   }
 }

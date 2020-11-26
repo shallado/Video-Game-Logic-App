@@ -1,6 +1,6 @@
 const express = require('express');
 const userController = require('../controllers/user.controller');
-const uploadImage = require('../middleware/upload');
+const { uploadFiles } = require('../middleware/upload');
 const validation = require('../middleware/validation');
 
 const router = express.Router();
@@ -9,7 +9,7 @@ const router = express.Router();
 const userRouter = (app) => {
   router.put(
     '/:id/profilePhoto/',
-    uploadImage.single('profile'),
+    uploadFiles,
     userController.uploadProfilePhoto
   );
 

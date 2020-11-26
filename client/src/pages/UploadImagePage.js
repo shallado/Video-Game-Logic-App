@@ -7,25 +7,47 @@ import { startUploadProfilePhoto } from '../actions/user';
 
 class UploadImagePage extends Component {
   state = {
-    fileUpload: '',
+    fileUpload: null,
+    error: null,
   };
 
   handleFileChange = (e) => {
     const fileUpload = e.target.files[0];
 
-    this.setState(() => ({ fileUpload }));
+    this.setState(() => ({
+      fileUpload,
+      error: null,
+    }));
   };
 
   handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData();
+    let error;
 
-    formData.append('profile', this.state.fileUpload);
-    this.props.startUploadProfilePhoto(this.props.user.id, formData);
-    this.props.history.push('/dashboard');
+    if (!!this.state.fileUpload) {
+      formData.append('profile', this.state.fileUpload);
+      this.props.startUploadProfilePhoto(this.props.user.id, formData);
+    } else {
+      error = 'please choose a profile image';
+    }
+
+    this.setState(() => ({
+      fileUpload: null,
+      error,
+    }));
   };
 
   render() {
+    const fileUploadContent = !!this.state.fileUpload
+      ? this.state.fileUpload.name.length <= 15
+        ? this.state.fileUpload.name
+        : `...${this.state.fileUpload.name.substring(
+            this.state.fileUpload.name.length - 13,
+            this.state.fileUpload.name.length
+          )}`
+      : null;
+
     return (
       <div className="upload-page">
         <div className="upload-page__close-icon-container">
@@ -47,12 +69,13 @@ class UploadImagePage extends Component {
                 className="upload-page__form-input"
               />
               <label htmlFor="file" className="upload-page__form-input-label">
-                <span>
-                  {this.state.fileUpload && this.state.fileUpload.name}
-                </span>
+                <span>{fileUploadContent}</span>
                 <span>Choose an image</span>
               </label>
             </div>
+            {this.state.error && (
+              <p className="upload-page__form-error">{this.state.error}</p>
+            )}
             <button type="submit" className="btn">
               Upload
             </button>

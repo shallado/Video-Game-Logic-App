@@ -26,7 +26,7 @@ class CustomStorage {
         this.bucket = storage.bucket(bucketName);
         const fileBucket = this.bucket.file(filename);
         const outStream = fileBucket.createWriteStream();
-        const transformer = sharp().resize(180, 180).jpeg();
+        const transformer = sharp().resize(180, 180).toFormat('jpeg');
 
         file.stream.pipe(transformer).pipe(outStream);
         outStream
