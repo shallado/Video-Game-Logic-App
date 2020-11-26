@@ -46,6 +46,9 @@
   }
 
   &__content {
+    text-align: center;
+    padding: 0 $sm-spacing;
+
     @include setBreakPoints(960) {
       margin-top: $md-spacing;
     }
