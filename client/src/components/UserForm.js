@@ -155,7 +155,7 @@ export default class UserForm extends Component {
               <ErrorMessage
                 component="div"
                 name="password"
-                className="form__error-message"
+                className="form__error-message form__error-message--position-order"
               />
             </div>
             <div className="form__field-container">

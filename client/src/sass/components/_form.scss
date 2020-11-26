@@ -28,10 +28,6 @@
     &:first-child {
       flex: 0 0 75%;
     }
-
-    // &:first-child {
-    //   width: 20rem;
-    // }
   }
 
   &__field {
@@ -58,7 +54,7 @@
     padding: 0rem 1rem;
     position: absolute;
     top: 7rem;
-    left: 1rem;
+    left: 0.1rem;
     z-index: 1;
 
     &:before {
@@ -68,9 +64,13 @@
       content: '';
       height: 2rem;
       position: absolute;
-      top: -2rem;
-      left: 0.3rem;
+      top: -1.9rem;
+      left: 0.1rem;
       width: 2rem;
+    }
+
+    &--position-order {
+      z-index: 2;
     }
   }
 }
