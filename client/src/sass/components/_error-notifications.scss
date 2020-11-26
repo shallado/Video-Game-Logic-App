@@ -1,0 +1,57 @@
+.error-notification {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  bottom: 4rem;
+  background-color: $color-primary-dark;
+  transform: translate(-50%, -50%);
+  height: 35%;
+  width: 45%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @include setBreakPoints(750) {
+    height: 30%;
+    width: 50%;
+  }
+
+  @include setBreakPoints(550) {
+    height: 25%;
+    width: 75%;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &__overlay {
+    background-color: rgba($color-primary, 0.8);
+    height: 90%;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+  }
+
+  &__close-icon-container {
+    @include closeContainer;
+
+    & div {
+      margin: $sm-spacing $sm-spacing 0 0;
+      height: 2rem;
+    }
+  }
+
+  &__content {
+    @include setBreakPoints(960) {
+      margin-top: $md-spacing;
+    }
+
+    @include setBreakPoints(750) {
+      margin-top: $sm-spacing;
+    }
+  }
+}
