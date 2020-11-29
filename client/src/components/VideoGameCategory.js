@@ -73,7 +73,7 @@ class VideoGameCategory extends Component {
           },
         },
         {
-          breakpoint: 500,
+          breakpoint: 450,
           settings: {
             slidesToShow: 1,
             slidesToScroll: 1,

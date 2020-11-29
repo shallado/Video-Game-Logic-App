@@ -18,6 +18,10 @@
     border-radius: 1rem 0 0 1rem;
     width: 90%;
 
+    @include setBreakPoints(450) {
+      width: 85%;
+    }
+
     &:focus {
       outline: none;
     }

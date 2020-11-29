@@ -2,27 +2,16 @@
   height: 20rem;
   position: relative;
   padding: 0 $sm-spacing;
+  width: 22rem;
 
   @include setBreakPoints(960) {
+    width: 25rem;
     height: 25rem;
   }
 
-  @include setBreakPoints(700) {
-    height: 30rem;
-  }
-
-  @include setBreakPoints(600) {
-    padding: 0 $lg-spacing;
-  }
-
-  @include setBreakPoints(500) {
-    padding: 0 14rem;
-    height: 40rem;
-  }
-
   @include setBreakPoints(450) {
-    padding: 0 10rem;
-    height: 40rem;
+    width: 100%;
+    height: 45rem;
   }
 
   &__img,
@@ -52,19 +41,14 @@
     left: 8.5%;
     opacity: 0;
 
-    @include setBreakPoints(800) {
-      left: 7.2%;
-      width: 86%;
+    @include setBreakPoints(960) {
+      left: 8%;
+      width: 84%;
     }
 
-    @include setBreakPoints(600) {
-      left: 17%;
-      width: 67%;
-    }
-
-    @include setBreakPoints(500) {
-      left: 20%;
-      width: 60%;
+    @include setBreakPoints(450) {
+      left: 4%;
+      width: 92%;
     }
 
     &:hover {

@@ -49,6 +49,10 @@
   width: 10%;
   height: 100%;
   padding: 0;
+
+  @include setBreakPoints(450) {
+    width: 15%;
+  }
 }
 
 .play-btn {
