@@ -45,7 +45,7 @@ class MoreInfoModal extends Component {
       ) {
         this.props.startSetVideoGameReviews(this.props.currentGame.name);
       }
-    } else {
+    } else if (!this.props.modals.includes('moreInfoModal')) {
       this.props.resetVideoGameReviews();
     }
   }

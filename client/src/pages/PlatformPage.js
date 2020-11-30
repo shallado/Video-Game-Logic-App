@@ -88,7 +88,9 @@ class PlatformPage extends Component {
   }
 
   componentWillUnmount() {
-    this.props.resetGames();
+    if (!this.props.modals.includes('moreInfoModal')) {
+      this.props.resetGames();
+    }
   }
 
   render() {
@@ -108,6 +110,7 @@ class PlatformPage extends Component {
 }
 
 const mapStateToProps = (state) => ({
+  modals: state.modals,
   username: state.user.username,
   categoryGames: state.game.categoryGames,
 });
