@@ -1,34 +1,27 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import AliceCarousel from 'react-alice-carousel';
+import Slider from 'react-slick';
 import IconBroken from '../svgs/IconBroken';
 
 const ScreenShotCarousel = (props) => {
-  const items =
-    props.currentGame.screenshots &&
-    props.currentGame.screenshots.map(({ id, url }) => (
-      <img
-        src={url.replace('thumb', 'screenshot_huge')}
-        key={id}
-        className="more-info-modal__screen-shots"
-      />
-    ));
-  const responsive = {
-    1049: { items: 1 },
+  const settings = {
+    arrows: false,
+    autoplay: true,
   };
 
   return (
     <>
       {props.currentGame.screenshots ? (
-        <AliceCarousel
-          items={items}
-          infinite={true}
-          disableDotsControls={true}
-          disableButtonsControls={true}
-          autoPlayInterval={3000}
-          autoPlay={true}
-          responsive={responsive}
-        />
+        <Slider {...settings}>
+          {props.currentGame.screenshots &&
+            props.currentGame.screenshots.map(({ id, url }) => (
+              <img
+                src={url.replace('thumb', 'screenshot_big')}
+                key={id}
+                className="more-info-modal__screen-shots"
+              />
+            ))}
+        </Slider>
       ) : (
         <div className="more-info-modal__unavailable-screenshots">
           <p className="more-info-modal__unavailable-screenshots-description">

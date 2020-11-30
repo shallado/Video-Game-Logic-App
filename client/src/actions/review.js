@@ -21,7 +21,6 @@ export const startSetVideoGameReviews = (title) => {
 
     axios(request)
       .then((response) => {
-        console.log(response.data.data);
         dispatch(setVideoGameReviews(response.data.data));
       })
       .catch((err) => {
