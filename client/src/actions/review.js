@@ -1,4 +1,5 @@
 import axios from 'axios';
+import loadingError from '../utils/loadingError';
 import { loadError } from './error';
 
 export const setVideoGameReviews = (
@@ -24,18 +25,9 @@ export const startSetVideoGameReviews = (title) => {
         dispatch(setVideoGameReviews(response.data.data));
       })
       .catch((err) => {
-        let error;
+        const error = loadingError(err);
 
-        if (err.response) {
-          error = {
-            data: err.response.data,
-            status: err.response.status,
-          };
-        } else if (err.request) {
-          error = err.request;
-        } else {
-          error = err.message;
-        }
+        dispatch(loadError(error));
       });
   };
 };
@@ -72,18 +64,7 @@ export const startAddVideoGameReview = ({ title, username, review } = {}) => {
         })
       )
       .catch((err) => {
-        let error;
-
-        if (err.response) {
-          error = {
-            data: err.response.data,
-            status: err.response.status,
-          };
-        } else if (err.request) {
-          error = err.request;
-        } else {
-          error = err.message;
-        }
+        const error = loadingError(err);
 
         dispatch(loadError(error));
       });
@@ -112,18 +93,7 @@ export const startEditVideoGameReview = ({ videoGameId, username, review }) => {
         dispatch(editVideoGameReview({ username, review }));
       })
       .catch((err) => {
-        let error;
-
-        if (err.response) {
-          error = {
-            data: err.response.data,
-            status: err.response.status,
-          };
-        } else if (err.request) {
-          error = err.request;
-        } else {
-          error = err.message;
-        }
+        const error = loadingError(err);
 
         dispatch(loadError(error));
       });
@@ -153,18 +123,7 @@ export const startSetUserVideoGameReviews = (username) => {
         dispatch(setUserVideoGameReviews(reviews));
       })
       .catch((err) => {
-        let error;
-
-        if (err.response) {
-          error = {
-            data: err.response.data,
-            status: err.response.status,
-          };
-        } else if (err.request) {
-          error = err.request;
-        } else {
-          error = err.message;
-        }
+        const error = loadingError(err);
 
         dispatch(loadError(error));
       });

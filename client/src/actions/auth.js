@@ -1,4 +1,5 @@
 import axios from 'axios';
+import loadingError from '../utils/loadingError';
 import { loadSuccess, loadError } from './error';
 import { setCurrentUser } from './user';
 
@@ -15,15 +16,7 @@ export const startSignUp = (userInfo) => {
         dispatch(loadSuccess());
       })
       .catch((err) => {
-        let error;
-
-        if (err.response) {
-          error = err.response.data;
-        } else if (err.request) {
-          error = err.request;
-        } else {
-          error = err.message;
-        }
+        const error = loadingError(err);
 
         dispatch(loadError(error));
       });
@@ -77,15 +70,7 @@ export const startSignIn = (userCredentials) => {
         dispatch(signIn());
       })
       .catch((err) => {
-        let error;
-
-        if (err.response) {
-          error = err.response.data;
-        } else if (err.request) {
-          error = err.request;
-        } else {
-          error = err.message;
-        }
+        const error = loadingError(err);
 
         dispatch(loadError(error));
       });
