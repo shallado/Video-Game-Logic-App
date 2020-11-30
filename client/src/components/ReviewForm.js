@@ -8,12 +8,20 @@ export default class ReviewForm extends Component {
   };
 
   render() {
+    let review;
+
+    if (!!this.props.videoGameReviewsUserReview.reviews) {
+      review = this.props.videoGameReviewsUserReview.reviews.review;
+    } else {
+      if (!!this.props.userReviewsUserReview) {
+        review = this.props.userReviewsUserReview.reviewInfo.review;
+      } else {
+        review = '';
+      }
+    }
+
     const formInitialValues = {
-      review: !!this.props.videoGameReviewsUserReview
-        ? this.props.videoGameReviewsUserReview.reviews.review
-        : !!this.props.userReviewsUserReview
-        ? this.props.userReviewsUserReview.reviewInfo.review
-        : '',
+      review,
     };
 
     const formSchema = Yup.object({
