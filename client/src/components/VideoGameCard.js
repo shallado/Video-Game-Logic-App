@@ -36,6 +36,17 @@ class VideoGameCard extends Component {
     }));
   }
 
+  componentDidUpdate() {
+    if (
+      !!this.props.videoGameCategory &&
+      Object.keys(this.state.gameInfo).length === 0
+    ) {
+      this.setState(() => ({
+        gameInfo: this.props.videoGameCategory,
+      }));
+    }
+  }
+
   render() {
     return (
       <>
@@ -54,11 +65,11 @@ class VideoGameCard extends Component {
                 <p>{this.state.gameInfo.name}</p>
               </div>
             )}
-            <div className="video-game-card__overlay">
-              <div
-                className="video-game-card__icon-container"
-                onClick={this.handleShowModal}
-              >
+            <div
+              className="video-game-card__overlay"
+              onClick={this.handleShowModal}
+            >
+              <div className="video-game-card__icon-container">
                 <IconRightArrowTwo />
               </div>
             </div>

@@ -11,10 +11,11 @@ class VideoGameCategory extends Component {
     currentIndex: 0,
     numCards: [],
     offset: 11,
+    newIndex: 0,
   };
 
-  handleBeforeChange = () => {
-    if (this.state.offset <= 36) {
+  handleBeforeChange = (oldIndex, newIndex) => {
+    if (this.state.offset <= 36 && this.state.newIndex < newIndex) {
       this.props.startGetGames(
         [
           {
@@ -30,15 +31,18 @@ class VideoGameCategory extends Component {
       this.setState((prevState) => ({
         slideChange: true,
         offset: (prevState.offset += 5),
+        newIndex,
       }));
     }
   };
 
   componentDidMount() {
     const numCards = [];
+
     for (let i = 0; i < 40; i++) {
       numCards.push(i);
     }
+
     this.setState(() => ({
       numCards,
     }));
@@ -50,6 +54,7 @@ class VideoGameCategory extends Component {
       slidesToScroll: 5,
       beforeChange: this.handleBeforeChange,
       speed: 2000,
+      infinite: false,
       responsive: [
         {
           breakpoint: 1050,
