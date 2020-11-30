@@ -18,17 +18,26 @@ import { startSetMapLocations } from '../actions/map';
 Modal.setAppElement('#root');
 
 class MoreInfoModal extends Component {
+  windowOffset = 0;
+
   handleShowModal = () => {
     this.props.showModal();
   };
 
   handleCloseModal = () => {
     this.props.hideModal();
+    document.body.setAttribute('style', '');
+    window.scrollTo(0, this.windowOffset);
   };
 
   componentDidUpdate(prevProps) {
     if (this.props.modals.includes('moreInfoModal')) {
-      document.body.style.overflow = 'hidden';
+      this.windowOffset = window.scrollY;
+      document.body.setAttribute(
+        'style',
+        `position: fixed; top: -${this.windowOffset}px; left: 0; right: 0; padding-right: 15px`
+      );
+
       if (
         prevProps.videoGameReviews.reviews.length !==
           this.props.videoGameReviews.reviews.length ||
@@ -37,7 +46,6 @@ class MoreInfoModal extends Component {
         this.props.startSetVideoGameReviews(this.props.currentGame.name);
       }
     } else {
-      document.body.style.overflow = 'unset';
       this.props.resetVideoGameReviews();
     }
   }

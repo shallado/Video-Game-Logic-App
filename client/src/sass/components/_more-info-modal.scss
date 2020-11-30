@@ -4,7 +4,7 @@
   left: 50%;
   bottom: 4rem;
   background-color: $color-primary-dark;
-  overflow: scroll;
+  overflow-y: scroll;
   padding: $sm-spacing $lg-spacing $lg-spacing $lg-spacing;
   transform: translate(-50%, 0);
   width: 85%;
@@ -18,7 +18,7 @@
   }
 
   &__overlay {
-    background-color: $color-primary;
+    background-color: rgba($color-primary, 0.7);
     position: fixed;
     top: 0;
     left: 0;

@@ -44,5 +44,3 @@ const queryGamesInfo = (queriesInfo) => {
 };
 
 module.exports = queryGamesInfo;
-
-631152000;
