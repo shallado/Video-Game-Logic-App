@@ -8,7 +8,12 @@ import VideoGameReviews from '../components/VideoGameReviews';
 import ScreenShotCarousel from '../components/ScreenShotCarousel';
 import IconClose from '../svgs/IconClose';
 import IconPlayBtn from '../svgs/IconPlayBtn';
-import { hideModal, showModal } from '../actions/modal';
+import {
+  hideModal,
+  showModal,
+  setWindowOffset,
+  resetWindowOffset,
+} from '../actions/modal';
 import {
   startSetVideoGameReviews,
   resetVideoGameReviews,
@@ -18,8 +23,6 @@ import { startSetMapLocations } from '../actions/map';
 Modal.setAppElement('#root');
 
 class MoreInfoModal extends Component {
-  windowOffset = 0;
-
   handleShowModal = () => {
     this.props.showModal();
   };
@@ -27,16 +30,20 @@ class MoreInfoModal extends Component {
   handleCloseModal = () => {
     this.props.hideModal();
     document.body.setAttribute('style', '');
-    window.scrollTo(0, this.windowOffset);
+    window.scrollTo(0, this.props.windowOffset);
+    this.props.resetWindowOffset();
   };
 
   componentDidUpdate(prevProps) {
-    if (this.props.modals.includes('moreInfoModal')) {
-      this.windowOffset = window.scrollY;
-      document.body.setAttribute(
-        'style',
-        `position: fixed; top: -${this.windowOffset}px; left: 0; right: 0; padding-right: 15px`
-      );
+    if (this.props.openModals.includes('moreInfoModal')) {
+      if (this.props.windowOffset === 0) {
+        this.props.setWindowOffset(window.scrollY);
+      } else {
+        document.body.setAttribute(
+          'style',
+          `position: fixed; top: -${this.props.windowOffset}px; left: 0; right: 0; padding-right: 15px`
+        );
+      }
 
       if (
         prevProps.videoGameReviews.reviews.length !==
@@ -45,8 +52,17 @@ class MoreInfoModal extends Component {
       ) {
         this.props.startSetVideoGameReviews(this.props.currentGame.name);
       }
-    } else if (!this.props.modals.includes('moreInfoModal')) {
+    } else if (!this.props.openModals.includes('moreInfoModal')) {
       this.props.resetVideoGameReviews();
+    }
+  }
+
+  componentDidMount() {
+    if (this.props.openModals.includes('moreInfoModal')) {
+      document.body.setAttribute(
+        'style',
+        `position: fixed; top: -${this.props.windowOffset}px; left: 0; right: 0; padding-right: 15px`
+      );
     }
   }
 
@@ -61,7 +77,7 @@ class MoreInfoModal extends Component {
 
     return (
       <Modal
-        isOpen={this.props.modals.includes('moreInfoModal')}
+        isOpen={this.props.openModals.includes('moreInfoModal')}
         onRequestClose={this.handleCloseModal}
         className="more-info-modal"
         overlayClassName="more-info-modal__overlay"
@@ -187,7 +203,8 @@ class MoreInfoModal extends Component {
 
 const mapStateToProps = (state) => ({
   currentGame: state.game.currentGame,
-  modals: state.modals,
+  openModals: state.modals.openModals,
+  windowOffset: state.modals.windowOffset,
   userReview: state.review.videoGameReviews.reviews.find(
     (review) => review.username === state.user.username
   ),
@@ -197,6 +214,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   hideModal: () => dispatch(hideModal('moreInfoModal')),
   showModal: () => dispatch(showModal('playOptionsModal')),
+  setWindowOffset: (windowOffset) => dispatch(setWindowOffset(windowOffset)),
+  resetWindowOffset: () => dispatch(resetWindowOffset()),
   startSetVideoGameReviews: (title) =>
     dispatch(startSetVideoGameReviews(title)),
   startSetMapLocations: () => dispatch(startSetMapLocations()),

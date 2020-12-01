@@ -17,6 +17,10 @@ class AddReviewPage extends Component {
     this.props.history.push('/dashboard');
   };
 
+  componentDidMount() {
+    document.body.setAttribute('style', '');
+  }
+
   render() {
     return (
       <div className="review-page">

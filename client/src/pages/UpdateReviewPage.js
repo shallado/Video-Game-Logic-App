@@ -22,6 +22,10 @@ class UpdateReviewPage extends Component {
     this.props.history.push(route);
   };
 
+  componentDidMount() {
+    document.body.setAttribute('style', '');
+  }
+
   render() {
     return (
       <div className="review-page">

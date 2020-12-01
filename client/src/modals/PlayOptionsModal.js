@@ -15,7 +15,7 @@ class PlayOptionsModal extends Component {
   render() {
     return (
       <Modal
-        isOpen={this.props.modals.includes('playOptionsModal')}
+        isOpen={this.props.openModals.includes('playOptionsModal')}
         onRequestClose={this.handleCloseModal}
         className="play-modal"
         overlayClassName="play-modal__overlay"
@@ -49,7 +49,7 @@ class PlayOptionsModal extends Component {
 
 const mapStateToProps = (state) => ({
   currentGame: state.game.currentGame,
-  modals: state.modals,
+  openModals: state.modals.openModals,
 });
 
 const mapDispatchToProps = (dispatch) => ({
