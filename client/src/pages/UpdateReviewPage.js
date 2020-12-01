@@ -22,6 +22,10 @@ class UpdateReviewPage extends Component {
     this.props.history.push(route);
   };
 
+  handleRouteRedirect = () => {
+    this.props.history.goBack();
+  };
+
   componentDidMount() {
     document.body.setAttribute('style', '');
   }
@@ -31,9 +35,12 @@ class UpdateReviewPage extends Component {
       <div className="review-page">
         <div className="review-page__close-icon-container">
           <div>
-            <Link to="/dashboard" className="review-page__link">
+            <div
+              onClick={this.handleRouteRedirect}
+              className="review-page__link"
+            >
               <IconLeftArrow />
-            </Link>
+            </div>
           </div>
         </div>
         <div className="review-page__form-container-main">

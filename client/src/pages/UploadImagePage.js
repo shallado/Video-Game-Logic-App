@@ -20,6 +20,10 @@ class UploadImagePage extends Component {
     }));
   };
 
+  handleRouteRedirect = () => {
+    this.props.history.goBack();
+  };
+
   handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -52,9 +56,12 @@ class UploadImagePage extends Component {
       <div className="upload-page">
         <div className="upload-page__close-icon-container">
           <div>
-            <Link to="/dashboard" className="upload-page__link">
+            <div
+              onClick={this.handleRouteRedirect}
+              className="upload-page__link"
+            >
               <IconLeftArrow />
-            </Link>
+            </div>
           </div>
         </div>
         <div className="upload-page__form-container">

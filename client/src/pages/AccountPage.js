@@ -11,14 +11,18 @@ export class AccountPage extends Component {
     this.props.startUserUpdate(this.props.user.id, updates);
   };
 
+  handleRouteRedirect = () => {
+    this.props.history.goBack();
+  };
+
   render() {
     return (
       <div className="account">
         <div className="account__close-icon-container">
           <div>
-            <Link to="/dashboard" className="account__link">
+            <div onClick={this.handleRouteRedirect} className="account__link">
               <IconLeftArrow />
-            </Link>
+            </div>
           </div>
         </div>
         <UserForm
