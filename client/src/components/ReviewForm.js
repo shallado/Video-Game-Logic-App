@@ -10,14 +10,16 @@ export default class ReviewForm extends Component {
   render() {
     let review;
 
-    if (!!this.props.videoGameReviewsUserReview.reviews) {
-      review = this.props.videoGameReviewsUserReview.reviews.review;
-    } else {
-      if (!!this.props.userReviewsUserReview) {
-        review = this.props.userReviewsUserReview.reviewInfo.review;
+    if (!!this.props.videoGameReviewsUserReview) {
+      if (!!this.props.videoGameReviewsUserReview.reviews) {
+        review = this.props.videoGameReviewsUserReview.reviews.review;
       } else {
-        review = '';
+        if (!!this.props.userReviewsUserReview) {
+          review = this.props.userReviewsUserReview.reviewInfo.review;
+        }
       }
+    } else {
+      review = '';
     }
 
     const formInitialValues = {
