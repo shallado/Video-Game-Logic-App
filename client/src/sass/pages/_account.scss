@@ -2,6 +2,8 @@
   background-color: $color-primary;
   min-height: 100vh;
   padding: $md-spacing;
+  flex-direction: column;
+  @include centerItems;
 
   &__close-icon-container {
     @include leftArrowIcon;
@@ -10,6 +12,4 @@
   &__link {
     @include leftArrowIconLink;
   }
-
-  @include centerItems;
 }
