@@ -6,11 +6,13 @@ const SearchResults = (props) => (
   <>
     <h1 className="heading-one heading-one--results">Results</h1>
     <div className="search-page__results-container">
-      {props.errorMessage ? (
-        <p>{props.errorMessage}</p>
-      ) : props.searchResults.length === 0 ? (
+      {props.searchResults.length === 0 ? (
         <div>
           <p>Start Search</p>
+        </div>
+      ) : props.searchResults[0].length === 0 ? (
+        <div>
+          <p>No Results</p>
         </div>
       ) : (
         <ul className="search-page__results">
@@ -30,7 +32,6 @@ const SearchResults = (props) => (
 
 const mapStateToProps = (state) => ({
   searchResults: state.game.searchResults,
-  errorMessage: state.error.errorInfo ? state.error.errorInfo.message : false,
 });
 
 export default connect(mapStateToProps)(SearchResults);
