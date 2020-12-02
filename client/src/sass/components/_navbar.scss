@@ -34,6 +34,10 @@
     display: flex;
     align-items: center;
 
+    @include setBreakPoints(1550) {
+      flex: 0 0 40%;
+    }
+
     @include setBreakPoints(700) {
       background-color: $color-dark;
       flex-direction: column;
@@ -60,6 +64,10 @@
     & > div {
       height: 2.5rem;
       width: 2.5rem;
+    }
+
+    @include setBreakPoints(1550) {
+      flex: 0 0 50%;
     }
 
     @include setBreakPoints(700) {

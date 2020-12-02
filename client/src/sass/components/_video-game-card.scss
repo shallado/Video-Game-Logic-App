@@ -1,8 +1,14 @@
 .video-game-card {
   height: 20rem;
   position: relative;
+  margin: 0 auto;
   padding: 0 $sm-spacing;
   width: 22rem;
+
+  @include setBreakPoints(1650) {
+    width: 25rem;
+    height: 25rem;
+  }
 
   @include setBreakPoints(960) {
     width: 25rem;
@@ -17,6 +23,7 @@
   &__img,
   &__img-unavailable {
     border-radius: 1rem;
+    margin: 0 auto;
     height: 100%;
     width: 100%;
   }

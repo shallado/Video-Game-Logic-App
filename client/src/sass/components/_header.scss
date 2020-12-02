@@ -21,6 +21,10 @@
     display: flex;
     flex-direction: column;
 
+    @include setBreakPoints(1550) {
+      top: 0rem;
+    }
+
     @include setBreakPoints(700) {
       width: 50rem;
     }
