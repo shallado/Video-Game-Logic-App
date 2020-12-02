@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Switch } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
 import AccountPage from '../pages/AccountPage';
@@ -7,6 +7,7 @@ import PlatformPage from '../pages/PlatformPage';
 import HomePage from '../pages/HomePage';
 import MyListPage from '../pages/MyListPage';
 import AddReviewPage from '../pages/AddReviewPage';
+import NotFoundPage from '../pages/NotFoundPage';
 import UpdateReviewPage from '../pages/UpdateReviewPage';
 import UserReviewsPage from '../pages/UserReviewsPage';
 import SearchPage from '../pages/SearchPage';
@@ -34,6 +35,7 @@ const AppRouter = () => (
       <PrivateRoute path="/upload" component={UploadImagePage} />
       <PrivateRoute path="/watch/:id" component={WatchPage} />
       <PrivateRoute path="/search" component={SearchPage} />
+      <Route component={NotFoundPage} />
     </Switch>
   </BrowserRouter>
 );

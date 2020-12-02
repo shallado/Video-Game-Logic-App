@@ -1,0 +1,7 @@
+.not-found-page {
+  background-color: $color-primary-dark;
+  height: 100vh;
+
+  @include centerItems;
+  flex-direction: column;
+}
