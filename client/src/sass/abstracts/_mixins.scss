@@ -130,6 +130,12 @@
 }
 
 @mixin setBreakPoints($breakpoint) {
+  @if $breakpoint == 1750 {
+    @media only screen and (min-width: 109.4em) {
+      @content;
+    }
+  }
+
   @if $breakpoint == 1650 {
     @media only screen and (min-width: 103.1em) {
       @content;

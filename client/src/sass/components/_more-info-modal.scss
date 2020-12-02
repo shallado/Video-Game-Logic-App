@@ -9,6 +9,14 @@
   transform: translate(-50%, 0);
   width: 85%;
 
+  @include setBreakPoints(1550) {
+    padding: $md-spacing $xlg-spacing $xlg-spacing $xlg-spacing;
+  }
+
+  @include setBreakPoints(1750) {
+    padding: $xlg-spacing 12rem 12rem 12rem;
+  }
+
   &:focus {
     outline: none;
   }

@@ -48,6 +48,11 @@
     left: 8.5%;
     opacity: 0;
 
+    @include setBreakPoints(1650) {
+      left: 7%;
+      width: 85%;
+    }
+
     @include setBreakPoints(960) {
       left: 8%;
       width: 84%;
