@@ -23,6 +23,10 @@ import { startSetMapLocations } from '../actions/map';
 Modal.setAppElement('#root');
 
 class MoreInfoModal extends Component {
+  state = {
+    setReviews: false,
+  };
+
   handleShowModal = () => {
     this.props.showModal();
   };
@@ -34,7 +38,7 @@ class MoreInfoModal extends Component {
     this.props.resetWindowOffset();
   };
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate() {
     if (this.props.openModals.includes('moreInfoModal')) {
       if (this.props.windowOffset === 0) {
         this.props.setWindowOffset(window.scrollY);
@@ -45,15 +49,17 @@ class MoreInfoModal extends Component {
         );
       }
 
-      if (
-        prevProps.videoGameReviews.reviews.length !==
-          this.props.videoGameReviews.reviews.length ||
-        this.props.videoGameReviews.reviews.length === 0
-      ) {
+      if (!this.state.setReviews) {
         this.props.startSetVideoGameReviews(this.props.currentGame.name);
+        this.setState(() => ({
+          setReviews: true,
+        }));
       }
-    } else if (!this.props.openModals.includes('moreInfoModal')) {
+    } else if (this.state.setReviews) {
       this.props.resetVideoGameReviews();
+      this.setState(() => ({
+        setReviews: false,
+      }));
     }
   }
 
