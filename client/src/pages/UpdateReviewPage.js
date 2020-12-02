@@ -10,16 +10,13 @@ class UpdateReviewPage extends Component {
     const videoGameId = !!this.props.videoGameReviewsUserReview.reviews
       ? this.props.videoGameReviewsUserReview.videoGameId
       : this.props.userReviewsUserReview.videoGameId;
-    const route = !!this.props.videoGameReviewsUserReview.reviews
-      ? '/dashboard'
-      : '/user-reviews';
 
     this.props.startEditVideoGameReview({
       videoGameId,
       username: this.props.username,
       review,
     });
-    this.props.history.push(route);
+    this.props.history.goBack();
   };
 
   handleRouteRedirect = () => {

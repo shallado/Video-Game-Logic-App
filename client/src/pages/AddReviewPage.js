@@ -14,7 +14,7 @@ class AddReviewPage extends Component {
     };
 
     this.props.startAddVideoGameReview(userReview);
-    this.props.history.push('/dashboard');
+    this.props.history.goBack();
   };
 
   handleRouteRedirect = () => {
