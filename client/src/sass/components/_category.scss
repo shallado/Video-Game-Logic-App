@@ -48,6 +48,7 @@
   &__loading-container {
     background-color: $color-primary-dark;
     height: 90vh;
+    @include centerItems;
   }
 
   &__carousel-items {

@@ -9,6 +9,7 @@
   &__loading-container {
     background-color: $color-primary-dark;
     height: 100vh;
+    @include centerItems;
   }
 
   &__container-one {
