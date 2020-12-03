@@ -1,5 +1,4 @@
 import React from 'react';
-import IconRemoveBtn from './IconRemoveBtn';
 
 const IconAddBtn = () => (
   <svg

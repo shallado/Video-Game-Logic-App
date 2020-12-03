@@ -54,6 +54,7 @@ class VideoGameCard extends Component {
           <div className="video-game-card">
             {this.state.gameInfo.cover ? (
               <img
+                alt="video game cover"
                 src={this.state.gameInfo.cover.url.replace(
                   'thumb',
                   'cover_big'

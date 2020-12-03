@@ -17,6 +17,7 @@ const ScreenShotCarousel = (props) => {
             props.currentGame.screenshots.map(({ id, url }) => (
               <img
                 src={url.replace('thumb', 'screenshot_big')}
+                alt="video game screenshot"
                 key={id}
                 className="more-info-modal__screen-shots"
               />

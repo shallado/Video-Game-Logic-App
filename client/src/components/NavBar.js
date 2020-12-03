@@ -127,7 +127,7 @@ class NavBar extends Component {
           >
             <img
               src={this.props.user.profilePhoto}
-              alt="profile photo"
+              alt="profile"
               className="navbar__profile-photo"
             ></img>
             {this.state.accountActive && <Account />}

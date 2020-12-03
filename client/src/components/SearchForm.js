@@ -13,7 +13,6 @@ class SearchForm extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const title = e.target.value;
 
     this.props.handleSubmit(this.state.title);
     this.setState(() => ({

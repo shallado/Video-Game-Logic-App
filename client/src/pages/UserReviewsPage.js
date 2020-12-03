@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import UserReviews from '../components/UserReviews';
 import IconLeftArrow from '../svgs/IconLeftArrow';
 
