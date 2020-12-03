@@ -10,6 +10,11 @@
     width: 100%;
 
     display: flex;
+
+    @include setBreakPoints(1400) {
+      margin: 0 auto;
+      width: 132rem;
+    }
   }
 
   &__search-form-input {

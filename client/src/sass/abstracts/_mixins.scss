@@ -78,6 +78,11 @@
   flex-wrap: wrap;
   list-style: none;
   justify-content: center;
+
+  @include setBreakPoints(1400) {
+    margin: 0 auto;
+    width: 125.4rem;
+  }
 }
 
 @mixin reviews {
@@ -137,6 +142,12 @@
 
   @if $breakpoint == 1550 {
     @media only screen and (min-width: 96.9em) {
+      @content;
+    }
+  }
+
+  @if $breakpoint == 1400 {
+    @media only screen and (min-width: 87.5em) {
       @content;
     }
   }
