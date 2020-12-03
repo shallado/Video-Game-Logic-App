@@ -32,10 +32,6 @@
     }
   }
 
-  &__results-container {
-    @include resultContainer;
-  }
-
   &__results {
     @include results;
   }

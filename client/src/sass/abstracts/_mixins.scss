@@ -64,16 +64,9 @@
 
 @mixin resultPage {
   background-color: $color-dark;
+  min-height: 100vh;
   padding: $md-spacing;
   width: 100%;
-}
-
-@mixin resultContainer {
-  min-height: 62vh;
-
-  @include setBreakPoints(550) {
-    min-height: 70vh;
-  }
 }
 
 @mixin videoGameCardContainer {
@@ -82,9 +75,9 @@
 
 @mixin results {
   display: flex;
-  justify-content: space-around;
   flex-wrap: wrap;
   list-style: none;
+  justify-content: center;
 }
 
 @mixin reviews {
