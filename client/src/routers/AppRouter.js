@@ -3,11 +3,11 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
 import AccountPage from '../pages/AccountPage';
-import PlatformPage from '../pages/PlatformPage';
+import AddReviewPage from '../pages/AddReviewPage';
 import HomePage from '../pages/HomePage';
 import MyListPage from '../pages/MyListPage';
-import AddReviewPage from '../pages/AddReviewPage';
 import NotFoundPage from '../pages/NotFoundPage';
+import PlatformPage from '../pages/PlatformPage';
 import UpdateReviewPage from '../pages/UpdateReviewPage';
 import UserReviewsPage from '../pages/UserReviewsPage';
 import SearchPage from '../pages/SearchPage';
@@ -26,11 +26,11 @@ const AppRouter = () => (
       <PrivateRoute path="/user-reviews" component={UserReviewsPage} />
       <PrivateRoute path="/review" component={AddReviewPage} exact={true} />
       <PrivateRoute path="/review/:id" component={UpdateReviewPage} />
-      <PrivateRoute path="/dashboard" component={PlatformPage} />
-      <PrivateRoute path="/nintendo" component={PlatformPage} />
-      <PrivateRoute path="/playstation" component={PlatformPage} />
-      <PrivateRoute path="/xbox" component={PlatformPage} />
-      <PrivateRoute path="/pc" component={PlatformPage} />
+      {['/dashboard', '/nintendo', '/playstation', '/xbox', '/pc'].map(
+        (path, index) => (
+          <PrivateRoute path={path} component={PlatformPage} key={index} />
+        )
+      )}
       <PrivateRoute path="/list" component={MyListPage} />
       <PrivateRoute path="/upload" component={UploadImagePage} />
       <PrivateRoute path="/watch/:id" component={WatchPage} />
