@@ -1,39 +1,49 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import Slider from 'react-slick';
 import { connect } from 'react-redux';
 import VideoGameCard from './VideoGameCard';
 import IconRightArrow from '../svgs/IconRightArrow';
 import IconLoading from '../svgs/IconLoading';
-import { startGetGames } from '../actions/game';
+import {
+  startGetGames,
+  setPage,
+  updateOffset,
+  setGenre,
+} from '../actions/game';
 
 class VideoGameCategory extends Component {
   state = {
     currentIndex: 0,
     numCards: [],
-    offset: 11,
     newIndex: 0,
   };
 
   handleBeforeChange = (oldIndex, newIndex) => {
-    if (this.state.offset <= 36 && this.state.newIndex < newIndex) {
+    if (this.props.offset <= 36 && this.state.newIndex < newIndex) {
       this.props.startGetGames(
         [
           {
             page: this.props.page,
             type: 'category',
             genres: [this.props.genre],
-            offset: this.state.offset,
+            offset: this.props.offset,
           },
         ],
         this.props.categoryIndex
       );
 
-      this.setState((prevState) => ({
+      this.setState(() => ({
         slideChange: true,
-        offset: (prevState.offset += 5),
         newIndex,
       }));
+
+      this.props.updateOffset(5);
     }
+  };
+
+  handleSetGenre = (genre) => {
+    this.props.setGenre(genre);
   };
 
   componentDidMount() {
@@ -89,10 +99,14 @@ class VideoGameCategory extends Component {
 
     return (
       <div className="category__container">
-        <div className="category__heading-container">
+        <Link
+          to={`/category`}
+          onClick={() => this.handleSetGenre(this.props.genre)}
+          className="category__heading-container"
+        >
           <h2 className="category__heading">{this.props.genre}</h2>
           <IconRightArrow />
-        </div>
+        </Link>
         <div className="category__carousel-container">
           {this.props.categoryGamesCount === 0 ? (
             <div className="category__loading-container">
@@ -120,11 +134,16 @@ const mapStateToProps = (state, ownProps) => ({
   categoryGamesCount: !!!state.game.categoryGames[ownProps.categoryIndex]
     ? 0
     : state.game.categoryGames[ownProps.categoryIndex].length,
+  page: state.game.page,
+  offset: state.game.offset,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   startGetGames: (page, type, genre) =>
     dispatch(startGetGames(page, type, genre)),
+  setPage: (page) => dispatch(setPage(page)),
+  updateOffset: (update) => dispatch(updateOffset(update)),
+  setGenre: (genre) => dispatch(setGenre(genre)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(VideoGameCategory);

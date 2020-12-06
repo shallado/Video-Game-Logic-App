@@ -1,11 +1,3 @@
 .my-list-page {
   @include resultPage;
-
-  &__results {
-    @include results;
-  }
-
-  &__video-game-card-container {
-    @include videoGameCardContainer;
-  }
 }

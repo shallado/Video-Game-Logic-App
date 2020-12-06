@@ -1,8 +1,12 @@
 const initialState = {
   featureGames: [],
   categoryGames: [],
+  moreCategoryGames: [],
   currentGame: {},
   searchResults: [],
+  genre: '',
+  page: '',
+  offset: 0,
 };
 
 const gameReducer = (state = initialState, action) => {
@@ -28,10 +32,35 @@ const gameReducer = (state = initialState, action) => {
           return category;
         }),
       };
+    case 'SET_MORE_CATEGORY_GAMES':
+      return {
+        ...state,
+        moreCategoryGames: action.categoryGames,
+      };
     case 'SET_CURRENT_GAME':
       return {
         ...state,
         currentGame: action.currentGame,
+      };
+    case 'SET_GENRE':
+      return {
+        ...state,
+        genre: action.genre,
+      };
+    case 'SET_PAGE':
+      return {
+        ...state,
+        page: action.page,
+      };
+    case 'SET_OFFSET':
+      return {
+        ...state,
+        offset: action.offset,
+      };
+    case 'UPDATE_OFFSET':
+      return {
+        ...state,
+        offset: (state.offset += action.update),
       };
     case 'VIDEO_GAME_SEARCH_RESULTS':
       return {
@@ -39,7 +68,16 @@ const gameReducer = (state = initialState, action) => {
         searchResults: action.videoGames,
       };
     case 'RESET_GAMES':
-      return initialState;
+      return {
+        ...state,
+        featureGames: [],
+        categoryGames: [],
+      };
+    case 'RESET_MORE_GAMES':
+      return {
+        ...state,
+        moreCategoryGames: [],
+      };
     default:
       return state;
   }

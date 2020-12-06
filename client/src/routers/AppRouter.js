@@ -8,6 +8,7 @@ import HomePage from '../pages/HomePage';
 import MyListPage from '../pages/MyListPage';
 import NotFoundPage from '../pages/NotFoundPage';
 import PlatformPage from '../pages/PlatformPage';
+import PlatformMorePage from '../pages/PlatformMorePage';
 import UpdateReviewPage from '../pages/UpdateReviewPage';
 import UserReviewsPage from '../pages/UserReviewsPage';
 import SearchPage from '../pages/SearchPage';
@@ -31,6 +32,7 @@ const AppRouter = () => (
           <PrivateRoute path={path} component={PlatformPage} key={index} />
         )
       )}
+      <PrivateRoute path="/category" component={PlatformMorePage} />
       <PrivateRoute path="/list" component={MyListPage} />
       <PrivateRoute path="/upload" component={UploadImagePage} />
       <PrivateRoute path="/watch/:id" component={WatchPage} />

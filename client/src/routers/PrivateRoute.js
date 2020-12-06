@@ -15,7 +15,7 @@ const PrivateRoute = ({ isAuthenticated, component: Component, ...rest }) => {
     '/review/:id',
     '/user-reviews',
   ];
-  const pathsSecondary = ['/search', '/list'];
+  const pathsSecondary = ['/search', '/list', '/category'];
 
   return (
     <Route

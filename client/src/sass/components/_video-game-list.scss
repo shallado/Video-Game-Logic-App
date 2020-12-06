@@ -1,0 +1,9 @@
+.video-game-list {
+  &__results {
+    @include results;
+  }
+
+  &__video-game-card-container {
+    @include videoGameCardContainer;
+  }
+}

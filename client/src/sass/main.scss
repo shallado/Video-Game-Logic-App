@@ -22,12 +22,14 @@
 @import './components/react-dates-overrides';
 @import './components/user-form';
 @import './components/video-game-card';
+@import './components/video-game-list';
 
 // Pages
 @import './pages/account';
 @import './pages/home';
 @import './pages/my-list';
 @import './pages/not-found';
+@import './pages/platform-more';
 @import './pages/review';
 @import './pages/search';
 @import './pages/sign-in';

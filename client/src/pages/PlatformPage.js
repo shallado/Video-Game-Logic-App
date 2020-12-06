@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import VideoGameCategory from '../components/VideoGameCategory';
-import { startGetGames, resetGames } from '../actions/game';
+import { startGetGames, resetGames, setPage, setOffset } from '../actions/game';
 
 class PlatformPage extends Component {
   state = {
     genres: [],
-    page: '',
   };
 
   componentDidMount() {
@@ -69,22 +68,23 @@ class PlatformPage extends Component {
 
     this.setState(() => ({
       genres,
-      page,
     }));
 
-    if (this.props.categoryGames.length === 0) {
-      this.props.startGetGames([
-        {
-          page,
-          type: 'category',
-          genres,
-        },
-        {
-          page,
-          type: 'featured',
-        },
-      ]);
-    }
+    this.props.setPage(page);
+
+    this.props.setOffset(11);
+
+    this.props.startGetGames([
+      {
+        page,
+        type: 'category',
+        genres,
+      },
+      {
+        page,
+        type: 'featured',
+      },
+    ]);
   }
 
   componentWillUnmount() {
@@ -97,12 +97,7 @@ class PlatformPage extends Component {
     return (
       <div className="category">
         {this.state.genres.map((genre, index) => (
-          <VideoGameCategory
-            key={index}
-            genre={genre}
-            categoryIndex={index}
-            page={this.state.page}
-          />
+          <VideoGameCategory key={index} genre={genre} categoryIndex={index} />
         ))}
       </div>
     );
@@ -119,6 +114,8 @@ const mapDispatchToProps = (dispatch) => ({
   startGetGames: (page, type, genre) =>
     dispatch(startGetGames(page, type, genre)),
   resetGames: () => dispatch(resetGames()),
+  setPage: (page) => dispatch(setPage(page)),
+  setOffset: (offset) => dispatch(setOffset(offset)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PlatformPage);

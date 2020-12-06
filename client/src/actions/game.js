@@ -18,6 +18,11 @@ export const updateCategoryGame = (categoryIndex, updateGames) => ({
   categoryIndex,
 });
 
+export const setMoreCategoryGames = (categoryGames = []) => ({
+  type: 'SET_MORE_CATEGORY_GAMES',
+  categoryGames,
+});
+
 export const startGetGames = (queriesInfo, categoryIndex) => {
   return (dispatch) => {
     return axios({
@@ -28,7 +33,9 @@ export const startGetGames = (queriesInfo, categoryIndex) => {
       .then((response) => {
         const queryResults = response.data;
 
-        if (queryResults[0].length === 1) {
+        if (queriesInfo[0].type === 'moreCategory') {
+          dispatch(setMoreCategoryGames(queryResults[0][0]));
+        } else if (queryResults[0].length === 1) {
           dispatch(updateCategoryGame(categoryIndex, queryResults[0]));
         } else {
           dispatch(getFeatureGames(queryResults[1]));
@@ -71,6 +78,30 @@ export const setCurrentGame = (currentGame) => ({
   currentGame,
 });
 
+export const setGenre = (genre) => ({
+  type: 'SET_GENRE',
+  genre,
+});
+
+export const setPage = (page) => ({
+  type: 'SET_PAGE',
+  page,
+});
+
+export const setOffset = (offset) => ({
+  type: 'SET_OFFSET',
+  offset,
+});
+
+export const updateOffset = (update) => ({
+  type: 'UPDATE_OFFSET',
+  update,
+});
+
 export const resetGames = () => ({
   type: 'RESET_GAMES',
+});
+
+export const resetMoreGames = () => ({
+  type: 'RESET_MORE_GAMES',
 });
