@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ReactPaginate from 'react-paginate';
 import VideoGameList from '../components/VideoGameList';
+import IconLeftArrowTwo from '../svgs/IconLeftArrowTwo';
+import IconRightArrowThree from '../svgs/IconRightArrowThree';
 import { startGetGames, resetMoreGames, setOffset } from '../actions/game';
 
 class PlatformMorePage extends Component {
@@ -55,14 +57,24 @@ class PlatformMorePage extends Component {
       <div className="platform-more-page">
         <VideoGameList urlPath={this.props.match.path} />
         <ReactPaginate
-          nextLabel={'next'}
+          nextLabel={
+            <div className="icon__container">
+              <IconRightArrowThree />
+            </div>
+          }
           breakLabel={'...'}
           containerClassName={'platform-more-page__pagination'}
+          pageClassName={'platform-more-page__page-numbers'}
+          activeClassName={'platform-more-page__page-active'}
           initialPage={0}
           pageCount={10}
           pageRangeDisplayed={1}
           marginPagesDisplayed={5}
-          previousLabel={'previous'}
+          previousLabel={
+            <div className="icon__container">
+              <IconLeftArrowTwo />
+            </div>
+          }
           onPageChange={this.handlePageChange}
         />
       </div>

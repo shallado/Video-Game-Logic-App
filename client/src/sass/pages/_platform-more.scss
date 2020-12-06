@@ -2,8 +2,30 @@
   @include resultPage;
 
   &__pagination {
+    margin-top: $md-spacing;
     list-style: none;
+
     display: flex;
     justify-content: space-around;
+    align-items: center;
+
+    @include setBreakPoints(1400) {
+      width: 132rem;
+      margin: $md-spacing auto;
+    }
+  }
+
+  &__page-numbers {
+    border-radius: 10rem;
+    padding: 0rem 1rem;
+
+    &:hover {
+      color: $accent-color;
+      cursor: pointer;
+    }
+  }
+
+  &__page-active {
+    border: solid 1px $accent-color;
   }
 }
