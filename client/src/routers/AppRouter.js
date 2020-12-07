@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
+import ScrollToTop from '../components/ScrollToTop';
 import AccountPage from '../pages/AccountPage';
 import AddReviewPage from '../pages/AddReviewPage';
 import HomePage from '../pages/HomePage';
@@ -23,20 +24,22 @@ const AppRouter = () => (
       <PublicRoute path="/" component={HomePage} exact={true} />
       <PublicRoute path="/signin" component={SignInPage} />
       <PublicRoute path="/signup" component={SignUpPage} />
-      <PrivateRoute path="/account" component={AccountPage} />
-      <PrivateRoute path="/user-reviews" component={UserReviewsPage} />
-      <PrivateRoute path="/review" component={AddReviewPage} exact={true} />
-      <PrivateRoute path="/review/:id" component={UpdateReviewPage} />
-      {['/dashboard', '/nintendo', '/playstation', '/xbox', '/pc'].map(
-        (path, index) => (
-          <PrivateRoute path={path} component={PlatformPage} key={index} />
-        )
-      )}
-      <PrivateRoute path="/category" component={PlatformMorePage} />
-      <PrivateRoute path="/list" component={MyListPage} />
-      <PrivateRoute path="/upload" component={UploadImagePage} />
-      <PrivateRoute path="/watch/:id" component={WatchPage} />
-      <PrivateRoute path="/search" component={SearchPage} />
+      <ScrollToTop>
+        <PrivateRoute path="/account" component={AccountPage} />
+        <PrivateRoute path="/user-reviews" component={UserReviewsPage} />
+        <PrivateRoute path="/review" component={AddReviewPage} exact={true} />
+        <PrivateRoute path="/review/:id" component={UpdateReviewPage} />
+        {['/dashboard', '/nintendo', '/playstation', '/xbox', '/pc'].map(
+          (path, index) => (
+            <PrivateRoute path={path} component={PlatformPage} key={index} />
+          )
+        )}
+        <PrivateRoute path="/category" component={PlatformMorePage} />
+        <PrivateRoute path="/list" component={MyListPage} />
+        <PrivateRoute path="/upload" component={UploadImagePage} />
+        <PrivateRoute path="/watch/:id" component={WatchPage} />
+        <PrivateRoute path="/search" component={SearchPage} />
+      </ScrollToTop>
       <Route component={NotFoundPage} />
     </Switch>
   </BrowserRouter>
