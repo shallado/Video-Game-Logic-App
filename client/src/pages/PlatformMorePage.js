@@ -64,8 +64,11 @@ class PlatformMorePage extends Component {
           }
           breakLabel={'...'}
           containerClassName={'platform-more-page__pagination'}
-          pageClassName={'platform-more-page__page-numbers'}
-          activeClassName={'platform-more-page__page-active'}
+          pageClassName={'platform-more-page__pagination-numbers'}
+          activeClassName={'platform-more-page__pagination-active'}
+          pageLinkClassName={'platform-more-page__pagination-link'}
+          previousLinkClassName={'platform-more-page__pagination-previous-link'}
+          nextLinkClassName={'platform-more-page__pagination-next-link'}
           initialPage={0}
           pageCount={10}
           pageRangeDisplayed={1}

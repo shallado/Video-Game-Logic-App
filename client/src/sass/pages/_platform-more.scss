@@ -15,7 +15,13 @@
     }
   }
 
-  &__page-numbers {
+  &__pagination-previous-link,
+  &__pagination-next-link,
+  &__pagination-link {
+    outline: none;
+  }
+
+  &__pagination-numbers {
     border-radius: 10rem;
     padding: 0rem 1rem;
 
@@ -23,9 +29,13 @@
       color: $accent-color;
       cursor: pointer;
     }
+
+    &:active {
+      outline-color: red;
+    }
   }
 
-  &__page-active {
+  &__pagination-active {
     border: solid 1px $accent-color;
   }
 }
