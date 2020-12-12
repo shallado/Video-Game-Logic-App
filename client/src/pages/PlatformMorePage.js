@@ -123,10 +123,7 @@ class PlatformMorePage extends Component {
     let pageCount;
     let currentGames;
     let updateCount;
-    const isMoreCategoryGames = !!this.props.moreCategoryGames[0]
-      ? this.props.moreCategoryGames[0].name !==
-        prevProps.moreCategoryGames[0].name
-      : '';
+
     const changeState = (
       pageCount = 0,
       currentGames = this.props.moreCategoryGames.slice(
@@ -152,7 +149,8 @@ class PlatformMorePage extends Component {
       changeState(pageCount, currentGames);
     } else if (
       this.state.gamesSet === 'updates and increase page number' &&
-      isMoreCategoryGames
+      this.props.moreCategoryGames[0].name !==
+        prevProps.moreCategoryGames[0].name
     ) {
       if (this.state.updateCount === 0) {
         pageCount = Math.ceil(this.props.moreCategoryGames.length / 40);
@@ -165,7 +163,8 @@ class PlatformMorePage extends Component {
       }
     } else if (
       this.state.gamesSet === 'update and increase page number' &&
-      isMoreCategoryGames
+      this.props.moreCategoryGames[0].name !==
+        prevProps.moreCategoryGames[0].name
     ) {
       pageCount = Math.ceil(this.props.moreCategoryGames.length / 40);
       currentGames = prevProps.moreCategoryGames.slice(
@@ -178,7 +177,8 @@ class PlatformMorePage extends Component {
       changeState(pageCount, currentGames);
     } else if (
       this.state.gamesSet === 'update and page change' &&
-      isMoreCategoryGames
+      this.props.moreCategoryGames[0].name !==
+        prevProps.moreCategoryGames[0].name
     ) {
       changeState();
     } else if (this.state.gamesSet === 'page change') {
