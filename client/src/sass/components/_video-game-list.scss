@@ -1,4 +1,9 @@
 .video-game-list {
+  &__loading-container {
+    height: 100vh;
+    @include centerItems;
+  }
+
   &__results {
     @include results;
   }

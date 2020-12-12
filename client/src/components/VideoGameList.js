@@ -1,12 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import VideoGameCard from './VideoGameCard';
+import IconLoading from '../svgs/IconLoading';
 
 const VideoGameList = (props) => {
-  const videoGames =
-    props.moreCategoryGames.length !== 0
-      ? props.moreCategoryGames
-      : props.user.videoGames;
+  let videoGames = !!props.currentGames
+    ? props.currentGames
+    : props.user.videoGames;
 
   return (
     <>
@@ -14,16 +14,22 @@ const VideoGameList = (props) => {
         {props.urlPath === '/category' ? props.genre : 'My List'}
       </h1>
       <div className="video-game-list__results-container">
-        <ul className="video-game-list__results">
-          {videoGames.map((videoGame) => (
-            <li
-              className="video-game-list__video-game-card-container"
-              key={videoGame.id}
-            >
-              <VideoGameCard videoGameList={videoGame} />
-            </li>
-          ))}
-        </ul>
+        {videoGames.length === 0 ? (
+          <div className="video-game-list__loading-container">
+            <IconLoading />
+          </div>
+        ) : (
+          <ul className="video-game-list__results">
+            {videoGames.map((videoGame) => (
+              <li
+                className="video-game-list__video-game-card-container"
+                key={videoGame.id}
+              >
+                <VideoGameCard videoGameList={videoGame} />
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </>
   );
@@ -31,7 +37,6 @@ const VideoGameList = (props) => {
 
 const mapStateToProps = (state) => ({
   user: state.user,
-  moreCategoryGames: state.game.moreCategoryGames,
   genre: state.game.genre,
 });
 

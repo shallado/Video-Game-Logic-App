@@ -9,8 +9,8 @@ const queryGames = (igdbQueriesInfo) => {
 
     // communicates to a third party api igdb which is a video game database
     if (Array.isArray(igdbQueryInfo)) {
-      const requests = igdbQueryInfo.map((query) =>
-        axios({
+      const requests = igdbQueryInfo.map((query) => {
+        return axios({
           method: 'post',
           url: 'https://api.igdb.com/v4/games',
           headers: {
@@ -19,8 +19,8 @@ const queryGames = (igdbQueriesInfo) => {
             'Authorization': token,
           },
           data: query,
-        })
-      );
+        });
+      });
 
       return axios.all(requests).then(
         axios.spread((...responses) => {
