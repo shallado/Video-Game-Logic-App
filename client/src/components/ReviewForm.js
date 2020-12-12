@@ -27,7 +27,7 @@ export default class ReviewForm extends Component {
     };
 
     const formSchema = Yup.object({
-      review: Yup.string().required('Required'),
+      review: Yup.string().trim().required('Required'),
     });
 
     return (
