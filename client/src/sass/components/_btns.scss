@@ -53,6 +53,11 @@
   @include setBreakPoints(450) {
     width: 15%;
   }
+
+  &:hover {
+    cursor: pointer;
+    background-color: darken($accent-color, 15%);
+  }
 }
 
 .play-btn {
