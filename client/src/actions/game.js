@@ -38,7 +38,7 @@ export const startGetGames = (queriesInfo, categoryIndex) => {
         } else if (queryResults[0].length === 1) {
           dispatch(updateCategoryGame(categoryIndex, queryResults[0]));
         } else {
-          dispatch(getFeatureGames(queryResults[1]));
+          dispatch(getFeatureGames(queryResults[1][0]));
           dispatch(getCategoryGame(queryResults[0]));
         }
       })

@@ -12,6 +12,7 @@ class PlatformPage extends Component {
     const { pathname } = this.props.history.location;
     let genres;
     let page;
+    let featuredGenre;
 
     switch (pathname) {
       case '/dashboard':
@@ -24,10 +25,12 @@ class PlatformPage extends Component {
           'Indie',
           'Sport',
         ];
+        featuredGenre = [genres[1]];
         break;
       case '/nintendo':
         page = 'Nintendo Switch';
         genres = ['Music', 'Sport', 'Adventure', 'Arcade', 'Puzzle', 'Shooter'];
+        featuredGenre = [genres[2]];
         break;
       case '/playstation':
         page = 'PlayStation 4';
@@ -39,6 +42,7 @@ class PlatformPage extends Component {
           'Racing',
           'Shooter',
         ];
+        featuredGenre = [genres[3]];
         break;
       case '/xbox':
         page = 'Xbox One';
@@ -50,6 +54,7 @@ class PlatformPage extends Component {
           'Role-playing (RPG)',
           'Adventure',
         ];
+        featuredGenre = [genres[4]];
         break;
       case '/pc':
         page = 'PC (Microsoft Windows)';
@@ -61,6 +66,7 @@ class PlatformPage extends Component {
           'Shooter',
           "Hack and slash/Beat 'em up",
         ];
+        featuredGenre = [genres[5]];
         break;
       default:
         page = '';
@@ -83,6 +89,7 @@ class PlatformPage extends Component {
       {
         page,
         type: 'featured',
+        genres: featuredGenre,
       },
     ]);
   }
