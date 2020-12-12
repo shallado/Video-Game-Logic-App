@@ -67,17 +67,8 @@ const gameReducer = (state = initialState, action) => {
         ...state,
         searchResults: action.videoGames,
       };
-    case 'RESET_GAMES':
-      return {
-        ...state,
-        featureGames: [],
-        categoryGames: [],
-      };
-    case 'RESET_MORE_GAMES':
-      return {
-        ...state,
-        moreCategoryGames: [],
-      };
+    case 'RESET':
+      return initialState;
     default:
       return state;
   }

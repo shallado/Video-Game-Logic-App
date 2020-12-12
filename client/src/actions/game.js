@@ -98,10 +98,6 @@ export const updateOffset = (update) => ({
   update,
 });
 
-export const resetGames = () => ({
-  type: 'RESET_GAMES',
-});
-
-export const resetMoreGames = () => ({
-  type: 'RESET_MORE_GAMES',
+export const reset = () => ({
+  type: 'RESET',
 });

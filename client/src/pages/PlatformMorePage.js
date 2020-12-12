@@ -4,11 +4,7 @@ import ReactPaginate from 'react-paginate';
 import VideoGameList from '../components/VideoGameList';
 import IconLeftArrowTwo from '../svgs/IconLeftArrowTwo';
 import IconRightArrowThree from '../svgs/IconRightArrowThree';
-import {
-  startGetGames,
-  resetMoreGames,
-  setMoreCategoryGames,
-} from '../actions/game';
+import { startGetGames, reset, setMoreCategoryGames } from '../actions/game';
 
 class PlatformMorePage extends Component {
   state = {
@@ -212,7 +208,7 @@ class PlatformMorePage extends Component {
   }
 
   componentWillUnmount() {
-    this.props.resetMoreGames();
+    this.props.reset();
   }
 
   render() {
@@ -261,7 +257,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   startGetGames: (page, type, genre) =>
     dispatch(startGetGames(page, type, genre)),
-  resetMoreGames: () => dispatch(resetMoreGames()),
+  reset: () => dispatch(reset()),
   setMoreCategoryGames: (categoryGames) =>
     dispatch(setMoreCategoryGames(categoryGames)),
 });

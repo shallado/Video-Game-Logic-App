@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import VideoGameCategory from '../components/VideoGameCategory';
-import { startGetGames, resetGames, setPage, setOffset } from '../actions/game';
+import { startGetGames, reset, setPage, setOffset } from '../actions/game';
 
 class PlatformPage extends Component {
   state = {
@@ -29,7 +29,14 @@ class PlatformPage extends Component {
         break;
       case '/nintendo':
         page = 'Nintendo Switch';
-        genres = ['Music', 'Sport', 'Adventure', 'Arcade', 'Puzzle', 'Shooter'];
+        genres = [
+          'Arcade',
+          'Sport',
+          'Adventure',
+          'Arcade',
+          'Puzzle',
+          'Shooter',
+        ];
         featuredGenre = [genres[2]];
         break;
       case '/playstation':
@@ -47,7 +54,7 @@ class PlatformPage extends Component {
       case '/xbox':
         page = 'Xbox One';
         genres = [
-          'Fighting',
+          'Tactical',
           'Shooter',
           'Indie',
           'Racing',
@@ -96,7 +103,7 @@ class PlatformPage extends Component {
 
   componentWillUnmount() {
     if (!this.props.openModals.includes('moreInfoModal')) {
-      this.props.resetGames();
+      this.props.reset();
     }
   }
 
@@ -120,7 +127,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   startGetGames: (page, type, genre) =>
     dispatch(startGetGames(page, type, genre)),
-  resetGames: () => dispatch(resetGames()),
+  reset: () => dispatch(reset()),
   setPage: (page) => dispatch(setPage(page)),
   setOffset: (offset) => dispatch(setOffset(offset)),
 });

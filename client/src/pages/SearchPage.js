@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import SearchForm from '../components/SearchForm';
 import SearchResults from '../components/SearchResults';
-import { startVideoGameSearchResults } from '../actions/game';
+import { startVideoGameSearchResults, reset } from '../actions/game';
 
 class SearchPage extends Component {
   handleSubmit = (title) => {
@@ -12,6 +12,10 @@ class SearchPage extends Component {
       },
     ]);
   };
+
+  componentWillUnmount() {
+    this.props.reset();
+  }
 
   render() {
     return (
@@ -33,6 +37,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   startVideoGameSearchResults: (title) =>
     dispatch(startVideoGameSearchResults(title)),
+  reset: () => dispatch(reset()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchPage);
