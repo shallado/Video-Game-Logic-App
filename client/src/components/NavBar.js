@@ -59,10 +59,9 @@ class NavBar extends Component {
           <ul className="navbar__links">
             <li>
               <NavLink
-                to="/"
+                to="/dashboard"
                 className="navbar__link"
                 activeClassName="navbar__active-link"
-                exact={true}
               >
                 Home
               </NavLink>
