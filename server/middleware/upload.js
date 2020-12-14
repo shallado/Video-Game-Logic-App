@@ -6,7 +6,7 @@ const storage = new CustomStorage({
     cb(null, 'vgl-app.appspot.com');
   },
   filename(req, file, cb) {
-    cb(null, `${req.params.id}-${file.fieldname}-${Date.now()}.jpg`);
+    cb(null, `${req.params.id}-${file.fieldname}.jpg`);
   },
 });
 
