@@ -80,59 +80,49 @@ const userModel = (db, Int32, ObjectID) => {
     }
 
     // updates a single user in the database
-    static update(userId, updates) {
-      let {
-        password,
-        username,
-        email,
-        city,
-        zipcode,
-        gender,
-        birthday,
-      } = updates;
-      let updateData;
+    static update(queryInput, updates) {
+      const { userId, userEmail } = queryInput;
 
-      if (password === 'passwordP1%') {
-        updateData = {
-          username,
-          email,
-          city,
-          zipcode,
-          gender,
-          birthday,
+      let updateOperation;
+      let query;
+
+      if (updates.token && userEmail) {
+        updateOperation = {
+          $push: {
+            webTokens: updates.token,
+          },
+        };
+        query = {
+          email: userEmail,
         };
       } else {
-        updateData = updates;
-      }
-
-      const updateUser = () =>
-        db.collection('users').updateOne(
-          { _id: ObjectID(userId) },
-          {
-            $set: { ...updateData },
+        updateOperation = {
+          $set: {
+            ...updates,
+            birthday: new Date(updates.birthday),
+            zipcode: new Int32(updates.zipcode),
           },
-          { w: 1, j: true }
-        );
-
-      if (updates.token) {
-        updateData = {};
-        return updateUser().then((data) => data.result);
+        };
+        query = {
+          _id: ObjectID(userId),
+        };
       }
 
-      updateData.birthday = new Date(updateData.birthday);
-      updateData.zipcode = new Int32(updateData.zipcode);
-
-      if (password === 'passwordP1%') {
-        return updateUser().then((data) => data.result);
-      }
-
-      return hashPassword(updates.password)
-        .then((data) => {
-          updateData.password = data;
-
-          return updateUser();
+      return db
+        .collection('users')
+        .findOneAndUpdate(query, updateOperation, {
+          w: 1,
+          j: true,
+          returnOriginal: false,
         })
-        .then((data) => data.result);
+        .then((data) => data.value);
+    }
+
+    static deleteOne(userId) {
+      return db
+        .collection('users')
+        .deleteOne({ _id: new ObjectID(userId) }, { w: 1, j: true })
+        .then((data) => data.deletedCount);
     }
 
     static addVideoGame(userId, videoGame) {
@@ -160,21 +150,6 @@ const userModel = (db, Int32, ObjectID) => {
               videoGames: {
                 name: title,
               },
-            },
-          },
-          { w: 1, j: true }
-        )
-        .then((data) => data.result);
-    }
-
-    static addJWTToken(userId, token) {
-      return db
-        .collection('users')
-        .updateOne(
-          { _id: new ObjectID(userId) },
-          {
-            $push: {
-              webTokens: token,
             },
           },
           { w: 1, j: true }
@@ -312,3 +287,12 @@ module.exports = {
   userSchema,
   userIndexFields,
 };
+
+// hashing password
+// return hashPassword(updates.password)
+//   .then((data) => {
+//     updateData.password = data;
+
+//     return updateUser();
+//   })
+//   .then((data) => data.result);

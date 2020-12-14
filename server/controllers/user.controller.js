@@ -3,9 +3,6 @@ const jwt = require('jsonwebtoken');
 const { validationResult } = require('express-validator');
 const { User } = require('../models');
 const { secretKey } = require('../config/jwt');
-const APIError = require('../utils/apiError');
-const httpStatusCodes = require('../utils/statusCodes');
-const { comparePassword } = require('../utils/password');
 const databaseErrorHandling = require('../utils/databaseErrorHandling');
 
 // process user input in order to add user info to database
@@ -33,10 +30,8 @@ exports.signup = (req, res) => {
   user
     .create()
     .then((data) => {
-      const message = 'successfully added user';
-
       res.send({
-        message,
+        message: 'successfully added user',
         data,
       });
     })
@@ -65,20 +60,14 @@ exports.updateOne = (req, res) => {
   const { id: userId } = req.params;
   const updates = req.body;
 
-  User.update(userId, updates)
+  User.update({ userId }, updates)
     .then((data) => {
-      if (data.n === 0) {
-        throw new APIError(
-          'Not Found',
-          httpStatusCodes.NOT_FOUND,
-          'unable to find user'
-        );
+      if (data === null) {
+        return res.status(401).send({ message: 'unable to find user' });
       }
 
-      const message = 'successfully updated user';
-
       res.send({
-        message,
+        message: 'successfully updated user',
         data,
       });
     })
@@ -137,63 +126,45 @@ exports.removeVideoGameWatchList = (req, res) => {
 
 // process user credentials and validates users input
 exports.signIn = (req, res) => {
-  const { email, password } = req.body;
+  const { email: userEmail } = req.body;
 
-  return User.find({ email })
-    .then((data) => {
-      if (!data) {
-        throw new APIError(
-          'Not Found',
-          httpStatusCodes.NOT_FOUND,
-          'unable to find user'
-        );
-      }
+  jwt.sign({ userEmail }, secretKey, (err, token) => {
+    User.update({ userEmail }, { token })
+      .then((userInfo) => {
+        const {
+          username,
+          email,
+          city,
+          zipcode,
+          birthday,
+          gender,
+          _id: id,
+          profilePhoto,
+          videoGames,
+        } = userInfo;
 
-      // compares user input password to hash password in database
-      return comparePassword(password, data.password, data._id);
-    })
-    .then((data) => {
-      const userId = data;
+        res.send({
+          message: 'Successfully logged in',
+          data: {
+            token,
+            username,
+            email,
+            city,
+            zipcode,
+            birthday,
+            gender,
+            id,
+            profilePhoto,
+            videoGames,
+          },
+        });
+      })
+      .catch((error) => {
+        const setError = databaseErrorHandling(error);
 
-      jwt.sign({ userId }, secretKey, (err, token) => {
-        User.addJWTToken(userId, token)
-          .then(() => User.find(userId))
-          .then((userInfo) => {
-            const {
-              username,
-              email,
-              city,
-              zipcode,
-              birthday,
-              gender,
-              _id: id,
-              profilePhoto,
-              videoGames,
-            } = userInfo;
-
-            res.send({
-              message: 'Successfully logged in',
-              data: {
-                token,
-                username,
-                email,
-                city,
-                zipcode,
-                birthday,
-                gender,
-                id,
-                profilePhoto,
-                videoGames,
-              },
-            });
-          });
+        res.status(setError.httpStatus).send({ message: setError.description });
       });
-    })
-    .catch((err) => {
-      const setError = databaseErrorHandling(err);
-
-      res.status(setError.httpStatus).send({ message: setError.description });
-    });
+  });
 };
 
 // processes user uploaded photo to be stored into the database
@@ -203,17 +174,11 @@ exports.uploadProfilePhoto = (req, res) => {
   User.upload(id, req.file)
     .then((data) => {
       if (!data) {
-        throw new APIError(
-          'Not Found',
-          httpStatusCodes.NOT_FOUND,
-          'unable to find user'
-        );
+        res.status(401).send({ message: 'unable to find user' });
       }
 
-      const message = 'successfully uploaded user profile photo';
-
       res.send({
-        message,
+        message: 'successfully uploaded user profile photo',
         data,
       });
     })

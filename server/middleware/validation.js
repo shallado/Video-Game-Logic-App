@@ -1,5 +1,10 @@
 const axios = require('axios');
+const bcrypt = require('bcrypt');
 const { body } = require('express-validator');
+const { User } = require('../models');
+const APIError = require('../utils/apiError');
+const httpStatusCodes = require('../utils/statusCodes');
+const databaseErrorHandling = require('../utils/databaseErrorHandling');
 const { apiKey } = require('../config/mapbox');
 
 // checks to see if the provided location info city and zipcode are valid
@@ -60,4 +65,29 @@ exports.inputValidation = () => {
     // gender
     validationFields[6].isString().withMessage('value must be a string'),
   ];
+};
+
+exports.passwordChecker = (req, res, next) => {
+  const { email, password } = req.body;
+
+  return User.find({ email })
+    .then((data) => {
+      if (!data) {
+        return res.status(401).send({ message: 'unable to find user' });
+      }
+
+      // compares user input password to hash password in database
+      bcrypt.compare(password, data.password).then((isValid) => {
+        if (!isValid) {
+          return res.status(401).send({ message: 'invalid password' });
+        }
+
+        next();
+      });
+    })
+    .catch((err) => {
+      const setError = databaseErrorHandling(err);
+
+      res.status(setError.httpStatus).send({ message: setError.description });
+    });
 };

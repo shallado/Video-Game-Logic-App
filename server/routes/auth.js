@@ -11,7 +11,9 @@ const authRouter = (app) => {
     userController.signup
   );
 
-  router.post('/signin', userController.signIn);
+  router.post('/signin', validation.passwordChecker, userController.signIn);
+
+  router.post('/signout', userController.signOut);
 
   app.use('/auth', router);
 };

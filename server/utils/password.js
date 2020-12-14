@@ -20,22 +20,6 @@ const hashPassword = (password) => {
   }
 };
 
-// compares user password in database and user input password
-const comparePassword = (inputPassword, databasePassword, userId) => {
-  return bcrypt.compare(inputPassword, databasePassword).then((isValid) => {
-    if (!isValid) {
-      throw new APIError(
-        'Unauthorized',
-        httpStatusCodes.UNAUTHORIZED,
-        'invalid password'
-      );
-    }
-
-    return userId;
-  });
-};
-
 module.exports = {
   hashPassword,
-  comparePassword,
 };
