@@ -79,12 +79,12 @@ exports.updateOne = (req, res) => {
 };
 
 exports.addVideoGameWatchList = (req, res) => {
-  const { id } = req.params;
+  const { id: userId } = req.params;
   const { videoGame } = req.body;
 
-  return User.addVideoGame(id, videoGame)
+  return User.update({ userId }, { videoGame })
     .then((data) => {
-      if (data.n === 0) {
+      if (data === null) {
         return res
           .status(404)
           .send({ message: 'unable to add video game to watch list' });

@@ -95,6 +95,15 @@ const userModel = (db, Int32, ObjectID) => {
         query = {
           email: userEmail,
         };
+      } else if (updates.videoGame && userId) {
+        updateOperation = {
+          $push: {
+            videoGames: updates.videoGame,
+          },
+        };
+        query = {
+          _id: ObjectID(userId),
+        };
       } else {
         updateOperation = {
           $set: {
@@ -123,21 +132,6 @@ const userModel = (db, Int32, ObjectID) => {
         .collection('users')
         .deleteOne({ _id: new ObjectID(userId) }, { w: 1, j: true })
         .then((data) => data.deletedCount);
-    }
-
-    static addVideoGame(userId, videoGame) {
-      return db
-        .collection('users')
-        .updateOne(
-          { _id: new ObjectID(userId) },
-          {
-            $push: {
-              videoGames: videoGame,
-            },
-          },
-          { w: 1, j: true }
-        )
-        .then((data) => data.result);
     }
 
     static removeVideoGame(userId, title) {
@@ -287,6 +281,21 @@ module.exports = {
   userSchema,
   userIndexFields,
 };
+
+// static addVideoGame(userId, videoGame) {
+//   return db
+//     .collection('users')
+//     .updateOne(
+//       { _id: new ObjectID(userId) },
+//       {
+//         $push: {
+//           videoGames: videoGame,
+//         },
+//       },
+//       { w: 1, j: true }
+//     )
+//     .then((data) => data.result);
+// }
 
 // hashing password
 // return hashPassword(updates.password)
