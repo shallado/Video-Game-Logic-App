@@ -169,17 +169,21 @@ exports.signIn = (req, res) => {
 
 // processes user uploaded photo to be stored into the database
 exports.uploadProfilePhoto = (req, res) => {
-  const { id } = req.params;
+  const { id: userId } = req.params;
+  const { path } = req.file;
 
-  User.upload(id, req.file)
+  User.update({ userId }, { path })
     .then((data) => {
-      if (!data) {
+      if (data === null) {
         res.status(401).send({ message: 'unable to find user' });
       }
 
       res.send({
         message: 'successfully uploaded user profile photo',
-        data,
+        data: {
+          ...data,
+          path,
+        },
       });
     })
     .catch((err) => {

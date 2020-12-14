@@ -84,7 +84,9 @@ const userModel = (db, Int32, ObjectID) => {
       const { userId, userEmail } = queryInput;
 
       let updateOperation;
-      let query;
+      let query = {
+        _id: ObjectID(userId),
+      };
 
       if (updates.token && userEmail) {
         updateOperation = {
@@ -101,8 +103,11 @@ const userModel = (db, Int32, ObjectID) => {
             videoGames: updates.videoGame,
           },
         };
-        query = {
-          _id: ObjectID(userId),
+      } else if (updates.path) {
+        updateOperation = {
+          $set: {
+            profilePhoto: updates.path,
+          },
         };
       } else {
         updateOperation = {
@@ -111,9 +116,6 @@ const userModel = (db, Int32, ObjectID) => {
             birthday: new Date(updates.birthday),
             zipcode: new Int32(updates.zipcode),
           },
-        };
-        query = {
-          _id: ObjectID(userId),
         };
       }
 
@@ -149,27 +151,6 @@ const userModel = (db, Int32, ObjectID) => {
           { w: 1, j: true }
         )
         .then((data) => data.result);
-    }
-
-    // uploads profile photo of user
-    static upload(userId, photoFile) {
-      const { path } = photoFile;
-
-      return db
-        .collection('users')
-        .updateOne(
-          { _id: new ObjectID(userId) },
-          {
-            $set: {
-              profilePhoto: path,
-            },
-          },
-          { w: 1, j: 1 }
-        )
-        .then((data) => ({
-          ...data,
-          path,
-        }));
     }
   }
 
@@ -281,27 +262,3 @@ module.exports = {
   userSchema,
   userIndexFields,
 };
-
-// static addVideoGame(userId, videoGame) {
-//   return db
-//     .collection('users')
-//     .updateOne(
-//       { _id: new ObjectID(userId) },
-//       {
-//         $push: {
-//           videoGames: videoGame,
-//         },
-//       },
-//       { w: 1, j: true }
-//     )
-//     .then((data) => data.result);
-// }
-
-// hashing password
-// return hashPassword(updates.password)
-//   .then((data) => {
-//     updateData.password = data;
-
-//     return updateUser();
-//   })
-//   .then((data) => data.result);
