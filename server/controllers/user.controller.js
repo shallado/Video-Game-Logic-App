@@ -78,6 +78,28 @@ exports.updateOne = (req, res) => {
     });
 };
 
+exports.deleteOne = (req, res) => {
+  const { id } = req.params;
+
+  User.deleteOne(id)
+    .then((data) => {
+      if (data === 0) {
+        return res.status(404).send({
+          message: 'unable to find user to delete',
+        });
+      }
+
+      res.send({
+        message: 'successfully deleted user',
+      });
+    })
+    .catch((err) => {
+      const setError = databaseErrorHandling(err);
+
+      res.status(setError.httpStatus).send({ message: setError.description });
+    });
+};
+
 exports.addVideoGameWatchList = (req, res) => {
   const { id: userId } = req.params;
   const { videoGame } = req.body;

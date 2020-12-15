@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import UserForm from '../components/UserForm';
+import ConfirmModal from '../modals/ConfirmModal';
 import ErrorNotification from '../modals/ErrorNotification';
 import IconLeftArrow from '../svgs/IconLeftArrow';
 import { startUserUpdate } from '../actions/user';
@@ -32,6 +33,7 @@ export class AccountPage extends Component {
         <ErrorNotification
           updateSuccessRedirect={() => this.props.history.push('/')}
         />
+        <ConfirmModal />
       </div>
     );
   }

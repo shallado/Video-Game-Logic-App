@@ -15,6 +15,8 @@ const userRouter = (app) => {
 
   router.put('/:id', validation.locationCheck, userController.updateOne);
 
+  router.delete('/:id', userController.deleteOne);
+
   router.put('/:id/addWatchList', userController.addVideoGameWatchList);
 
   router.put('/:id/removeWatchList', userController.removeVideoGameWatchList);

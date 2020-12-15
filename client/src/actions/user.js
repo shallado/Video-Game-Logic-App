@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { loadSuccess, loadError } from './error';
+import loadingError from '../utils/loadingError';
 
 export const setCurrentUser = (user) => ({
   type: 'SET_CURRENT_USER',
@@ -25,15 +26,7 @@ export const startUserUpdate = (id, updates) => {
         dispatch(userUpdate({ ...updates }));
       })
       .catch((err) => {
-        let error;
-
-        if (err.response) {
-          error = err.response.data;
-        } else if (err.request) {
-          error = err.request;
-        } else {
-          error = err.message;
-        }
+        const error = loadingError(err);
 
         dispatch(loadError(error));
       });
@@ -52,15 +45,7 @@ export const startUploadProfilePhoto = (id, imageFile) => {
         dispatch(userUpdate({ profilePhoto: response.data.data.path }));
       })
       .catch((err) => {
-        let error;
-
-        if (err.response) {
-          error = err.response.data;
-        } else if (err.request) {
-          error = err.request;
-        } else {
-          error = err.message;
-        }
+        const error = loadingError(err);
 
         dispatch(loadError(error));
       });
@@ -92,15 +77,7 @@ export const startAddVideoGameToWatchList = (userId, videoGame) => {
         )
       )
       .catch((err) => {
-        let error;
-
-        if (err.response) {
-          error = err.response.data;
-        } else if (err.request) {
-          error = err.request;
-        } else {
-          error = err.message;
-        }
+        const error = loadingError(err);
 
         dispatch(loadError(error));
       });
@@ -125,15 +102,30 @@ export const startRemoveVideoGameToWatchList = (userId, videoGame) => {
     axios(request)
       .then(() => dispatch(removeVideoGameToWatchList(videoGame)))
       .catch((err) => {
-        let error;
+        const error = loadingError(err);
 
-        if (err.response) {
-          error = err.response.data;
-        } else if (err.request) {
-          error = err.request;
-        } else {
-          error = err.message;
-        }
+        dispatch(loadError(error));
+      });
+  };
+};
+
+export const userDelete = () => ({
+  type: 'USER_DELETE',
+});
+
+export const startUserDelete = (userId) => {
+  return (dispatch) => {
+    const request = {
+      method: 'delete',
+      url: `/users/${userId}`,
+    };
+
+    axios(request)
+      .then(() => {
+        dispatch(userDelete());
+      })
+      .catch((err) => {
+        const error = loadingError(err);
 
         dispatch(loadError(error));
       });

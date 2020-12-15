@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import { SingleDatePicker } from 'react-dates';
 import moment from 'moment';
 import * as Yup from 'yup';
+import { showModal } from '../actions/modal';
 
-export default class UserForm extends Component {
+class UserForm extends Component {
   state = {
     birthday: this.props.user ? moment(this.props.user.birthday) : moment(),
     focused: false,
@@ -65,6 +67,10 @@ export default class UserForm extends Component {
     </div>
   );
 
+  handleDeleteProfile = () => {
+    this.props.showModal();
+  };
+
   handleSubmit = (userInfo) => {
     const user = {
       ...userInfo,
@@ -97,6 +103,12 @@ export default class UserForm extends Component {
     const passwordCriteria =
       '^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\\s).{8,15}$';
     const regex = new RegExp(passwordCriteria);
+    const title =
+      this.props.match.path === '/signup' ? (
+        <h1 className="heading-one heading-one--form">Sign Up</h1>
+      ) : (
+        <h1 className="heading-one heading-one--form">Update</h1>
+      );
     let formSchema = Yup.object({
       username: Yup.string()
         .trim()
@@ -119,11 +131,7 @@ export default class UserForm extends Component {
 
     return (
       <div className="user-form">
-        {this.props.match.path === '/signup' ? (
-          <h1 className="heading-one heading-one--form">Sign Up</h1>
-        ) : (
-          <h1 className="heading-one heading-one--form">Update</h1>
-        )}
+        {title}
         <Formik
           initialValues={formInitialValues}
           validationSchema={formSchema}
@@ -237,7 +245,16 @@ export default class UserForm extends Component {
             </button>
           </Form>
         </Formik>
+        <button className="btn delete-btn" onClick={this.handleDeleteProfile}>
+          Delete
+        </button>
       </div>
     );
   }
 }
+
+const mapDispatchToProps = (dispatch) => ({
+  showModal: () => dispatch(showModal('confirmModal')),
+});
+
+export default connect(null, mapDispatchToProps)(UserForm);

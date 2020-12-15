@@ -25,6 +25,8 @@ const userReducer = (state = initialState, action) => {
           (videoGame) => action.videoGame.name !== videoGame.name
         ),
       };
+    case 'USER_DELETE':
+      return initialState;
     default:
       return state;
   }

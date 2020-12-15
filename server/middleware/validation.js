@@ -2,8 +2,6 @@ const axios = require('axios');
 const bcrypt = require('bcrypt');
 const { body } = require('express-validator');
 const { User } = require('../models');
-const APIError = require('../utils/apiError');
-const httpStatusCodes = require('../utils/statusCodes');
 const databaseErrorHandling = require('../utils/databaseErrorHandling');
 const { apiKey } = require('../config/mapbox');
 
