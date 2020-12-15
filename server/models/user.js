@@ -97,6 +97,16 @@ const userModel = (db, Int32, ObjectID) => {
         query = {
           email: userEmail,
         };
+      } else if (updates.token && userId) {
+        updateOperation = {
+          $pull: {
+            webTokens: updates.token,
+          },
+        };
+        query = {
+          _id: ObjectID(userId),
+          webTokens: updates.token,
+        };
       } else if (updates.videoGame && userId) {
         updateOperation = {
           $push: {
