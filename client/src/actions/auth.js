@@ -4,14 +4,16 @@ import { loadSuccess, loadError } from './error';
 import { setCurrentUser } from './user';
 
 export const startSignUp = (userInfo) => {
+  const request = {
+    method: 'post',
+    url: '/auth/signup',
+    data: {
+      ...userInfo,
+    },
+  };
+
   return (dispatch) => {
-    axios({
-      method: 'post',
-      url: '/auth/signup',
-      data: {
-        ...userInfo,
-      },
-    })
+    axios(request)
       .then(() => {
         dispatch(loadSuccess());
       })
@@ -29,16 +31,17 @@ export const signIn = () => ({
 
 export const startSignIn = (userCredentials) => {
   const { email, password } = userCredentials;
+  const request = {
+    method: 'post',
+    url: '/auth/signin',
+    data: {
+      email,
+      password,
+    },
+  };
 
   return (dispatch) => {
-    axios({
-      method: 'post',
-      url: '/auth/signin',
-      data: {
-        email,
-        password,
-      },
-    })
+    axios(request)
       .then((response) => {
         const {
           username,
@@ -80,3 +83,26 @@ export const startSignIn = (userCredentials) => {
 export const signOut = () => ({
   type: 'SIGN_OUT',
 });
+
+export const startSignOut = (id, token) => {
+  const request = {
+    method: 'post',
+    url: '/auth/signout',
+    data: {
+      id,
+      token,
+    },
+  };
+
+  return (dispatch) => {
+    axios(request)
+      .then(() => {
+        dispatch(signOut());
+      })
+      .catch((err) => {
+        const error = loadError(err);
+
+        dispatch(loadError(error));
+      });
+  };
+};

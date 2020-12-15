@@ -5,11 +5,11 @@ import IconAccount from '../svgs/IconAccount';
 import IconLogOut from '../svgs/IconLogOut';
 import IconReview from '../svgs/IconReview';
 import IconUpload from '../svgs/IconUpload';
-import { signOut } from '../actions/auth';
+import { startSignOut } from '../actions/auth';
 
 class Account extends Component {
   handleSignOut = () => {
-    this.props.signOut();
+    this.props.startSignOut(this.props.id, this.props.token);
     this.props.history.push('/');
   };
 
@@ -62,10 +62,12 @@ class Account extends Component {
 
 const mapStateToProps = (state) => ({
   username: state.user.username,
+  id: state.user.id,
+  token: state.user.token,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  signOut: () => dispatch(signOut()),
+  startSignOut: (id, token) => dispatch(startSignOut(id, token)),
 });
 
 export default withRouter(
