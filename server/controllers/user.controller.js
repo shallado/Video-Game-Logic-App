@@ -82,7 +82,7 @@ exports.addVideoGameWatchList = (req, res) => {
   const { id: userId } = req.params;
   const { videoGame } = req.body;
 
-  return User.update({ userId }, { videoGame })
+  User.update({ userId }, { videoGame })
     .then((data) => {
       if (data === null) {
         return res
@@ -102,19 +102,17 @@ exports.addVideoGameWatchList = (req, res) => {
 };
 
 exports.removeVideoGameWatchList = (req, res) => {
-  const { id } = req.params;
+  const { id: userId } = req.params;
   const { title } = req.body;
 
-  return User.removeVideoGame(id, title)
+  User.update({ userId, title }, { title })
     .then((data) => {
-      if (data.n === 0) {
-        return res
-          .status(404)
-          .send({ message: 'unable to remove video game from watch list' });
+      if (data === null) {
+        return res.status(404).send({ message: 'video game not found' });
       }
 
       res.send({
-        message: 'successfully removed video game from watch list',
+        message: 'successfully removed video game',
       });
     })
     .catch((err) => {

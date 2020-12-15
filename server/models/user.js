@@ -103,6 +103,18 @@ const userModel = (db, Int32, ObjectID) => {
             videoGames: updates.videoGame,
           },
         };
+      } else if (updates.title && userId) {
+        updateOperation = {
+          $pull: {
+            videoGames: {
+              title: updates.title,
+            },
+          },
+        };
+        query = {
+          _id: ObjectID(userId),
+          'videoGames.title': updates.title,
+        };
       } else if (updates.path) {
         updateOperation = {
           $set: {
@@ -134,23 +146,6 @@ const userModel = (db, Int32, ObjectID) => {
         .collection('users')
         .deleteOne({ _id: new ObjectID(userId) }, { w: 1, j: true })
         .then((data) => data.deletedCount);
-    }
-
-    static removeVideoGame(userId, title) {
-      return db
-        .collection('users')
-        .updateOne(
-          { _id: new ObjectID(userId) },
-          {
-            $pull: {
-              videoGames: {
-                name: title,
-              },
-            },
-          },
-          { w: 1, j: true }
-        )
-        .then((data) => data.result);
     }
   }
 
