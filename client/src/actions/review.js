@@ -22,7 +22,9 @@ export const startSetVideoGameReviews = (title) => {
 
     axios(request)
       .then((response) => {
-        dispatch(setVideoGameReviews(response.data.data));
+        if (response.data.data !== null) {
+          dispatch(setVideoGameReviews(response.data.data));
+        }
       })
       .catch((err) => {
         const error = loadingError(err);

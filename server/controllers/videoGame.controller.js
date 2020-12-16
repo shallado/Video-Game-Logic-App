@@ -42,8 +42,9 @@ exports.findOne = (req, res) => {
         });
       }
 
-      res.status(404).send({
-        message: 'unable to find video game',
+      res.send({
+        message: 'successfully found video game and no reviews',
+        data: null,
       });
     })
     .catch((err) => {
