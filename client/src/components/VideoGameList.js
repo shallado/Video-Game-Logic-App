@@ -14,7 +14,7 @@ const VideoGameList = (props) => {
         {props.urlPath === '/category' ? props.genre : 'My List'}
       </h1>
       <div className="video-game-list__results-container">
-        {videoGames.length === 0 ? (
+        {videoGames.length === 0 && props.path === '/category' ? (
           <div className="video-game-list__loading-container">
             <IconLoading />
           </div>

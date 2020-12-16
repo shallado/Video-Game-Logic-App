@@ -1,9 +1,9 @@
 import React from 'react';
 import VideoGameList from '../components/VideoGameList';
 
-const MyListPage = () => (
+const MyListPage = (props) => (
   <div className="my-list-page">
-    <VideoGameList />
+    <VideoGameList path={props.match.path} />
   </div>
 );
 

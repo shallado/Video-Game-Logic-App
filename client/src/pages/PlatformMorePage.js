@@ -218,6 +218,7 @@ class PlatformMorePage extends Component {
           urlPath={this.props.match.path}
           handlePageCountIncrease={this.handlePageCountIncrease}
           currentGames={this.state.currentGames}
+          path={this.props.match.path}
         />
         <ReactPaginate
           nextLabel={
