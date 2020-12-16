@@ -3,8 +3,12 @@
   height: 100vh;
   padding: $md-spacing;
 
+  @include centerItems;
+  flex-direction: column;
+
   &__close-icon-container {
     @include leftArrowIcon;
+    margin-bottom: $md-spacing;
   }
 
   &__link {
@@ -15,7 +19,6 @@
     background-color: $color-primary-dark;
     border-radius: 1rem;
     height: 50rem;
-    margin: 8% auto;
     padding: $xlg-spacing $md-spacing 0 $md-spacing;
     position: relative;
     width: 50%;
@@ -24,20 +27,8 @@
       width: 65%;
     }
 
-    @include setBreakPoints(960) {
-      margin: 18% auto 0 auto;
-    }
-
-    @include setBreakPoints(700) {
-      margin: 18rem auto 0 auto;
-    }
-
     @include setBreakPoints(600) {
       width: 85%;
-    }
-
-    @include setBreakPoints(550) {
-      margin-top: 50%;
     }
 
     @include setBreakPoints(400) {
