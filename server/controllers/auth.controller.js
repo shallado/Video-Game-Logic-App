@@ -15,9 +15,13 @@ exports.signup = (req, res) => {
     if (error.param === 'city') {
       const setError = databaseErrorHandling(error);
 
-      res.status(setError.httpStatus).send({ message: setError.description });
+      res.status(setError.httpStatus).send({
+        message: setError.description,
+      });
     } else {
-      res.status(400).send(error);
+      res.status(400).send({
+        message: error.msg,
+      });
     }
 
     return;
@@ -28,10 +32,9 @@ exports.signup = (req, res) => {
 
   user
     .create()
-    .then((data) => {
+    .then(() => {
       res.send({
-        message: 'successfully added user',
-        data,
+        message: 'successfully added signed up',
       });
     })
     .catch((err) => {
