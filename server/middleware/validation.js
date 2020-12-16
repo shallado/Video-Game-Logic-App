@@ -65,6 +65,20 @@ exports.inputValidation = () => {
   ];
 };
 
+exports.inputPasswordValidation = () => {
+  const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
+
+  return [
+    body('newPassword')
+      .exists({ checkFalsy: true })
+      .withMessage('required')
+      .matches(regex)
+      .withMessage(
+        'must be 8 to 15 characters long contain one lowercase letter, one uppercase letter, one numeric digit and one special character'
+      ),
+  ];
+};
+
 exports.passwordChecker = (req, res, next) => {
   const { email, password } = req.body;
 

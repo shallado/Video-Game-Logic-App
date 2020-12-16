@@ -1,5 +1,3 @@
-const { hashPassword } = require('../utils/password');
-
 // sets the document structure for the user collection
 // provided methods that are available to be performed on the user collection
 const userModel = (db, Int32, ObjectID) => {
@@ -45,16 +43,14 @@ const userModel = (db, Int32, ObjectID) => {
         webTokens: this.webTokens,
       };
 
-      return hashPassword(this.password)
-        .then((hash) => {
-          return db.collection('users').insertOne(
-            {
-              ...doc,
-              password: hash,
-            },
-            { w: 1, j: true }
-          );
-        })
+      return db
+        .collection('users')
+        .insertOne(
+          {
+            ...doc,
+          },
+          { w: 1, j: true }
+        )
         .then((data) => data.ops);
     }
 
@@ -92,6 +88,15 @@ const userModel = (db, Int32, ObjectID) => {
         updateOperation = {
           $push: {
             webTokens: updates.token,
+          },
+        };
+        query = {
+          email: userEmail,
+        };
+      } else if (updates.newPassword && userEmail) {
+        updateOperation = {
+          $set: {
+            password: updates.newPassword,
           },
         };
         query = {

@@ -40,6 +40,31 @@ exports.updateOne = (req, res) => {
     });
 };
 
+exports.updatePassword = (req, res) => {
+  const { email: userEmail, newPassword } = req.body;
+  const results = validationResult(req);
+  const hasErrors = results.isEmpty();
+  const error = results.array()[0];
+
+  if (!hasErrors) {
+    return res.status(400).send({
+      message: error.msg,
+    });
+  }
+
+  User.update({ userEmail }, { newPassword })
+    .then(() => {
+      res.send({
+        message: 'successfully updated password',
+      });
+    })
+    .catch((err) => {
+      const setError = databaseErrorHandling(err);
+
+      res.status(setError.httpStatus).send({ message: setError.description });
+    });
+};
+
 exports.deleteOne = (req, res) => {
   const { id } = req.params;
 
