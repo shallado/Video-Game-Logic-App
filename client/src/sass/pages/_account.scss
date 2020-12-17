@@ -2,8 +2,37 @@
   background-color: $color-primary;
   min-height: 100vh;
   padding: $md-spacing;
-  flex-direction: column;
-  @include centerItems;
+
+  @include setBreakPoints(800) {
+    padding: 12rem;
+    min-height: 0;
+  }
+
+  @include setBreakPoints(450) {
+    padding: $md-spacing;
+  }
+
+  &__form-container {
+    margin-top: $lg-spacing;
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+
+    & div {
+      flex: 0 0 45%;
+
+      @include setBreakPoints(800) {
+        &:first-child {
+          margin-bottom: 1rem;
+        }
+      }
+    }
+
+    @include setBreakPoints(800) {
+      flex-direction: column;
+    }
+  }
 
   &__close-icon-container {
     @include leftArrowIcon;

@@ -78,7 +78,7 @@
 .delete-btn {
   background-color: red;
   border-color: red;
-  margin-left: 70%;
+  margin: 0;
 
   &:hover {
     background-color: darken(red, 15%);

@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import { SingleDatePicker } from 'react-dates';
 import moment from 'moment';
 import * as Yup from 'yup';
-import { showModal } from '../actions/modal';
 
 class UserForm extends Component {
   state = {
@@ -67,10 +65,6 @@ class UserForm extends Component {
     </div>
   );
 
-  handleDeleteProfile = () => {
-    this.props.showModal();
-  };
-
   handleSubmit = (userInfo) => {
     const user = {
       ...userInfo,
@@ -107,7 +101,7 @@ class UserForm extends Component {
       this.props.match.path === '/signup' ? (
         <h1 className="heading-one heading-one--form">Sign Up</h1>
       ) : (
-        <h1 className="heading-one heading-one--form">Update</h1>
+        <h1 className="heading-one heading-one--form">User Info</h1>
       );
     let formSchema = Yup.object({
       username: Yup.string()
@@ -245,16 +239,9 @@ class UserForm extends Component {
             </button>
           </Form>
         </Formik>
-        <button className="btn delete-btn" onClick={this.handleDeleteProfile}>
-          Delete
-        </button>
       </div>
     );
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  showModal: () => dispatch(showModal('confirmModal')),
-});
-
-export default connect(null, mapDispatchToProps)(UserForm);
+export default UserForm;

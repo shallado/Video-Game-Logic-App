@@ -2,15 +2,6 @@
   background-color: $color-primary-light;
   border-radius: 1rem;
   padding: $xlg-spacing 0;
-  width: 50%;
-
-  @include setBreakPoints(1150) {
-    width: 65%;
-  }
-
-  @include setBreakPoints(750) {
-    width: 90%;
-  }
 }
 
 @mixin centerItems {

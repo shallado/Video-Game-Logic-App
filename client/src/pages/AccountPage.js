@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import DeleteProfile from '../components/DeleteProfile';
+import PasswordForm from '../components/PasswordForm';
 import UserForm from '../components/UserForm';
 import ConfirmModal from '../modals/ConfirmModal';
 import ErrorNotification from '../modals/ErrorNotification';
@@ -25,11 +27,19 @@ export class AccountPage extends Component {
             </div>
           </div>
         </div>
-        <UserForm
-          user={this.props.user}
-          handleSubmit={this.handleSubmit}
-          match={this.props.match}
-        />
+        <div className="account__form-container">
+          <div>
+            <UserForm
+              user={this.props.user}
+              handleSubmit={this.handleSubmit}
+              match={this.props.match}
+            />
+          </div>
+          <div>
+            <PasswordForm />
+            <DeleteProfile />
+          </div>
+        </div>
         <ErrorNotification
           updateSuccessRedirect={() => this.props.history.push('/')}
         />
