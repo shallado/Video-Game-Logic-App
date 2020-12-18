@@ -72,6 +72,10 @@ class MoreInfoModal extends Component {
     }
   }
 
+  componentWillUnmount() {
+    document.body.setAttribute('style', '');
+  }
+
   render() {
     const {
       age_ratings = '',
