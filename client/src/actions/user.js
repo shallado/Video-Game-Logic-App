@@ -61,7 +61,7 @@ export const startAddVideoGameToWatchList = (userId, videoGame) => {
   return (dispatch) => {
     const request = {
       method: 'put',
-      url: `/users/${userId}/addWatchList`,
+      url: `/users/${userId}/video-games`,
       data: {
         videoGame: {
           ...videoGame,
@@ -92,8 +92,8 @@ export const removeVideoGameToWatchList = (videoGame) => ({
 export const startRemoveVideoGameToWatchList = (userId, videoGame) => {
   return (dispatch) => {
     const request = {
-      method: 'put',
-      url: `/users/${userId}/removeWatchList`,
+      method: 'delete',
+      url: `/users/${userId}/video-games`,
       data: {
         title: videoGame.name,
       },

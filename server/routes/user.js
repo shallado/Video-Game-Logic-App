@@ -26,9 +26,9 @@ const userRouter = (app) => {
 
   router.delete('/:id', userController.deleteOne);
 
-  router.put('/:id/addWatchList', userController.addVideoGameWatchList);
+  router.put('/:id/video-games', userController.addVideoGameWatchList);
 
-  router.put('/:id/removeWatchList', userController.removeVideoGameWatchList);
+  router.delete('/:id/video-games', userController.removeVideoGameWatchList);
 
   app.use('/users', router);
 };

@@ -122,13 +122,13 @@ const userModel = (db, Int32, ObjectID) => {
         updateOperation = {
           $pull: {
             videoGames: {
-              title: updates.title,
+              name: updates.title,
             },
           },
         };
         query = {
           _id: ObjectID(userId),
-          'videoGames.title': updates.title,
+          'videoGames.name': updates.title,
         };
       } else if (updates.path) {
         updateOperation = {
