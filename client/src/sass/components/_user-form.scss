@@ -1,3 +1,12 @@
 .user-form {
   @include containerOne;
+  flex: 0 0 45%;
+
+  @include setBreakPoints(800) {
+    flex: 0 0 80%;
+  }
+
+  @include setBreakPoints(450) {
+    flex: 0 0 90%;
+  }
 }

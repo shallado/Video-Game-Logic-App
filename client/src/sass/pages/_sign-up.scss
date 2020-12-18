@@ -1,8 +1,5 @@
 .sign-up-page {
   background-color: $color-primary;
+  min-height: 100vh;
   @include centerItems;
-
-  @include setBreakPoints(550) {
-    height: 100vh;
-  }
 }

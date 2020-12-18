@@ -36,13 +36,11 @@ export class AccountPage extends Component {
           </div>
         </div>
         <div className="account__form-container">
-          <div>
-            <UserForm
-              user={this.props.user}
-              handleSubmit={this.handleSubmit}
-              match={this.props.match}
-            />
-          </div>
+          <UserForm
+            user={this.props.user}
+            handleSubmit={this.handleSubmit}
+            match={this.props.match}
+          />
           <div>
             <PasswordForm handleSubmit={this.handleSubmit} />
             <DeleteProfile />
