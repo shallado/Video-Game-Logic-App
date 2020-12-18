@@ -6,11 +6,19 @@ import UserForm from '../components/UserForm';
 import ConfirmModal from '../modals/ConfirmModal';
 import ErrorNotification from '../modals/ErrorNotification';
 import IconLeftArrow from '../svgs/IconLeftArrow';
-import { startUserUpdate } from '../actions/user';
+import { startUserUpdate, startUserUpdatePassword } from '../actions/user';
 
 export class AccountPage extends Component {
   handleSubmit = (updates) => {
-    this.props.startUserUpdate(this.props.user.id, updates);
+    if (updates.password) {
+      this.props.startUserUpdatePassword({
+        ...updates,
+        userId: this.props.userId,
+        email: this.props.email,
+      });
+    } else {
+      this.props.startUserUpdate(this.props.userId, updates);
+    }
   };
 
   handleRouteRedirect = () => {
@@ -36,13 +44,11 @@ export class AccountPage extends Component {
             />
           </div>
           <div>
-            <PasswordForm />
+            <PasswordForm handleSubmit={this.handleSubmit} />
             <DeleteProfile />
           </div>
         </div>
-        <ErrorNotification
-          updateSuccessRedirect={() => this.props.history.push('/')}
-        />
+        <ErrorNotification />
         <ConfirmModal />
       </div>
     );
@@ -50,11 +56,15 @@ export class AccountPage extends Component {
 }
 
 const mapStateToProps = (state) => ({
+  email: state.user.email,
+  userId: state.user.id,
   user: state.user,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   startUserUpdate: (id, updates) => dispatch(startUserUpdate(id, updates)),
+  startUserUpdatePassword: (userPasswords) =>
+    dispatch(startUserUpdatePassword(userPasswords)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AccountPage);

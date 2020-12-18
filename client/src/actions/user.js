@@ -6,7 +6,6 @@ export const setCurrentUser = (user) => ({
   type: 'SET_CURRENT_USER',
   userInfo: {
     ...user,
-    password: 'passwordP1%',
   },
 });
 
@@ -22,8 +21,9 @@ export const startUserUpdate = (id, updates) => {
       url: `/users/${id}`,
       data: { ...updates },
     })
-      .then(() => {
+      .then((response) => {
         dispatch(userUpdate({ ...updates }));
+        dispatch(loadSuccess(response.data.message));
       })
       .catch((err) => {
         const error = loadingError(err);
@@ -101,6 +101,33 @@ export const startRemoveVideoGameToWatchList = (userId, videoGame) => {
 
     axios(request)
       .then(() => dispatch(removeVideoGameToWatchList(videoGame)))
+      .catch((err) => {
+        const error = loadingError(err);
+
+        dispatch(loadError(error));
+      });
+  };
+};
+
+export const startUserUpdatePassword = ({
+  userId,
+  email,
+  password,
+  newPassword,
+}) => {
+  return (dispatch) => {
+    const request = {
+      method: 'put',
+      url: `/users/${userId}/password`,
+      data: {
+        email,
+        password,
+        newPassword,
+      },
+    };
+
+    axios(request)
+      .then((response) => dispatch(loadSuccess(response.data.message)))
       .catch((err) => {
         const error = loadingError(err);
 
