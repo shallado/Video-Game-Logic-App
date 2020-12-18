@@ -1,5 +1,10 @@
 .SingleDatePicker {
   display: block;
+
+  &__date-select {
+    display: flex;
+    justify-content: center;
+  }
 }
 
 .SingleDatePickerInput {

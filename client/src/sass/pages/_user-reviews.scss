@@ -3,6 +3,10 @@
   height: 100vh;
   padding: $md-spacing;
 
+  & p {
+    padding: $md-spacing 0 0 $md-spacing;
+  }
+
   &__left-arrow-icon-container {
     @include leftArrowIcon;
   }

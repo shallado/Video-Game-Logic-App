@@ -41,27 +41,23 @@ class UserForm extends Component {
   };
 
   renderMonthElement = ({ month, onMonthSelect, onYearSelect }) => (
-    <div style={{ display: 'flex', justifyContent: 'center' }}>
-      <div>
-        <select
-          value={month.month()}
-          onChange={(e) => onMonthSelect(month, e.target.value)}
-        >
-          {moment.months().map((label, value, index) => (
-            <option value={value} key={label}>
-              {label}
-            </option>
-          ))}
-        </select>
-      </div>
-      <div>
-        <select
-          value={month.year()}
-          onChange={(e) => onYearSelect(month, e.target.value)}
-        >
-          {this.returnYears()}
-        </select>
-      </div>
+    <div className="SingleDatePicker__date-select">
+      <select
+        value={month.month()}
+        onChange={(e) => onMonthSelect(month, e.target.value)}
+      >
+        {moment.months().map((label, value, index) => (
+          <option value={value} key={label}>
+            {label}
+          </option>
+        ))}
+      </select>
+      <select
+        value={month.year()}
+        onChange={(e) => onYearSelect(month, e.target.value)}
+      >
+        {this.returnYears()}
+      </select>
     </div>
   );
 
