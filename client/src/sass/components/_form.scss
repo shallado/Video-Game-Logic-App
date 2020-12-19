@@ -10,6 +10,10 @@
     flex-direction: column;
     position: relative;
 
+    &--password {
+      display: none;
+    }
+
     &:not(:first-child) {
       margin-top: $sm-spacing;
     }
@@ -17,6 +21,7 @@
 
   &__field-selects-container {
     margin-top: $sm-spacing;
+    position: relative;
     width: 30rem;
 
     display: flex;
@@ -79,6 +84,11 @@
 
     &--position-order {
       z-index: 2;
+    }
+
+    &--gender-select {
+      left: 22.5rem;
+      width: 10rem;
     }
   }
 }

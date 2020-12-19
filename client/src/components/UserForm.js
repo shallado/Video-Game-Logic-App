@@ -83,11 +83,15 @@ class UserForm extends Component {
   render() {
     const formInitialValues = {
       username: this.props.user ? this.props.user.username : '',
+      password: this.props.user ? this.props.user.password : '',
       email: this.props.user ? this.props.user.email : '',
       city: this.props.user ? this.props.user.city : '',
       zipcode: this.props.user ? this.props.user.zipcode : '',
       gender: this.props.user ? this.props.user.gender : 'select',
     };
+    const passwordCriteria =
+      '^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\\s).{8,15}$';
+    const regex = new RegExp(passwordCriteria);
     const title =
       this.props.match.path === '/signup' ? (
         <h1 className="heading-one heading-one--form">Sign Up</h1>
@@ -99,6 +103,12 @@ class UserForm extends Component {
         .trim()
         .max(26, 'Must be 26 characters or less')
         .required('Required'),
+      password: Yup.string()
+        .matches(
+          regex,
+          'Field is required to be 8 to 15 characters long, contain one lowercase letter, one uppercase letter, one numeric digit and one special character'
+        )
+        .required('Required'),
       email: Yup.string()
         .trim()
         .email('Must be a valid email format')
@@ -107,6 +117,11 @@ class UserForm extends Component {
       zipcode: Yup.string().length(5, 'Must be 5 digits').required('Required'),
       gender: Yup.string().matches(/(male|female)/, 'Please select an option'),
     });
+    const passwordField = `form__field-container${
+      this.props.match.path !== '/signup'
+        ? ' form__field-container--password'
+        : ''
+    }`;
 
     return (
       <div className="user-form">
@@ -129,6 +144,20 @@ class UserForm extends Component {
                 component="div"
                 name="username"
                 className="form__error-message"
+              />
+            </div>
+            <div className={passwordField}>
+              <label htmlFor="password">Password</label>
+              <Field
+                name="password"
+                type="password"
+                id="password"
+                className="form__field"
+              />
+              <ErrorMessage
+                component="div"
+                name="password"
+                className="form__error-message form__error-message--position-order"
               />
             </div>
             <div className="form__field-container">
@@ -202,7 +231,11 @@ class UserForm extends Component {
                   <option value="male">Male</option>
                   <option value="female">Female</option>
                 </Field>
-                <ErrorMessage name="gender" className="form__error-message" />
+                <ErrorMessage
+                  component="div"
+                  name="gender"
+                  className="form__error-message form__error-message--gender-select"
+                />
               </div>
             </div>
             <button type="submit" className="btn">
