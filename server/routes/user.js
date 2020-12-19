@@ -14,7 +14,11 @@ const userRouter = (app) => {
     userController.uploadProfilePhoto
   );
 
-  router.put('/:id', validation.locationCheck, userController.updateOne);
+  router.put(
+    '/:id',
+    [validation.inputValidation(), validation.locationCheck],
+    userController.updateOne
+  );
 
   router.put(
     '/:id/password',
