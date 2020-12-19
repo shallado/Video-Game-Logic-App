@@ -7,7 +7,6 @@ import { startSignUp } from '../actions/auth';
 class SignUpPage extends Component {
   handleSubmit = (userInfo) => {
     this.props.startSignUp(userInfo);
-    this.props.history.push('/signin');
   };
 
   render() {

@@ -7,6 +7,13 @@ import { hideError } from '../actions/error';
 
 class ErrorNotification extends Component {
   handleCloseModal = () => {
+    if (
+      this.props.match.path === '/signup' &&
+      this.props.successInfo !== null
+    ) {
+      this.props.history.push('/signin');
+    }
+
     this.props.hideError();
   };
 

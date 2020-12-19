@@ -34,7 +34,7 @@ exports.signup = (req, res) => {
     .create()
     .then(() => {
       res.send({
-        message: 'successfully added signed up',
+        message: 'successfully signed up',
       });
     })
     .catch((err) => {

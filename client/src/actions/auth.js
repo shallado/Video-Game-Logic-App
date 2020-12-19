@@ -14,8 +14,8 @@ export const startSignUp = (userInfo) => {
 
   return (dispatch) => {
     axios(request)
-      .then(() => {
-        dispatch(loadSuccess());
+      .then((response) => {
+        dispatch(loadSuccess(response.data.message));
       })
       .catch((err) => {
         const error = loadingError(err);
