@@ -2,8 +2,10 @@
   position: relative;
   height: 100vh;
 
-  @media only screen and (min-height: 43.38em) {
-    height: 70vh;
+  @include setBreakPoints(800) {
+    @media only screen and (min-height: 43.38em) {
+      height: 70vh;
+    }
   }
 
   &__loading-container {
@@ -65,8 +67,10 @@
       height: 100vh;
       width: 100%;
 
-      @media only screen and (min-height: 43.38em) {
-        height: 70vh;
+      @include setBreakPoints(800) {
+        @media only screen and (min-height: 43.38em) {
+          height: 70vh;
+        }
       }
     }
   }
