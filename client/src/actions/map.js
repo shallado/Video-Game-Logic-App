@@ -2,7 +2,7 @@ import axios from 'axios';
 import loadingError from '../utils/loadingError';
 import { loadError } from './error';
 
-const setMapLocations = (locationsInfo) => ({
+export const setMapLocations = (locationsInfo) => ({
   type: 'SET_MAP_LOCATIONS',
   locationsInfo,
 });
@@ -13,8 +13,8 @@ export const startSetMapLocations = () => {
       method: 'get',
       url: '/map',
     })
-      .then((data) => {
-        const locationsInfo = data.data;
+      .then((response) => {
+        const locationsInfo = response.data;
 
         dispatch(setMapLocations(locationsInfo));
       })
@@ -25,3 +25,7 @@ export const startSetMapLocations = () => {
       });
   };
 };
+
+export const resetMap = () => ({
+  type: 'RESET_MAP',
+});

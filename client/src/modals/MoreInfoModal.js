@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Modal from 'react-modal';
-import Map from '../components/Map';
+import LocationMap from '../components/LocationMap';
 import AddRemoveVideoGame from '../components/AddRemoveVideoGame';
 import VideoGameReviews from '../components/VideoGameReviews';
 import ScreenShotCarousel from '../components/ScreenShotCarousel';
@@ -18,7 +18,6 @@ import {
   startSetVideoGameReviews,
   resetVideoGameReviews,
 } from '../actions/review';
-import { startSetMapLocations } from '../actions/map';
 
 Modal.setAppElement('#root');
 
@@ -183,7 +182,7 @@ class MoreInfoModal extends Component {
               <a href="https://www.walmart.com/">Target</a>
               <a href="https://www.bestbuy.com/">Best Buy</a>
             </div>
-            <Map />
+            <LocationMap />
           </div>
         </div>
         <div className="more-info-modal__section">
@@ -228,7 +227,6 @@ const mapDispatchToProps = (dispatch) => ({
   resetWindowOffset: () => dispatch(resetWindowOffset()),
   startSetVideoGameReviews: (title) =>
     dispatch(startSetVideoGameReviews(title)),
-  startSetMapLocations: () => dispatch(startSetMapLocations()),
   resetVideoGameReviews: () => dispatch(resetVideoGameReviews()),
 });
 

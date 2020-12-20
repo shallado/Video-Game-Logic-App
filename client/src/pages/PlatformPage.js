@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import VideoGameCategory from '../components/VideoGameCategory';
 import { startGetGames, reset, setPage, setOffset } from '../actions/game';
+import { startSetMapLocations, resetMap } from '../actions/map';
 
 class PlatformPage extends Component {
   state = {
@@ -99,11 +100,14 @@ class PlatformPage extends Component {
         genres: featuredGenre,
       },
     ]);
+
+    this.props.startSetMapLocations();
   }
 
   componentWillUnmount() {
     if (!this.props.openModals.includes('moreInfoModal')) {
       this.props.reset();
+      this.props.resetMap();
     }
   }
 
@@ -130,6 +134,8 @@ const mapDispatchToProps = (dispatch) => ({
   reset: () => dispatch(reset()),
   setPage: (page) => dispatch(setPage(page)),
   setOffset: (offset) => dispatch(setOffset(offset)),
+  startSetMapLocations: () => dispatch(startSetMapLocations()),
+  resetMap: () => dispatch(resetMap()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PlatformPage);
