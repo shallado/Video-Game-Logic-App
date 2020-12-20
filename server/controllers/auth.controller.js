@@ -93,7 +93,7 @@ exports.signOut = (req, res) => {
   User.update({ userId }, { token })
     .then((data) => {
       if (data === null) {
-        res.status(401).send({
+        return res.status(401).send({
           message: 'unable to sign out',
         });
       }

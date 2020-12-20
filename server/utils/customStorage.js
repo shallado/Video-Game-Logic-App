@@ -25,7 +25,11 @@ class CustomStorage {
         const storage = new Storage({ projectId, keyFilename });
         this.bucket = storage.bucket(bucketName);
         const fileBucket = this.bucket.file(filename);
-        const outStream = fileBucket.createWriteStream();
+        const outStream = fileBucket.createWriteStream({
+          metadata: {
+            cacheControl: 'no-cache, max-age=0',
+          },
+        });
         const transformer = sharp().resize(180, 180).toFormat('jpeg');
 
         file.stream.pipe(transformer).pipe(outStream);
@@ -33,7 +37,7 @@ class CustomStorage {
           .on('error', (errThree) => cb(errThree))
           .on('finish', () =>
             cb(null, {
-              path: `https://storage.cloud.google.com/${bucketName}/${filename}`,
+              path: `https://storage.googleapis.com/${bucketName}/${filename}`,
               filename,
             })
           );
