@@ -12,6 +12,8 @@ class ErrorNotification extends Component {
       this.props.successInfo !== null
     ) {
       this.props.history.push('/signin');
+    } else if (this.props.match.path === '/upload') {
+      return this.props.history.push('/');
     }
 
     this.props.hideError();

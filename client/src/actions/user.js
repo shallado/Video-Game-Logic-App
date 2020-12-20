@@ -42,7 +42,6 @@ export const startUploadProfilePhoto = (id, imageFile) => {
     })
       .then((response) => {
         dispatch(loadSuccess(response.data.message));
-        dispatch(userUpdate({ profilePhoto: response.data.data.path }));
       })
       .catch((err) => {
         const error = loadingError(err);

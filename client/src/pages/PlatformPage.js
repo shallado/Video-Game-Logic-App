@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import VideoGameCategory from '../components/VideoGameCategory';
 import { startGetGames, reset, setPage, setOffset } from '../actions/game';
 import { startSetMapLocations, resetMap } from '../actions/map';
+import { hideError } from '../actions/error';
 
 class PlatformPage extends Component {
   state = {
@@ -102,6 +103,11 @@ class PlatformPage extends Component {
     ]);
 
     this.props.startSetMapLocations();
+
+    if (this.props.successInfo === 'successfully uploaded user profile photo') {
+      window.location.reload(false);
+      this.props.hideError();
+    }
   }
 
   componentWillUnmount() {
@@ -126,6 +132,7 @@ const mapStateToProps = (state) => ({
   openModals: state.modals.openModals,
   username: state.user.username,
   categoryGames: state.game.categoryGames,
+  successInfo: state.error.successInfo,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -136,6 +143,7 @@ const mapDispatchToProps = (dispatch) => ({
   setOffset: (offset) => dispatch(setOffset(offset)),
   startSetMapLocations: () => dispatch(startSetMapLocations()),
   resetMap: () => dispatch(resetMap()),
+  hideError: () => dispatch(hideError()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PlatformPage);
