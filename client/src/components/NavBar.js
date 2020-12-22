@@ -56,7 +56,7 @@ class NavBar extends Component {
     const menu = classNames('navbar__menu-icon-container', {
       'navbar__menu-icon-container--active': this.state.menuActive,
     });
-    console.log('rerender');
+
     return (
       <nav className="navbar">
         <div className="navbar__logo-container">
