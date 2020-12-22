@@ -6,7 +6,7 @@
   "scripts": {
     "start:dev": "nodemon server.js",
     "start": "node server.js",
-    "heroku-postbuild": "cd ../client && npm i && npm run build",
+    "heroku-postbuild": "cd client && npm i && npm run build",
     "prettier-format": "prettier --write .",
     "vid": "nodemon utils/featuredGames.js"
   },
