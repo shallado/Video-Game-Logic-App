@@ -1,4 +1,5 @@
 const express = require('express');
+require('dotenv').config();
 const authRouter = require('./routes/auth');
 const igdbRouter = require('./routes/igdb');
 const mapRouter = require('./routes/map');

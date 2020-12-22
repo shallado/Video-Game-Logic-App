@@ -18,6 +18,8 @@ const videoGameModel = (db) => {
               .collection('videoGames')
               .insertOne(doc, { w: 1, j: true });
           }
+
+          return undefined;
         })
         .then((data) => data);
     }
