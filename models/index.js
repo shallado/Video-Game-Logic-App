@@ -8,7 +8,11 @@ const {
   videoGameIndexFields,
 } = require('./videoGame');
 
-const client = MongoClient(url, { useUnifiedTopology: true });
+const client = new MongoClient(url, { useUnifiedTopology: true });
+let db;
+let User;
+let Review;
+let VideoGame;
 
 client.connect().then(() => {
   console.log('Successfully connected to the database');
@@ -27,14 +31,14 @@ client.connect().then(() => {
           .then(() => videoGameSchema(client.db(dbName)))
           .catch((err) => console.log(err.stack));
       }
+
+      db = client.db(dbName);
+      User = userModel(db, Int32, ObjectID, Binary);
+      Review = reviewModel(db, Int32, ObjectID);
+      VideoGame = videoGameModel(db);
     })
     .catch((err) => console.log(err.stack));
 });
-
-const db = client.db(dbName);
-const User = userModel(db, Int32, ObjectID, Binary);
-const Review = reviewModel(db, Int32, ObjectID);
-const VideoGame = videoGameModel(db);
 
 module.exports = {
   Review,
