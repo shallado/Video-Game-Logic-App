@@ -8,7 +8,10 @@ const {
   videoGameIndexFields,
 } = require('./videoGame');
 
-const client = new MongoClient(url, { useUnifiedTopology: true });
+const client = new MongoClient(url, {
+  useUnifiedTopology: true,
+  useNewUrlParser: true,
+});
 let db;
 
 const databaseConnection = (app) => {
