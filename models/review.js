@@ -1,10 +1,9 @@
 /* eslint-disable consistent-return */
 /* eslint-disable no-underscore-dangle */
-const { Int32 } = require('mongodb');
 const APIError = require('../utils/apiError');
 const httpStatusCodes = require('../utils/statusCodes');
 
-const reviewModel = (db, int32, ObjectID) => {
+const reviewModel = (db, Int32, ObjectID) => {
   class Review {
     constructor(username, review) {
       this.username = username;
@@ -34,9 +33,9 @@ const reviewModel = (db, int32, ObjectID) => {
         })
         .then((data) => {
           const doc = {
-            page: int32(1),
+            page: Int32(1),
             videoGameId: new ObjectID(this.videoGameId),
-            count: int32(0),
+            count: Int32(0),
             reviews: [],
           };
 
@@ -62,7 +61,7 @@ const reviewModel = (db, int32, ObjectID) => {
             },
             {
               $set: {
-                count: int32(0),
+                count: Int32(0),
                 reviews: [],
               },
             },
@@ -95,7 +94,7 @@ const reviewModel = (db, int32, ObjectID) => {
               reviews: doc,
             },
             $inc: {
-              count: int32(1),
+              count: Int32(1),
             },
           },
           {

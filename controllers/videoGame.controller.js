@@ -1,8 +1,8 @@
-const { VideoGame } = require('../models');
 const databaseErrorHandling = require('../utils/databaseErrorHandling');
 
 // process user input in order to add videoGame info to database
 exports.create = (req, res) => {
+  const { VideoGame } = req.app.locals;
   const { title } = req.body;
   const videoGame = new VideoGame(title);
 
@@ -26,6 +26,7 @@ exports.create = (req, res) => {
 };
 
 exports.findOne = (req, res) => {
+  const { VideoGame } = req.app.locals;
   const { title } = req.query;
   const videoGame = new VideoGame(title);
 

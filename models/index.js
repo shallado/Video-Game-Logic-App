@@ -1,4 +1,4 @@
-const { MongoClient, Int32, ObjectID, Binary } = require('mongodb');
+const { MongoClient, Int32, ObjectID } = require('mongodb');
 const { url, dbName } = require('../config/db');
 const { reviewModel, reviewSchema, reviewIndexFields } = require('./review');
 const { userModel, userSchema, userIndexFields } = require('./user');
@@ -10,17 +10,21 @@ const {
 
 const client = new MongoClient(url, { useUnifiedTopology: true });
 let db;
-let User;
-let Review;
-let VideoGame;
 
-client.connect().then(() => {
-  console.log('Successfully connected to the database');
+const databaseConnection = (app) => {
+  const { locals } = app;
 
   client
-    .db(dbName)
-    .listCollections()
-    .toArray()
+    .connect()
+    .then(() => {
+      console.log('Successfully connected to the database');
+      db = client.db(dbName);
+      locals.User = userModel(db, Int32, ObjectID);
+      locals.Review = reviewModel(db, Int32, ObjectID);
+      locals.VideoGame = videoGameModel(db);
+
+      return client.db(dbName).listCollections().toArray();
+    })
     .then((collections) => {
       if (collections.length === 0) {
         userIndexFields(client.db(dbName))
@@ -31,17 +35,8 @@ client.connect().then(() => {
           .then(() => videoGameSchema(client.db(dbName)))
           .catch((err) => console.log(err.stack));
       }
-
-      db = client.db(dbName);
-      User = userModel(db, Int32, ObjectID, Binary);
-      Review = reviewModel(db, Int32, ObjectID);
-      VideoGame = videoGameModel(db);
     })
     .catch((err) => console.log(err.stack));
-});
-
-module.exports = {
-  Review,
-  User,
-  VideoGame,
 };
+
+module.exports = databaseConnection;

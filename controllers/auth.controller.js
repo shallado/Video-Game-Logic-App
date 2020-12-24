@@ -1,11 +1,11 @@
 const { validationResult } = require('express-validator');
 const jwt = require('jsonwebtoken');
 const { secretKey } = require('../config/jwt');
-const { User } = require('../models');
 const databaseErrorHandling = require('../utils/databaseErrorHandling');
 
 // process user input in order to add user info to database
 exports.signup = (req, res) => {
+  const { User } = req.app.locals;
   const results = validationResult(req);
   const hasErrors = results.isEmpty();
   const error = results.array()[0];
@@ -46,6 +46,7 @@ exports.signup = (req, res) => {
 
 // process user credentials and validates users input
 exports.signIn = (req, res) => {
+  const { User } = req.app.locals;
   const { email: userEmail } = req.body;
 
   jwt.sign({ userEmail }, secretKey, (err, token) => {
@@ -88,6 +89,7 @@ exports.signIn = (req, res) => {
 };
 
 exports.signOut = (req, res) => {
+  const { User } = req.app.locals;
   const { id: userId, token } = req.body;
 
   User.update({ userId }, { token })

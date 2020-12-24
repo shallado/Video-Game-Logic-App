@@ -1,11 +1,10 @@
 /* eslint-disable consistent-return */
 const { validationResult } = require('express-validator');
-const { User } = require('../models');
-
 const databaseErrorHandling = require('../utils/databaseErrorHandling');
 
 // updates user info that is stored in the database
 exports.updateOne = (req, res) => {
+  const { User } = req.app.locals;
   const results = validationResult(req);
   const hasErrors = results.isEmpty();
   const error = results.array()[0];
@@ -41,6 +40,7 @@ exports.updateOne = (req, res) => {
 };
 
 exports.updatePassword = (req, res) => {
+  const { User } = req.app.locals;
   const { email: userEmail, newPassword } = req.body;
   const results = validationResult(req);
   const hasErrors = results.isEmpty();
@@ -66,6 +66,7 @@ exports.updatePassword = (req, res) => {
 };
 
 exports.deleteOne = (req, res) => {
+  const { User } = req.app.locals;
   const { id } = req.params;
 
   User.deleteOne(id)
@@ -88,6 +89,7 @@ exports.deleteOne = (req, res) => {
 };
 
 exports.addVideoGameWatchList = (req, res) => {
+  const { User } = req.app.locals;
   const { id: userId } = req.params;
   const { videoGame } = req.body;
 
@@ -111,6 +113,7 @@ exports.addVideoGameWatchList = (req, res) => {
 };
 
 exports.removeVideoGameWatchList = (req, res) => {
+  const { User } = req.app.locals;
   const { id: userId } = req.params;
   const { title } = req.body;
 
@@ -133,6 +136,7 @@ exports.removeVideoGameWatchList = (req, res) => {
 
 // processes user uploaded photo to be stored into the database
 exports.uploadProfilePhoto = (req, res) => {
+  const { User } = req.app.locals;
   const { id: userId } = req.params;
   const { path } = req.file;
 

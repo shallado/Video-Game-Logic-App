@@ -1,8 +1,8 @@
-const { Review } = require('../models');
 const databaseErrorHandling = require('../utils/databaseErrorHandling');
 
 // adds review to an associated video game
 exports.create = (req, res) => {
+  const { Review } = req.app.locals;
   const { username, review, title } = req.body;
   const reviewInfo = new Review(username, review);
 
@@ -43,6 +43,7 @@ exports.create = (req, res) => {
 };
 
 exports.editOne = (req, res) => {
+  const { Review } = req.app.locals;
   const { id } = req.params;
   const userReview = req.body;
 
@@ -62,6 +63,7 @@ exports.editOne = (req, res) => {
 
 // finds reviews associated with a user
 exports.findAll = (req, res) => {
+  const { Review } = req.app.locals;
   const { username } = req.query;
 
   Review.findAll(username)
