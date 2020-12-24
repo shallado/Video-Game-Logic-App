@@ -82,7 +82,7 @@ exports.signIn = (req, res) => {
       })
       .catch((error) => {
         const setError = databaseErrorHandling(error);
-        console.log(setError);
+
         res.status(setError.httpStatus).send({ message: setError.description });
       });
   });

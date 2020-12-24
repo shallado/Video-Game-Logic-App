@@ -1,4 +1,4 @@
 module.exports = {
-  url: process.env.MONGO_DB_URL,
+  uri: process.env.MONGO_DB_URI,
   dbName: process.env.MONGO_DB_NAME,
 };

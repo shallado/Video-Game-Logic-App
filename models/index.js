@@ -1,5 +1,5 @@
 const { MongoClient, Int32, ObjectID } = require('mongodb');
-const { url, dbName } = require('../config/db');
+const { uri, dbName } = require('../config/db');
 const { reviewModel, reviewSchema, reviewIndexFields } = require('./review');
 const { userModel, userSchema, userIndexFields } = require('./user');
 const {
@@ -8,7 +8,7 @@ const {
   videoGameIndexFields,
 } = require('./videoGame');
 
-const client = new MongoClient(url, {
+const client = new MongoClient(uri, {
   useUnifiedTopology: true,
   useNewUrlParser: true,
 });
