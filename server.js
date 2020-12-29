@@ -15,9 +15,6 @@ const port = process.env.PORT || 8080;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'client', 'build')));
-app.get('*', (req, res) =>
-  res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
-);
 
 databaseConnection(app);
 
@@ -27,6 +24,10 @@ reviewRouter(app);
 videoGameRouter(app);
 igdbRouter(app);
 mapRouter(app);
+
+app.get('*', (req, res) =>
+  res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
+);
 
 app.listen(port, () =>
   console.log(`Successfully connected to the server on port: ${port}`)
