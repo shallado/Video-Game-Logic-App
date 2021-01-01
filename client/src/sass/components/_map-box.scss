@@ -1,6 +1,16 @@
 .mapboxgl-ctrl {
   height: 6rem;
   width: 3rem;
+
+  @include setBreakPoints(960) {
+    height: 8rem;
+    width: 4rem;
+  }
+
+  @include setBreakPoints(550) {
+    width: 5rem;
+    height: 10rem;
+  }
 }
 
 .mapboxgl-ctrl-compass {
