@@ -22,10 +22,11 @@
     left: 50%;
     transform: translate(-50%, -50%);
     width: 63.8rem;
+    text-align: center;
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    @include setBreakPoints(450) {
+      width: 50rem;
+    }
   }
 
   &__logo {
