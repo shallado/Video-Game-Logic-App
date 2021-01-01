@@ -13,10 +13,9 @@ class SignInPage extends Component {
   render() {
     const signInSchema = Yup.object({
       email: Yup.string()
-        .trim()
         .email('Must be a valid email format')
         .required('Required'),
-      password: Yup.string().trim().required('Required'),
+      password: Yup.string().required('Required'),
     });
 
     const formikInitialVal = {

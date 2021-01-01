@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 
 export default class ReviewForm extends Component {
   handleSubmit = ({ review }) => {
-    this.props.handleSubmit(review);
+    this.props.handleSubmit(review.trim());
   };
 
   render() {
@@ -27,7 +27,7 @@ export default class ReviewForm extends Component {
     };
 
     const formSchema = Yup.object({
-      review: Yup.string().trim().required('Required'),
+      review: Yup.string().required('Required'),
     });
 
     return (

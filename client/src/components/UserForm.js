@@ -62,6 +62,10 @@ class UserForm extends Component {
   );
 
   handleSubmit = (userInfo) => {
+    for (let info in userInfo) {
+      userInfo[info] = userInfo[info].trim();
+    }
+
     const user = {
       ...userInfo,
       birthday: this.state.birthday.format('YYYY-MM-DD'),
@@ -100,7 +104,6 @@ class UserForm extends Component {
       );
     let formSchema = Yup.object({
       username: Yup.string()
-        .trim()
         .max(26, 'Must be 26 characters or less')
         .required('Required'),
       password: Yup.string()
@@ -110,10 +113,9 @@ class UserForm extends Component {
         )
         .required('Required'),
       email: Yup.string()
-        .trim()
         .email('Must be a valid email format')
         .required('Required'),
-      city: Yup.string().trim().required('Required'),
+      city: Yup.string().required('Required'),
       zipcode: Yup.string().length(5, 'Must be 5 digits').required('Required'),
       gender: Yup.string().matches(/(male|female)/, 'Please select an option'),
     });
