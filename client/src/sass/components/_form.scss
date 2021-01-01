@@ -32,10 +32,18 @@
   &__field-select-container {
     &:first-child {
       flex: 0 0 75%;
+
+      @include setBreakPoints(700) {
+        flex: 0 0 65%;
+      }
     }
 
     &:last-child {
       flex: 0 0 25%;
+
+      @include setBreakPoints(700) {
+        flex: 0 0 35%;
+      }
     }
   }
 

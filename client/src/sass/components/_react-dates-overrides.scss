@@ -12,6 +12,10 @@
   height: 4rem;
   width: 80%;
 
+  @include setBreakPoints(550) {
+    width: 90%;
+  }
+
   &:hover {
     cursor: pointer;
   }
