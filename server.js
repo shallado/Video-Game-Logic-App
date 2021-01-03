@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const { redirectToHTTPS } = require('express-http-to-https');
 require('dotenv').config();
 const authRouter = require('./routes/auth');
 const igdbRouter = require('./routes/igdb');
@@ -14,13 +15,7 @@ const port = process.env.PORT || 8080;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.all('*', (req, res, next) => {
-  if (req.secure) {
-    next();
-  } else {
-    res.redirect(`https://${req.hostname}${req.url}`);
-  }
-});
+app.use(redirectToHTTPS([/localhost:8080/]));
 app.use(express.static(path.join(__dirname, 'client', 'build')));
 
 databaseConnection(app);
