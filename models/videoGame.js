@@ -19,7 +19,7 @@ const videoGameModel = (db) => {
               .insertOne(doc, { w: 1, j: true });
           }
 
-          return undefined;
+          return data;
         })
         .then((data) => data);
     }

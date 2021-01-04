@@ -2,13 +2,26 @@ const databaseErrorHandling = require('../utils/databaseErrorHandling');
 
 // adds review to an associated video game
 exports.create = (req, res) => {
-  const { Review } = req.app.locals;
+  const { Review, VideoGame } = req.app.locals;
   const { username, review, title } = req.body;
-  const reviewInfo = new Review(username, review);
+  const videoGame = new VideoGame(title);
+  let reviewInfo;
+  let videoGameId;
 
   // creates reviews associated with a video game
-  reviewInfo
-    .create(title.toLowerCase())
+  videoGame
+    .create()
+    .then((data) => {
+      if (data.ops) {
+        videoGameId = data.ops[0]._id;
+      } else {
+        videoGameId = data._id;
+      }
+
+      reviewInfo = new Review(username, review, videoGameId);
+
+      return reviewInfo.create();
+    })
     .then(() => {
       return reviewInfo.addReview();
     })

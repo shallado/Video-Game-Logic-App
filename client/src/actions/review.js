@@ -41,14 +41,7 @@ export const addVideoGameReview = (userReview) => ({
 
 export const startAddVideoGameReview = ({ title, username, review } = {}) => {
   return (dispatch) => {
-    const requestOne = {
-      method: 'post',
-      url: '/video-games',
-      data: {
-        title,
-      },
-    };
-    const requestTwo = {
+    const request = {
       method: 'post',
       url: '/reviews',
       data: {
@@ -58,13 +51,10 @@ export const startAddVideoGameReview = ({ title, username, review } = {}) => {
       },
     };
 
-    axios
-      .all([axios(requestOne), axios(requestTwo)])
-      .then(
-        axios.spread(() => {
-          dispatch(addVideoGameReview({ username, review }));
-        })
-      )
+    axios(request)
+      .then(() => {
+        dispatch(addVideoGameReview({ username, review }));
+      })
       .catch((err) => {
         const error = loadingError(err);
 

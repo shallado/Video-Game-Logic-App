@@ -1,36 +1,18 @@
 /* eslint-disable consistent-return */
 /* eslint-disable no-underscore-dangle */
-const APIError = require('../utils/apiError');
-const httpStatusCodes = require('../utils/statusCodes');
-
 const reviewModel = (db, Int32, ObjectID) => {
   class Review {
-    constructor(username, review) {
+    constructor(username, review, videoGameId) {
       this.username = username;
       this.review = review;
-      this.videoGameId = '';
+      this.videoGameId = videoGameId;
     }
 
     // create document structure for reviews associated with a video game
-    create(title) {
+    create() {
       return db
-        .collection('videoGames')
-        .findOne({ title })
-        .then((data) => {
-          if (!data) {
-            throw new APIError(
-              'Not Found',
-              httpStatusCodes.NOT_FOUND,
-              'video game not found'
-            );
-          }
-
-          this.videoGameId = data._id;
-
-          return db
-            .collection('reviews')
-            .findOne({ videoGameId: new ObjectID(this.videoGameId) });
-        })
+        .collection('reviews')
+        .findOne({ videoGameId: new ObjectID(this.videoGameId) })
         .then((data) => {
           const doc = {
             page: Int32(1),
