@@ -1,7 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 const { Storage } = require('@google-cloud/storage');
 const sharp = require('sharp');
-const { keyFilename } = require('../config/firebase');
 
 // custom storage that is used by middleware multer for handling image uploads
 class CustomStorage {
@@ -22,10 +21,7 @@ class CustomStorage {
           return cb(errTwo, null);
         }
 
-        const storage = new Storage({
-          projectId: 'vgl-app',
-          keyFilename,
-        });
+        const storage = new Storage();
         this.bucket = storage.bucket(bucketName);
         const fileBucket = this.bucket.file(filename);
         const outStream = fileBucket.createWriteStream({
