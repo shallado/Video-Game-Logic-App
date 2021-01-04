@@ -16,10 +16,6 @@ html {
   @include setBreakPoints(700) {
     font-size: 43.8%;
   }
-
-  @include setBreakPoints(550) {
-    font-size: 37.5%;
-  }
 }
 
 body {
