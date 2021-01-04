@@ -4,10 +4,6 @@
   margin: 0 auto;
   width: 100%;
 
-  @include setBreakPoints(600) {
-    height: 35rem;
-  }
-
   @include setBreakPoints(450) {
     height: 50rem;
   }
