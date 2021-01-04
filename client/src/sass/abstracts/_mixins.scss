@@ -61,7 +61,7 @@
 }
 
 @mixin videoGameCardContainer {
-  margin-top: $xlg-spacing;
+  margin: $xlg-spacing 1rem 0 1rem;
 }
 
 @mixin results {
