@@ -1,6 +1,6 @@
 .sign-in {
   background-color: $color-primary;
-  height: 100vh;
+  min-height: 100vh;
   @include centerItems;
 
   &__container {
