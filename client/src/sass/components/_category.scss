@@ -1,22 +1,27 @@
 .category {
   background-color: $color-primary-dark;
-  padding: $xlg-spacing 0;
-
-  @include setBreakPoints(750) {
-    padding: $xlg-spacing $sm-spacing;
-  }
-
-  @include setBreakPoints(550) {
-    padding: $xlg-spacing $md-spacing;
-  }
 
   &__container {
     margin: 0 auto;
     width: 90%;
 
-    &:not(:last-child) {
-      padding-bottom: $lg-spacing;
+    @include setBreakPoints(700) {
+      width: 85%;
     }
+
+    @include setBreakPoints(450) {
+      width: 75%;
+    }
+
+    @include setBreakPoints(1550) {
+      width: 70%;
+    }
+
+    &:first-child {
+      padding-top: $lg-spacing;
+    }
+
+    padding-bottom: $lg-spacing;
   }
 
   &__heading-container {
@@ -60,4 +65,8 @@
     list-style: none;
     display: flex;
   }
+}
+
+.slick-slide {
+  padding: 0 $sm-spacing;
 }

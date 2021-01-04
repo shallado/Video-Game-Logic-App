@@ -61,7 +61,14 @@
 }
 
 @mixin videoGameCardContainer {
-  margin: $xlg-spacing 1rem 0 1rem;
+  padding: 0 $sm-spacing;
+  margin-top: $xlg-spacing;
+  width: 23rem;
+
+  @include setBreakPoints(400) {
+    width: 100%;
+    height: 50rem;
+  }
 }
 
 @mixin results {

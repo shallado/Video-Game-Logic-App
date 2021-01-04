@@ -9,6 +9,14 @@
   transform: translate(-50%, 0);
   width: 85%;
 
+  @include setBreakPoints(600) {
+    padding: $sm-spacing $md-spacing $md-spacing $md-spacing;
+  }
+
+  @include setBreakPoints(400) {
+    padding: $sm-spacing;
+  }
+
   @include setBreakPoints(1550) {
     padding: $md-spacing $xlg-spacing $xlg-spacing $xlg-spacing;
   }
@@ -53,6 +61,10 @@
   &__unavailable-screenshots {
     height: 40rem;
     width: 100%;
+
+    @include setBreakPoints(500) {
+      height: 30rem;
+    }
   }
 
   &__unavailable-screenshots {

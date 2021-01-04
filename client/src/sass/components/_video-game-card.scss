@@ -1,31 +1,26 @@
 .video-game-card {
-  height: 20rem;
+  height: 25rem;
   position: relative;
   margin: 0 auto;
-  padding: 0 $sm-spacing;
-  width: 18rem;
+  width: 100%;
 
-  @include setBreakPoints(1650) {
-    width: 23rem;
-    height: 25rem;
+  @include setBreakPoints(600) {
+    height: 35rem;
   }
 
   @include setBreakPoints(450) {
-    width: 43rem;
-    height: 45rem;
+    height: 50rem;
   }
 
   &__img,
   &__img-unavailable {
     border-radius: 1rem;
-    margin: 0 auto;
     height: inherit;
     width: inherit;
   }
 
   &__img-unavailable {
     background-color: $color-primary;
-    margin: 0 auto;
     padding: $sm-spacing;
     text-align: center;
 
@@ -44,22 +39,10 @@
     width: inherit;
     position: absolute;
     top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
     opacity: 0;
-
-    // @include setBreakPoints(1650) {
-    //   left: 7%;
-    //   width: 85%;
-    // }
-
-    // @include setBreakPoints(960) {
-    //   left: 8%;
-    //   width: 84%;
-    // }
-
-    // @include setBreakPoints(450) {
-    //   left: 4%;
-    //   width: 92%;
-    // }
 
     &:hover {
       opacity: 0.8;
