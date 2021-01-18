@@ -2,6 +2,7 @@ import axios from 'axios';
 import loadingError from '../utils/loadingError';
 import { loadSuccess, loadError } from './error';
 import { setCurrentUser } from './user';
+import { startSetMapLocations } from './map';
 
 export const startSignUp = (userInfo) => {
   const request = {
@@ -71,6 +72,7 @@ export const startSignIn = (userCredentials) => {
           })
         );
         dispatch(signIn());
+        dispatch(startSetMapLocations());
       })
       .catch((err) => {
         const error = loadingError(err);
