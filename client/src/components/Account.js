@@ -10,7 +10,6 @@ import { startSignOut } from '../actions/auth';
 class Account extends Component {
   handleSignOut = () => {
     this.props.startSignOut(this.props.id, this.props.token);
-    this.props.history.push('/');
   };
 
   render() {
