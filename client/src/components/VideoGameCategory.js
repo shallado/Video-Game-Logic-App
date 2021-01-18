@@ -4,7 +4,6 @@ import Slider from 'react-slick';
 import { connect } from 'react-redux';
 import VideoGameCard from './VideoGameCard';
 import IconRightArrow from '../svgs/IconRightArrow';
-import IconLoading from '../svgs/IconLoading';
 import {
   startGetGames,
   setPage,
@@ -15,12 +14,11 @@ import {
 class VideoGameCategory extends Component {
   state = {
     currentIndex: 0,
-    numCards: [],
-    newIndex: 0,
+    oldIndex: 0,
   };
 
-  handleBeforeChange = (oldIndex, newIndex) => {
-    if (this.props.offset <= 36 && this.state.newIndex < newIndex) {
+  handleAfterChange = (oldIndex) => {
+    if (this.props.offset <= 36 && this.state.oldIndex < oldIndex) {
       this.props.startGetGames(
         [
           {
@@ -34,8 +32,7 @@ class VideoGameCategory extends Component {
       );
 
       this.setState(() => ({
-        slideChange: true,
-        newIndex,
+        oldIndex,
       }));
 
       this.props.updateOffset(5);
@@ -46,25 +43,21 @@ class VideoGameCategory extends Component {
     this.props.setGenre(genre);
   };
 
-  componentDidMount() {
-    const numCards = [];
-
-    for (let i = 0; i < 40; i++) {
-      numCards.push(i);
-    }
-
-    this.setState(() => ({
-      numCards,
-    }));
+  shouldComponentUpdate(nextProps, nextState) {
+    return (
+      this.props.categoryGame.length !== nextProps.categoryGame.length ||
+      this.props.genre === undefined
+    );
   }
 
   render() {
     const settings = {
       slidesToShow: 5,
       slidesToScroll: 5,
-      beforeChange: this.handleBeforeChange,
+      afterChange: this.handleAfterChange,
       speed: 2000,
       infinite: false,
+      lazyLoad: true,
       responsive: [
         {
           breakpoint: 1050,
@@ -107,33 +100,21 @@ class VideoGameCategory extends Component {
           <h2 className="category__heading">{this.props.genre}</h2>
           <IconRightArrow />
         </Link>
-        <div className="category__carousel-container">
-          {this.props.categoryGamesCount === 0 ? (
-            <div className="category__loading-container">
-              <IconLoading />
-            </div>
-          ) : (
-            <Slider {...settings}>
-              {this.state.numCards.map((positionIndex, index) => (
-                <VideoGameCard
-                  key={index}
-                  categoryIndex={this.props.categoryIndex}
-                  positionIndex={positionIndex}
-                />
-              ))}
-            </Slider>
-          )}
-        </div>
+        <Slider {...settings}>
+          {this.props.categoryGame.map((gameInfo) => (
+            <VideoGameCard
+              key={gameInfo.id}
+              categoryIndex={this.props.categoryIndex}
+              gameInfo={gameInfo}
+            />
+          ))}
+        </Slider>
       </div>
     );
   }
 }
 
-const mapStateToProps = (state, ownProps) => ({
-  categoryGames: state.game.categoryGames[ownProps.categoryIndex],
-  categoryGamesCount: !!!state.game.categoryGames[ownProps.categoryIndex]
-    ? 0
-    : state.game.categoryGames[ownProps.categoryIndex].length,
+const mapStateToProps = (state) => ({
   page: state.game.page,
   offset: state.game.offset,
 });

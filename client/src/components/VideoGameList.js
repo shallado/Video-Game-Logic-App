@@ -25,7 +25,7 @@ const VideoGameList = (props) => {
                 className="video-game-list__video-game-card-container"
                 key={videoGame.id}
               >
-                <VideoGameCard videoGameList={videoGame} />
+                <VideoGameCard gameInfo={videoGame} />
               </li>
             ))}
           </ul>

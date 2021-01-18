@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import VideoGameCategory from '../components/VideoGameCategory';
 import { startGetGames, reset, setPage, setOffset } from '../actions/game';
-import { startSetMapLocations, resetMap } from '../actions/map';
 import { hideError } from '../actions/error';
 
 class PlatformPage extends Component {
@@ -85,24 +84,24 @@ class PlatformPage extends Component {
       genres,
     }));
 
-    this.props.setPage(page);
+    if (this.props.page !== page) {
+      this.props.setPage(page);
 
-    this.props.setOffset(11);
+      this.props.setOffset(11);
 
-    this.props.startGetGames([
-      {
-        page,
-        type: 'category',
-        genres,
-      },
-      {
-        page,
-        type: 'featured',
-        genres: featuredGenre,
-      },
-    ]);
-
-    this.props.startSetMapLocations();
+      this.props.startGetGames([
+        {
+          page,
+          type: 'category',
+          genres,
+        },
+        {
+          page,
+          type: 'featured',
+          genres: featuredGenre,
+        },
+      ]);
+    }
 
     if (this.props.successInfo === 'successfully uploaded user profile photo') {
       window.location.reload(false);
@@ -113,15 +112,19 @@ class PlatformPage extends Component {
   componentWillUnmount() {
     if (!this.props.openModals.includes('moreInfoModal')) {
       this.props.reset();
-      this.props.resetMap();
     }
   }
 
   render() {
     return (
       <div className="category">
-        {this.state.genres.map((genre, index) => (
-          <VideoGameCategory key={index} genre={genre} categoryIndex={index} />
+        {this.props.categoryGames.map((categoryGame, index) => (
+          <VideoGameCategory
+            key={index}
+            categoryGame={categoryGame}
+            genre={this.state.genres[index]}
+            categoryIndex={index}
+          />
         ))}
       </div>
     );
@@ -131,8 +134,10 @@ class PlatformPage extends Component {
 const mapStateToProps = (state) => ({
   openModals: state.modals.openModals,
   username: state.user.username,
-  categoryGames: state.game.categoryGames,
+  categoryGames:
+    state.game.categoryGames.length === 0 ? [] : state.game.categoryGames,
   successInfo: state.error.successInfo,
+  page: state.game.page,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -141,8 +146,6 @@ const mapDispatchToProps = (dispatch) => ({
   reset: () => dispatch(reset()),
   setPage: (page) => dispatch(setPage(page)),
   setOffset: (offset) => dispatch(setOffset(offset)),
-  startSetMapLocations: () => dispatch(startSetMapLocations()),
-  resetMap: () => dispatch(resetMap()),
   hideError: () => dispatch(hideError()),
 });
 
