@@ -8,8 +8,6 @@ const mapReducer = (state = initialState, action) => {
       return {
         locationsInfo: [...action.locationsInfo],
       };
-    case 'RESET_MAP':
-      return initialState;
     default:
       return state;
   }

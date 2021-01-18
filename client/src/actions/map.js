@@ -25,7 +25,3 @@ export const startSetMapLocations = () => {
       });
   };
 };
-
-export const resetMap = () => ({
-  type: 'RESET_MAP',
-});
