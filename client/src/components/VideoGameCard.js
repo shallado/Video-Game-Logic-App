@@ -6,25 +6,35 @@ import { showModal } from '../actions/modal';
 
 class VideoGameCard extends Component {
   handleShowModal = () => {
-    if (this.props.gameInfo.id !== this.props.currentGame.id) {
-      this.props.setCurrentGame(this.props.gameInfo);
+    const gameInfo =
+      this.props.gameInfo !== undefined
+        ? this.props.gameInfo
+        : this.props.videoGameList;
+
+    if (gameInfo.id !== this.props.currentGame.id) {
+      this.props.setCurrentGame(gameInfo);
     }
 
     this.props.showModal();
   };
 
   render() {
+    const gameInfo =
+      this.props.gameInfo !== undefined
+        ? this.props.gameInfo
+        : this.props.videoGameList;
+
     return (
       <div className="video-game-card">
-        {this.props.gameInfo.cover ? (
+        {gameInfo.cover ? (
           <img
             alt="video game cover"
-            src={this.props.gameInfo.cover.url.replace('thumb', 'cover_big')}
+            src={gameInfo.cover.url.replace('thumb', 'cover_big')}
             className="video-game-card__img"
           />
         ) : (
           <div className="video-game-card__img-unavailable">
-            <p>{this.props.gameInfo.name}</p>
+            <p>{gameInfo.name}</p>
           </div>
         )}
         <div
